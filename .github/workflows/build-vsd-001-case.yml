@@ -1,0 +1,43 @@
+name: Build VSD 001 teaching case
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-case:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install preprocessing dependencies
+        run: python -m pip install --upgrade pip numpy scipy pydicom pylibjpeg pylibjpeg-libjpeg
+      - name: Download and convert VSDFullBody 001
+        run: python scripts/ingest-vsd-archive.py --out build/vsd-001 --voxel-mm 2.0
+      - name: Validate Bucky case
+        run: |
+          python - <<'PY'
+          import gzip,json
+          from pathlib import Path
+          p=Path('build/vsd-001');m=json.loads((p/'manifest.json').read_text())
+          assert m['source']['case']=='001'
+          assert m['source']['licence']=='CC BY-NC-SA'
+          assert m['provenance']['kind']=='derived-from-real-source'
+          expected=2
+          for n in m['dimensions']:expected*=n
+          with gzip.open(p/'volume.i16.gz','rb') as f:raw=f.read()
+          assert len(raw)==expected,(len(raw),expected)
+          print('validated',m['dimensions'],m['spacingMm'],m['huRange'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vsd-001-bucky-case
+          path: build/vsd-001/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
