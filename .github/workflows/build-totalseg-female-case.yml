@@ -1,0 +1,42 @@
+name: Build female whole-body anatomy case
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build-female:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install anatomy tooling
+        run: pip install pyvista nibabel numpy scipy
+      - name: Download validated female TotalSegmentator example
+        run: |
+          python - <<'PY'
+          from pyvista import examples
+          path=examples.download_whole_body_ct_female(load=False,high_resolution=False)
+          print(path)
+          open('/tmp/female_source_path.txt','w').write(str(path))
+          PY
+      - name: Inspect female source
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/female_source_path.txt').read_text().strip()
+          print('female source:',p)
+          PY
+      - name: Prepare browser case
+        run: |
+          mkdir -p public/cases/totalseg-female
+          python scripts/ingest-pyvista-female.py "$(cat /tmp/female_source_path.txt)" public/cases/totalseg-female
+      - name: Commit generated female case
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -f public/cases/totalseg-female/manifest.json public/cases/totalseg-female/volume.i16.gz
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish female TotalSegmentator anatomy case"
+          git push
