@@ -1,0 +1,8 @@
+export type SegmentationAvailability='open'|'license-required'|'generated-derived';
+export interface SegmentationSource{id:string;label:string;task:string;availability:SegmentationAvailability;structures:string[];purpose:string;redistributeDerivedAssets:boolean;notes:string}
+export const SEGMENTATION_SOURCES:SegmentationSource[]=[
+{id:'totalseg-total',label:'TotalSegmentator total',task:'total',availability:'open',structures:['humerus_left','humerus_right','femur_left','femur_right','hip_left','hip_right','scapula_left','scapula_right','clavicula_left','clavicula_right'],purpose:'Proximal upper/lower limb and pelvic anchors',redistributeDerivedAssets:true,notes:'Use open TotalSegmentator output where available in the source case.'},
+{id:'totalseg-body',label:'TotalSegmentator body',task:'body',availability:'open',structures:['body','body_trunc','body_extremities','skin'],purpose:'External extremity envelope and patient surface',redistributeDerivedAssets:true,notes:'Useful for separating extremities from trunk and creating a patient-surface envelope.'},
+{id:'totalseg-appendicular',label:'TotalSegmentator appendicular_bones',task:'appendicular_bones',availability:'license-required',structures:['patella','tibia','fibula','tarsal','metatarsal','phalanges_feet','ulna','radius','carpal','metacarpal','phalanges_hand'],purpose:'Distal upper/lower limb bone masks',redistributeDerivedAssets:false,notes:'Model requires a TotalSegmentator licence. Do not commit or redistribute outputs until the applicable licence permits the intended use.'}
+];
+export const sourceForStructure=(name:string)=>SEGMENTATION_SOURCES.find(s=>s.structures.includes(name));
