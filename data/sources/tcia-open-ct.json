@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "policy": "Candidate TCIA sources are evaluated per collection and per data component. Open Creative Commons imaging may be used subject to its stated licence, attribution and citation requirements. Controlled-access components are not ingested without authorisation.",
+  "qualityRole": "These collections provide real-world CT anatomy/pathology references and quality targets for Bucky Lab real, derived and high-fidelity synthetic teaching volumes.",
+  "sources": [
+    {
+      "id": "ct-org",
+      "name": "CT-ORG",
+      "url": "https://www.cancerimagingarchive.net/collection/ct-org/",
+      "modalities": ["CT", "Segmentation"],
+      "format": "NIfTI",
+      "subjects": 140,
+      "licence": "CC BY 3.0",
+      "access": "open",
+      "candidateUses": ["whole-body anatomy", "organ localisation", "synthetic-volume validation"],
+      "caveats": ["TCIA notes that several volumes appear left-right flipped relative to others; orientation must be validated before use."]
+    },
+    {
+      "id": "ldct-projection",
+      "name": "LDCT-and-Projection-data",
+      "url": "https://www.cancerimagingarchive.net/collection/ldct-and-projection-data/",
+      "modalities": ["CT", "projection data"],
+      "format": "DICOM",
+      "licence": "mixed",
+      "access": "component-specific",
+      "candidateUses": ["radiography forward-projection validation", "CT reconstruction teaching", "dose/noise modelling"],
+      "components": [
+        {"name": "liver", "licence": "CC BY 4.0", "access": "open"},
+        {"name": "phantom", "licence": "CC BY 4.0", "access": "open"},
+        {"name": "head", "licence": "NIH Controlled Data Access Policy", "access": "controlled"}
+      ]
+    },
+    {
+      "id": "cptac-luad",
+      "name": "CPTAC-LUAD",
+      "url": "https://www.cancerimagingarchive.net/collection/cptac-luad/",
+      "modalities": ["CT", "PT", "MR"],
+      "format": "DICOM",
+      "subjects": 244,
+      "licence": "CC BY 4.0",
+      "access": "open",
+      "candidateUses": ["thoracic CT", "lung adenocarcinoma teaching", "pathology reference"],
+      "caveats": ["Collection is heterogeneous in scanner manufacturer and acquisition protocol; series selection must be explicit."]
+    },
+    {
+      "id": "nsclc-radiogenomics",
+      "name": "NSCLC-Radiogenomics",
+      "url": "https://www.cancerimagingarchive.net/collection/nsclc-radiogenomics/",
+      "modalities": ["CT", "PT", "SEG"],
+      "format": "DICOM",
+      "subjects": 211,
+      "licence": "CC BY 3.0",
+      "access": "open",
+      "candidateUses": ["thoracic pathology", "lung lesion localisation", "CT and projected pathology validation"]
+    },
+    {
+      "id": "tcga-luad",
+      "name": "TCGA-LUAD",
+      "url": "https://www.cancerimagingarchive.net/collection/tcga-luad/",
+      "modalities": ["CT", "PT", "NM"],
+      "format": "DICOM",
+      "subjects": 69,
+      "licence": "CC BY 3.0",
+      "access": "open",
+      "candidateUses": ["thoracic CT", "lung adenocarcinoma reference"]
+    },
+    {
+      "id": "nsclc-radiomics",
+      "name": "NSCLC-Radiomics",
+      "url": "https://www.cancerimagingarchive.net/collection/nsclc-radiomics/",
+      "modalities": ["CT", "SEG", "RTSTRUCT"],
+      "format": "DICOM",
+      "subjects": 422,
+      "licence": "CC BY-NC 3.0",
+      "access": "open-noncommercial",
+      "candidateUses": ["lung tumour teaching", "segmentation-guided simulated pathology validation"],
+      "caveats": ["Non-commercial licence restriction must be preserved in downstream use."]
+    }
+  ],
+  "provenanceClasses": ["real-source", "derived-from-real-source", "bucky-lab-synthetic", "bucky-lab-simulated-pathology"],
+  "ingestionRule": "Registration does not imply that source image bytes are bundled in Git. Each selected series must pass licence, orientation, HU, geometry, completeness and attribution checks before conversion to a deployable teaching volume."
+}
