@@ -93,7 +93,6 @@
   },
   "coverage": {
     "region": "chest",
-    "side": null,
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -111,7 +110,9 @@
       "heart"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25,
-    "landmarks": []
+    "modalities": [
+      "ct",
+      "xray-drr"
+    ]
   }
 }

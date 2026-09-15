@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "caseId": "totalseg-s1397-abdomen-pelvis",
+  "caseId": "totalseg-s1397-thoracic-spine",
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
@@ -13,7 +13,7 @@
     3.0,
     3.0054945054945055
   ],
-  "volumeUrl": "/cases/regional/male/abdomen-pelvis/volume.i16.gz",
+  "volumeUrl": "/cases/regional/male/thoracic-spine/volume.i16.gz",
   "huRange": [
     -1024,
     3071
@@ -92,7 +92,7 @@
     "notes": "Educational derived volume. CT voxels are source-derived; not synthetic anatomy."
   },
   "coverage": {
-    "region": "abdomen-pelvis",
+    "region": "thoracic-spine",
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -102,17 +102,21 @@
       "z1": 272
     },
     "structures": [
-      "liver",
-      "spleen",
-      "kidney_left",
-      "kidney_right",
-      "urinary_bladder",
-      "hip_left",
-      "hip_right"
+      "vertebrae_T1",
+      "vertebrae_T2",
+      "vertebrae_T3",
+      "vertebrae_T4",
+      "vertebrae_T5",
+      "vertebrae_T6",
+      "vertebrae_T7",
+      "vertebrae_T8",
+      "vertebrae_T9",
+      "vertebrae_T10",
+      "vertebrae_T11",
+      "vertebrae_T12"
     ],
     "method": "verified-segmentation-bounds",
     "modalities": [
-      "ct",
       "xray-drr"
     ]
   }

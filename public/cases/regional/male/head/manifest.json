@@ -93,7 +93,6 @@
   },
   "coverage": {
     "region": "head",
-    "side": null,
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -104,15 +103,12 @@
     },
     "structures": [
       "brain",
-      "skull",
-      "vertebrae_C2"
+      "skull"
     ],
-    "method": "verified-segmentation-bounds",
-    "marginMm": 8,
-    "landmarks": [
-      "vertex",
-      "skull_base",
-      "C2"
+    "method": "strict-skull-segmentation",
+    "modalities": [
+      "ct",
+      "xray-drr"
     ]
   }
 }

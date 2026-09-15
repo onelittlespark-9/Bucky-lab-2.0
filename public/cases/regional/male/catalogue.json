@@ -1,22 +1,149 @@
 {
-  "version": 1,
+  "version": 2,
   "sex": "male",
   "sourceCase": "totalseg-s1397",
-  "regions": [
-    "head",
-    "neck",
-    "chest",
-    "abdomen-pelvis",
-    "kub",
-    "pelvis",
-    "cervical-spine",
-    "shoulder-left",
-    "shoulder-right",
-    "humerus-left",
-    "humerus-right",
-    "hip-left",
-    "hip-right",
-    "femur-left",
-    "femur-right"
-  ]
+  "regions": {
+    "head": [
+      "ct",
+      "xray-drr"
+    ],
+    "neck": [
+      "ct",
+      "xray-drr"
+    ],
+    "chest": [
+      "ct",
+      "xray-drr"
+    ],
+    "cap": [
+      "ct"
+    ],
+    "abdomen": [
+      "xray-drr"
+    ],
+    "abdomen-pelvis": [
+      "ct",
+      "xray-drr"
+    ],
+    "kub": [
+      "ct"
+    ],
+    "pelvis": [
+      "xray-drr"
+    ],
+    "cervical-spine": [
+      "xray-drr"
+    ],
+    "thoracic-spine": [
+      "xray-drr"
+    ],
+    "lumbar-spine": [
+      "xray-drr"
+    ],
+    "shoulder-left": [
+      "xray-drr"
+    ],
+    "shoulder-right": [
+      "xray-drr"
+    ],
+    "humerus-left": [
+      "xray-drr"
+    ],
+    "humerus-right": [
+      "xray-drr"
+    ],
+    "hip-left": [
+      "xray-drr"
+    ],
+    "hip-right": [
+      "xray-drr"
+    ],
+    "femur-left": [
+      "xray-drr"
+    ],
+    "femur-right": [
+      "xray-drr"
+    ]
+  },
+  "missing": {
+    "elbow-left": [
+      "radius_left",
+      "ulna_left"
+    ],
+    "elbow-right": [
+      "radius_right",
+      "ulna_right"
+    ],
+    "forearm-left": [
+      "radius_left",
+      "ulna_left"
+    ],
+    "forearm-right": [
+      "radius_right",
+      "ulna_right"
+    ],
+    "wrist-left": [
+      "radius_left",
+      "ulna_left",
+      "carpal_left"
+    ],
+    "wrist-right": [
+      "radius_right",
+      "ulna_right",
+      "carpal_right"
+    ],
+    "hand-left": [
+      "carpal_left",
+      "metacarpal_left",
+      "phalanges_hand_left"
+    ],
+    "hand-right": [
+      "carpal_right",
+      "metacarpal_right",
+      "phalanges_hand_right"
+    ],
+    "knee-left": [
+      "patella_left",
+      "tibia_left",
+      "fibula_left"
+    ],
+    "knee-right": [
+      "patella_right",
+      "tibia_right",
+      "fibula_right"
+    ],
+    "tibia-fibula-left": [
+      "tibia_left",
+      "fibula_left"
+    ],
+    "tibia-fibula-right": [
+      "tibia_right",
+      "fibula_right"
+    ],
+    "ankle-left": [
+      "tibia_left",
+      "fibula_left",
+      "talus_left"
+    ],
+    "ankle-right": [
+      "tibia_right",
+      "fibula_right",
+      "talus_right"
+    ],
+    "foot-left": [
+      "talus_left",
+      "calcaneus_left",
+      "tarsal_left",
+      "metatarsal_left",
+      "phalanges_foot_left"
+    ],
+    "foot-right": [
+      "talus_right",
+      "calcaneus_right",
+      "tarsal_right",
+      "metatarsal_right",
+      "phalanges_foot_right"
+    ]
+  },
+  "rule": "No missing anatomy is substituted from whole-body data."
 }

@@ -93,7 +93,6 @@
   },
   "coverage": {
     "region": "kub",
-    "side": null,
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -108,7 +107,8 @@
       "urinary_bladder"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25,
-    "landmarks": []
+    "modalities": [
+      "ct"
+    ]
   }
 }

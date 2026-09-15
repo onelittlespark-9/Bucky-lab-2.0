@@ -92,8 +92,7 @@
     "notes": "Educational derived volume. CT voxels are source-derived; not synthetic anatomy."
   },
   "coverage": {
-    "region": "shoulder",
-    "side": "right",
+    "region": "shoulder-right",
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -108,7 +107,8 @@
       "clavicula_right"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25,
-    "landmarks": []
+    "modalities": [
+      "xray-drr"
+    ]
   }
 }

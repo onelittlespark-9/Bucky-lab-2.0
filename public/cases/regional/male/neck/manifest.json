@@ -93,7 +93,6 @@
   },
   "coverage": {
     "region": "neck",
-    "side": null,
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -103,6 +102,7 @@
       "z1": 272
     },
     "structures": [
+      "skull",
       "vertebrae_C1",
       "vertebrae_C2",
       "vertebrae_C3",
@@ -113,7 +113,9 @@
       "trachea"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25,
-    "landmarks": []
+    "modalities": [
+      "ct",
+      "xray-drr"
+    ]
   }
 }

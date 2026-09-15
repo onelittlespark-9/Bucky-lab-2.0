@@ -93,7 +93,6 @@
   },
   "coverage": {
     "region": "pelvis",
-    "side": null,
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -108,7 +107,8 @@
       "sacrum"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25,
-    "landmarks": []
+    "modalities": [
+      "xray-drr"
+    ]
   }
 }

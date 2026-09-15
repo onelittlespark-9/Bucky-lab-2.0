@@ -92,8 +92,7 @@
     "notes": "Educational derived volume. CT voxels are source-derived; not synthetic anatomy."
   },
   "coverage": {
-    "region": "cervical",
-    "side": "spine",
+    "region": "cervical-spine",
     "sourceBounds": {
       "x0": 0,
       "x1": 159,
@@ -112,7 +111,8 @@
       "vertebrae_C7"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25,
-    "landmarks": []
+    "modalities": [
+      "xray-drr"
+    ]
   }
 }
