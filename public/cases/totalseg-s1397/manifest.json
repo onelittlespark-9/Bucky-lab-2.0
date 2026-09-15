@@ -212,6 +212,8 @@
       "vertebrae_T7",
       "vertebrae_T8",
       "vertebrae_T9"
-    ]
+    ],
+    "regionsUrl": "/cases/totalseg-s1397/regions.json",
+    "boundsSource": "segmentation-mesh"
   }
 }
