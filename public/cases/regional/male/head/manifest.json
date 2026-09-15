@@ -108,6 +108,11 @@
       "vertebrae_C2"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25
+    "marginMm": 8,
+    "landmarks": [
+      "vertex",
+      "skull_base",
+      "C2"
+    ]
   }
 }

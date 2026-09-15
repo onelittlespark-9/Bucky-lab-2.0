@@ -112,6 +112,7 @@
       "vertebrae_C7"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25
+    "marginMm": 25,
+    "landmarks": []
   }
 }

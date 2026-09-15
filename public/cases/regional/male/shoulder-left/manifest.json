@@ -108,6 +108,7 @@
       "clavicula_left"
     ],
     "method": "verified-segmentation-bounds",
-    "marginMm": 25
+    "marginMm": 25,
+    "landmarks": []
   }
 }
