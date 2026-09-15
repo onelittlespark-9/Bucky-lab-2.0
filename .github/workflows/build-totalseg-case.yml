@@ -11,6 +11,7 @@ on:
   push:
     paths:
       - "scripts/ingest-totalsegmentator.py"
+      - "scripts/build-regional-anatomy.py"
       - "data/sources/totalsegmentator-s1397.json"
       - ".github/workflows/build-totalseg-case.yml"
 
@@ -34,41 +35,61 @@ jobs:
           args=()
           if [[ "${{ inputs.high_resolution }}" == "true" ]]; then args+=(--high-resolution); fi
           python scripts/ingest-totalsegmentator.py "${args[@]}" --out build/totalseg-s1397
-      - name: Validate generated case
+      - name: Validate generated case and segmentation index
         run: |
           python - <<'PY'
           import gzip,json
           from pathlib import Path
           p=Path('build/totalseg-s1397')
           m=json.loads((p/'manifest.json').read_text())
+          r=json.loads((p/'regions.json').read_text())
           assert m['provenance']['kind']=='derived-from-real-source'
           assert m['source']['case']=='s1397'
+          assert r['caseId']=='totalseg-s1397' and r['regions']
           expected=2
           for n in m['dimensions']: expected*=n
           with gzip.open(p/'volume.i16.gz','rb') as f: raw=f.read()
           assert len(raw)==expected,(len(raw),expected)
-          print('validated',m['dimensions'],m['spacingMm'],m['huRange'],len(raw))
+          print('validated',m['dimensions'],len(r['regions']),'segmentation regions')
+          PY
+      - name: Build anatomy-specific CT and X-ray source volumes
+        run: python scripts/build-regional-anatomy.py --case build/totalseg-s1397 --sex male --out build/cases
+      - name: Validate regional anatomy catalogue
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=Path('build/cases/regional/male/catalogue.json')
+          d=json.loads(c.read_text())
+          required={'head','neck','chest','abdomen-pelvis','kub','pelvis','cervical-spine','humerus-left','humerus-right','femur-left','femur-right'}
+          missing=required-set(d['regions'])
+          assert not missing,f'missing regional assets: {sorted(missing)}'
+          print('regional assets',d['regions'])
           PY
       - uses: actions/upload-artifact@v4
         with:
           name: totalseg-s1397-bucky-case
-          path: build/totalseg-s1397/
+          path: |
+            build/totalseg-s1397/
+            build/cases/regional/male/
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
-      - name: Publish validated case to application assets
+      - name: Publish validated case and regional assets
         shell: bash
         run: |
-          rm -rf public/cases/totalseg-s1397
-          mkdir -p public/cases/totalseg-s1397
+          rm -rf public/cases/totalseg-s1397 public/cases/regional/male
+          mkdir -p public/cases/totalseg-s1397 public/cases/regional
           cp build/totalseg-s1397/manifest.json public/cases/totalseg-s1397/manifest.json
+          cp build/totalseg-s1397/regions.json public/cases/totalseg-s1397/regions.json
           cp build/totalseg-s1397/volume.i16.gz public/cases/totalseg-s1397/volume.i16.gz
+          cp -R build/cases/regional/male public/cases/regional/male
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/cases/totalseg-s1397/manifest.json public/cases/totalseg-s1397/volume.i16.gz
+          git add public/cases/totalseg-s1397 public/cases/regional/male
           if git diff --cached --quiet; then
-            echo "Published case is already current"
+            echo "Published anatomy assets are already current"
           else
-            git commit -m "Publish TotalSegmentator s1397 teaching volume"
+            git commit -m "Publish TotalSegmentator regional anatomy assets"
             git push origin HEAD:main
           fi
