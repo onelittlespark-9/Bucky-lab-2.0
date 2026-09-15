@@ -1,0 +1,24 @@
+{
+  "id": "vsdfullbody",
+  "name": "VSDFullBody: The Virtual Skeleton Database Full Body CT Collection",
+  "type": "real-world-volumetric-ct",
+  "patientType": "postmortem",
+  "anonymised": true,
+  "sourceRecord": "https://zenodo.org/records/8270365",
+  "doi": "10.5281/zenodo.8270365",
+  "creator": "Michael Kistler",
+  "publisher": "Zenodo",
+  "licence": "CC BY-NC-SA",
+  "usage": "Real volumetric anatomy source for educational CT rendering and radiographic forward projection. Postmortem data must not be represented as normal living-patient physiology.",
+  "selectedCase": {
+    "id": "vsd-z053",
+    "archive": "z053.zip",
+    "downloadUrl": "https://zenodo.org/records/8270365/files/z053.zip?download=1",
+    "md5": "423ed28f54a9b498c9fc763f36da98df",
+    "sourceSizeMB": 681.6,
+    "status": "registered-source-not-bundled"
+  },
+  "integrityPolicy": "Verify the source archive checksum before ingestion. Preserve source provenance and HU values. Derived browser volumes must remain attributable to this source.",
+  "repositoryPolicy": "Source archives, extracted imaging data and generated browser volumes are not committed to Git. They are prepared/deployed separately.",
+  "pathologyPolicy": "Any pathology not supported by source metadata must be explicitly labelled as Bucky Lab simulated pathology and applied as a derived 3D teaching-volume transform rather than painted onto final images."
+}
