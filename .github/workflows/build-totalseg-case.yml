@@ -1,0 +1,59 @@
+name: Build TotalSegmentator teaching case
+
+on:
+  workflow_dispatch:
+    inputs:
+      high_resolution:
+        description: "Use the high-resolution PyVista source"
+        required: false
+        type: boolean
+        default: false
+  push:
+    paths:
+      - "scripts/ingest-totalsegmentator.py"
+      - "data/sources/totalsegmentator-s1397.json"
+      - ".github/workflows/build-totalseg-case.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-case:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install preprocessing dependencies
+        run: python -m pip install --upgrade pip numpy pyvista
+      - name: Build compact HU teaching volume
+        shell: bash
+        run: |
+          args=()
+          if [[ "${{ inputs.high_resolution }}" == "true" ]]; then args+=(--high-resolution); fi
+          python scripts/ingest-totalsegmentator.py "${args[@]}" --out build/totalseg-s1397
+      - name: Validate generated case
+        run: |
+          python - <<'PY'
+          import gzip,json
+          from pathlib import Path
+          p=Path('build/totalseg-s1397')
+          m=json.loads((p/'manifest.json').read_text())
+          assert m['provenance']['kind']=='derived-from-real-source'
+          assert m['source']['case']=='s1397'
+          expected=2
+          for n in m['dimensions']: expected*=n
+          with gzip.open(p/'volume.i16.gz','rb') as f: raw=f.read()
+          assert len(raw)==expected,(len(raw),expected)
+          print('validated',m['dimensions'],m['spacingMm'],m['huRange'],len(raw))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: totalseg-s1397-bucky-case
+          path: build/totalseg-s1397/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
