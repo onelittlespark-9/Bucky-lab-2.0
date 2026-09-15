@@ -6,9 +6,20 @@ export interface CtSeriesDescriptor{
  coverageLandmarks:string[];reconstruction:string;detail:string;availability:'ready'|'build-required';
 }
 
-// Every CT protocol resolves to its own acquisition path. The viewer must never substitute the
-// patient's whole-body radiography/scout volume when this manifest is absent.
-export const CT_SERIES:CtSeriesDescriptor[]=[];
+function regional(sex:PatientSex,region:CtAnatomyRegion,phase:ContrastPhase,path=region):CtSeriesDescriptor{
+ return{id:ctSeriesId(sex,region,phase),sex,region,phase,manifestUrl:`/cases/regional/${sex}/${path}/manifest.json`,coverageLandmarks:[],reconstruction:'thin-axial',detail:'Segmentation-bounded source-derived regional CT.',availability:'ready'};
+}
+
+// These are source-derived regional acquisitions produced by build-regional-anatomy.py.
+// Unenhanced source voxels are registered only as 'none': contrast phases require separate
+// volumetric builds and are never simulated by changing window/brightness.
+export const CT_SERIES:CtSeriesDescriptor[]=[
+ regional('male','head','none'),
+ regional('male','neck','none'),
+ regional('male','chest','none'),
+ regional('male','abdomen-pelvis','none'),
+ regional('male','kub','none')
+];
 
 export function ctSeriesId(sex:PatientSex,region:CtAnatomyRegion,phase:ContrastPhase,reconstruction='thin-axial'){
  return`${sex}-${region}-${phase}-${reconstruction}`;
