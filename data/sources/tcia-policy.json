@@ -1,0 +1,20 @@
+{
+  "id": "tcia-source-policy",
+  "name": "TCIA source policy",
+  "source": "The Cancer Imaging Archive",
+  "rules": {
+    "default": "Evaluate access and licensing for each dataset component; do not classify TCIA as controlled-access by default.",
+    "openCreativeCommons": "Eligible for educational use subject to the stated licence, attribution and TCIA data-usage requirements.",
+    "controlledAccess": "Requires the applicable authorization and data-use terms.",
+    "mixedCollections": "Treat public and controlled components independently according to their individual access rows and licences.",
+    "synthetic": "High-fidelity synthetic anatomy and pathology are permitted when volumetric anatomical and imaging quality is benchmarked against appropriate TCIA and VSD reference data. Synthetic content must not be represented as a clinical source scan."
+  },
+  "provenanceClasses": ["real-source","derived-from-real-source","bucky-lab-synthetic","bucky-lab-simulated-pathology"],
+  "qualityRequirements": [
+    "One volumetric anatomy representation must feed CT and radiographic projection.",
+    "Synthetic anatomy must preserve plausible 3D anatomy, HU/attenuation relationships and geometric consistency.",
+    "Patient positioning, projection geometry and collimation must alter the resulting radiograph rather than merely crop a final image.",
+    "Synthetic pathology must be implemented in the 3D teaching volume or attenuation field, not painted onto the final 2D image.",
+    "Low-detail ellipse, stick-figure or cartoon anatomy is not an acceptable production fallback."
+  ]
+}
