@@ -3,7 +3,7 @@ export type PatientSex='male'|'female';
 export interface PatientProfile{id:string;label:string;sex:PatientSex;caseId:string;availability:'ready'|'source-required';notes:string}
 export const PATIENTS:PatientProfile[]=[
 {id:'male-s1397',label:'Adult male',sex:'male',caseId:'totalseg-s1397',availability:'ready',notes:'TotalSegmentator s1397 source-derived anatomy.'},
-{id:'female-reference',label:'Adult female',sex:'female',caseId:'female-reference',availability:'source-required',notes:'Female reference volume slot. Must use a genuine/validated female volumetric source rather than geometrically altering male anatomy.'}
+{id:'female-totalseg',label:'Adult female',sex:'female',caseId:'totalseg-female',availability:'ready',notes:'TotalSegmentator/PyVista female whole-body CT source-derived anatomy.'}
 ];
 export type PathologyId='none'|'pneumothorax'|'pleural-effusion'|'consolidation'|'pulmonary-nodule'|'rib-fracture'|'renal-calculus'|'aortic-aneurysm'|'intracranial-haemorrhage';
 export interface PathologyDefinition{id:PathologyId;label:string;regions:string[];modalities:('CT'|'X-ray')[];description:string}
