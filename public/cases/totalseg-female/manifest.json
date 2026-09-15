@@ -1,30 +1,31 @@
 {
-  "id": "totalseg-female",
-  "label": "Adult female \u00b7 TotalSegmentator/PyVista",
-  "dimensions": [
-    160,
-    160,
-    271
-  ],
-  "spacing": [
-    3.0,
-    3.0,
-    3.0055350553505535
-  ],
-  "dtype": "int16",
-  "endianness": "little",
-  "volume": "volume.i16.gz",
-  "huRange": [
-    -1024,
-    3071
-  ],
-  "patientSex": "female",
-  "patientType": "living",
-  "provenance": "derived-from-real-source",
+  "version": 1,
+  "caseId": "totalseg-female",
+  "encoding": "int16-le",
+  "compression": "gzip",
+  "dimensions": [160, 160, 271],
+  "spacingMm": [3.0, 3.0, 3.0055350553505535],
+  "volumeUrl": "/cases/totalseg-female/volume.i16.gz",
+  "huRange": [-1024, 3071],
   "source": {
-    "dataset": "TotalSegmentator whole-body CT female example distributed by PyVista",
-    "upstream": "pyvista.examples.download_whole_body_ct_female",
-    "anatomy": "real CT voxel intensities",
-    "note": "Educational source-derived anatomy; not for diagnostic use."
+    "name": "TotalSegmentator whole-body CT female example",
+    "record": "PyVista download_whole_body_ct_female",
+    "doi": "",
+    "case": "totalseg-female",
+    "patientType": "living",
+    "licence": "source-derived educational dataset; redistribution terms to be retained from upstream"
+  },
+  "canonical": {
+    "orientation": "PyVista/VTK source axes",
+    "voxelOrder": "x-fastest",
+    "sourceAffine": [[3.0,0,0,0],[0,3.0,0,0],[0,0,3.0055350553505535,0],[0,0,0,1]],
+    "affine": [[3.0,0,0,0],[0,3.0,0,0],[0,0,3.0055350553505535,0],[0,0,0,1]]
+  },
+  "provenance": {
+    "kind": "derived-from-real-source",
+    "method": "PyVista TotalSegmentator female CT to int16 HU teaching volume",
+    "clinicalSource": true,
+    "qualityReferences": ["TotalSegmentator female whole-body CT example"],
+    "notes": "Educational source-derived anatomy; not for diagnostic use."
   }
 }
