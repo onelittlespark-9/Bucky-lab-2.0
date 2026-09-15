@@ -15,7 +15,7 @@ on:
       - ".github/workflows/build-totalseg-case.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-case:
@@ -56,3 +56,19 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
+      - name: Publish validated case to application assets
+        shell: bash
+        run: |
+          rm -rf public/cases/totalseg-s1397
+          mkdir -p public/cases/totalseg-s1397
+          cp build/totalseg-s1397/manifest.json public/cases/totalseg-s1397/manifest.json
+          cp build/totalseg-s1397/volume.i16.gz public/cases/totalseg-s1397/volume.i16.gz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/cases/totalseg-s1397/manifest.json public/cases/totalseg-s1397/volume.i16.gz
+          if git diff --cached --quiet; then
+            echo "Published case is already current"
+          else
+            git commit -m "Publish TotalSegmentator s1397 teaching volume"
+            git push origin HEAD:main
+          fi
