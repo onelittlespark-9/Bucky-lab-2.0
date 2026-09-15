@@ -1,0 +1,46 @@
+export type AnatomyGroup='bone'|'joint'|'landmark';
+export interface AnatomyLabel{id:string;name:string;group:AnatomyGroup;region:string;aliases?:string[]}
+// Original Bucky Lab teaching taxonomy. It is designed to drive segmentation-backed overlays;
+// it does not copy third-party annotated images or annotation coordinates.
+export const ANATOMY_LABELS:AnatomyLabel[]=[
+{id:'clavicle',name:'Clavicle',group:'bone',region:'shoulder'},
+{id:'scapula',name:'Scapula',group:'bone',region:'shoulder'},
+{id:'humerus',name:'Humerus',group:'bone',region:'shoulder'},
+{id:'glenohumeral',name:'Glenohumeral joint',group:'joint',region:'shoulder'},
+{id:'acromioclavicular',name:'Acromioclavicular joint',group:'joint',region:'shoulder'},
+{id:'humerus-elbow',name:'Humerus',group:'bone',region:'elbow'},
+{id:'radius',name:'Radius',group:'bone',region:'elbow'},
+{id:'ulna',name:'Ulna',group:'bone',region:'elbow'},
+{id:'radiocapitellar',name:'Radiocapitellar joint',group:'joint',region:'elbow'},
+{id:'ulnohumeral',name:'Ulnohumeral joint',group:'joint',region:'elbow'},
+{id:'radius-hand',name:'Radius',group:'bone',region:'hand-wrist'},
+{id:'ulna-hand',name:'Ulna',group:'bone',region:'hand-wrist'},
+{id:'carpals',name:'Carpal bones',group:'bone',region:'hand-wrist'},
+{id:'metacarpals',name:'Metacarpals',group:'bone',region:'hand-wrist'},
+{id:'phalanges-hand',name:'Phalanges',group:'bone',region:'hand-wrist'},
+{id:'radiocarpal',name:'Radiocarpal joint',group:'joint',region:'hand-wrist'},
+{id:'pelvis',name:'Pelvic ring',group:'bone',region:'pelvis-hip'},
+{id:'femur-hip',name:'Femur',group:'bone',region:'pelvis-hip'},
+{id:'sacroiliac',name:'Sacroiliac joint',group:'joint',region:'pelvis-hip'},
+{id:'hip-joint',name:'Hip joint',group:'joint',region:'pelvis-hip'},
+{id:'femur-knee',name:'Femur',group:'bone',region:'knee'},
+{id:'patella',name:'Patella',group:'bone',region:'knee'},
+{id:'tibia',name:'Tibia',group:'bone',region:'knee'},
+{id:'fibula',name:'Fibula',group:'bone',region:'knee'},
+{id:'tibiofemoral',name:'Tibiofemoral joint',group:'joint',region:'knee'},
+{id:'patellofemoral',name:'Patellofemoral joint',group:'joint',region:'knee'},
+{id:'tibia-ankle',name:'Tibia',group:'bone',region:'foot-ankle'},
+{id:'fibula-ankle',name:'Fibula',group:'bone',region:'foot-ankle'},
+{id:'talus',name:'Talus',group:'bone',region:'foot-ankle'},
+{id:'calcaneus',name:'Calcaneus',group:'bone',region:'foot-ankle'},
+{id:'tarsals',name:'Tarsal bones',group:'bone',region:'foot-ankle'},
+{id:'metatarsals',name:'Metatarsals',group:'bone',region:'foot-ankle'},
+{id:'phalanges-foot',name:'Phalanges',group:'bone',region:'foot-ankle'},
+{id:'ankle-joint',name:'Ankle joint',group:'joint',region:'foot-ankle'},
+{id:'ribs',name:'Ribs',group:'bone',region:'chest'},
+{id:'clavicles-chest',name:'Clavicles',group:'bone',region:'chest'},
+{id:'thoracic-spine',name:'Thoracic spine',group:'bone',region:'chest'},
+{id:'cervical-vertebrae',name:'Cervical vertebrae',group:'bone',region:'cervical-spine'},
+{id:'lumbar-vertebrae',name:'Lumbar vertebrae',group:'bone',region:'lumbar-spine'}
+];
+export const anatomyLabelsFor=(region:string,group?:AnatomyGroup)=>ANATOMY_LABELS.filter(x=>x.region===region&&(!group||x.group===group));
