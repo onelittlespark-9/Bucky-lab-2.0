@@ -1,0 +1,30 @@
+{
+  "id": "totalseg-female",
+  "label": "Adult female \u00b7 TotalSegmentator/PyVista",
+  "dimensions": [
+    160,
+    160,
+    271
+  ],
+  "spacing": [
+    3.0,
+    3.0,
+    3.0055350553505535
+  ],
+  "dtype": "int16",
+  "endianness": "little",
+  "volume": "volume.i16.gz",
+  "huRange": [
+    -1024,
+    3071
+  ],
+  "patientSex": "female",
+  "patientType": "living",
+  "provenance": "derived-from-real-source",
+  "source": {
+    "dataset": "TotalSegmentator whole-body CT female example distributed by PyVista",
+    "upstream": "pyvista.examples.download_whole_body_ct_female",
+    "anatomy": "real CT voxel intensities",
+    "note": "Educational source-derived anatomy; not for diagnostic use."
+  }
+}
