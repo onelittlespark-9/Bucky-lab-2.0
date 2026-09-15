@@ -1,0 +1,21 @@
+{
+  "id": "totalseg-s1397",
+  "name": "TotalSegmentator whole-body CT - s1397",
+  "datasetVersion": "2.0.1",
+  "subject": "s1397",
+  "provider": "TotalSegmentator via PyVista examples",
+  "licence": "CC BY 4.0",
+  "provenanceKind": "derived-from-real-source",
+  "browserCase": "/cases/totalseg-s1397/manifest.json",
+  "preparation": {
+    "script": "scripts/ingest-totalsegmentator.py",
+    "defaultSourceDimensions": [160, 160, 273],
+    "highResolutionSourceDimensions": [320, 320, 547],
+    "notes": "Use high-resolution preprocessing for the master teaching case when build/storage resources permit. Keep segmentation labels available for later anatomy-aware scoring and pathology transforms."
+  },
+  "citation": {
+    "dataset": "TotalSegmentator v2.0.1",
+    "paperDoi": "10.1148/ryai.230024",
+    "datasetDoi": "10.5281/zenodo.6802614"
+  }
+}
