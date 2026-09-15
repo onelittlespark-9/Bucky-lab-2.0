@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "caseId": "totalseg-s1397-head",
+  "encoding": "int16-le",
+  "compression": "gzip",
+  "dimensions": [
+    160,
+    160,
+    273
+  ],
+  "spacingMm": [
+    3.0,
+    3.0,
+    3.0054945054945055
+  ],
+  "volumeUrl": "/cases/regional/male/head/volume.i16.gz",
+  "huRange": [
+    -1024,
+    3071
+  ],
+  "source": {
+    "name": "TotalSegmentator whole-body CT",
+    "record": "v2.0.1 subject s1397 via PyVista",
+    "doi": "10.5281/zenodo.6802614",
+    "case": "s1397",
+    "patientType": "living",
+    "licence": "CC BY 4.0"
+  },
+  "canonical": {
+    "orientation": "PyVista/VTK source axes",
+    "voxelOrder": "x-fastest",
+    "sourceAffine": [
+      [
+        3.0,
+        0,
+        0,
+        0.75
+      ],
+      [
+        0,
+        3.0,
+        0,
+        0.75
+      ],
+      [
+        0,
+        0,
+        3.0054945054945055,
+        0.7527472527472527
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "affine": [
+      [
+        3.0,
+        0,
+        0,
+        0.75
+      ],
+      [
+        0,
+        3.0,
+        0,
+        0.75
+      ],
+      [
+        0,
+        0,
+        3.0054945054945055,
+        0.7527472527472527
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "provenance": {
+    "kind": "derived-from-real-source",
+    "method": "PyVista TotalSegmentator CT -> int16 HU teaching volume",
+    "clinicalSource": true,
+    "qualityReferences": [
+      "TotalSegmentator s1397"
+    ],
+    "notes": "Educational derived volume. CT voxels are source-derived; not synthetic anatomy."
+  },
+  "coverage": {
+    "region": "head",
+    "side": null,
+    "sourceBounds": {
+      "x0": 0,
+      "x1": 159,
+      "y0": 0,
+      "y1": 159,
+      "z0": 0,
+      "z1": 272
+    },
+    "structures": [
+      "brain",
+      "skull",
+      "vertebrae_C2"
+    ],
+    "method": "verified-segmentation-bounds",
+    "marginMm": 25
+  }
+}

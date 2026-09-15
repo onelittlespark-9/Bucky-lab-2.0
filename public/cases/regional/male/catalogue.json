@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "sex": "male",
+  "sourceCase": "totalseg-s1397",
+  "regions": [
+    "head",
+    "neck",
+    "chest",
+    "abdomen-pelvis",
+    "kub",
+    "pelvis",
+    "cervical-spine",
+    "shoulder-left",
+    "shoulder-right",
+    "humerus-left",
+    "humerus-right",
+    "hip-left",
+    "hip-right",
+    "femur-left",
+    "femur-right"
+  ]
+}
