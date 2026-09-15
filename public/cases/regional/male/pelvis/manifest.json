@@ -4,9 +4,9 @@
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
-    160,
-    160,
-    273
+    117,
+    78,
+    78
   ],
   "spacingMm": [
     3.0,
@@ -94,12 +94,12 @@
   "coverage": {
     "region": "pelvis",
     "sourceBounds": {
-      "x0": 0,
-      "x1": 159,
-      "y0": 0,
-      "y1": 159,
+      "x0": 22,
+      "x1": 138,
+      "y0": 21,
+      "y1": 98,
       "z0": 0,
-      "z1": 272
+      "z1": 77
     },
     "structures": [
       "hip_left",

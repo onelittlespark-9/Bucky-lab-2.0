@@ -4,9 +4,9 @@
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
-    160,
-    160,
-    273
+    67,
+    97,
+    144
   ],
   "spacingMm": [
     3.0,
@@ -94,11 +94,11 @@
   "coverage": {
     "region": "neck",
     "sourceBounds": {
-      "x0": 0,
-      "x1": 159,
-      "y0": 0,
-      "y1": 159,
-      "z0": 0,
+      "x0": 44,
+      "x1": 110,
+      "y0": 42,
+      "y1": 138,
+      "z0": 129,
       "z1": 272
     },
     "structures": [

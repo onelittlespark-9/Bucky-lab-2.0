@@ -4,9 +4,9 @@
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
-    160,
-    160,
-    273
+    50,
+    55,
+    66
   ],
   "spacingMm": [
     3.0,
@@ -94,12 +94,12 @@
   "coverage": {
     "region": "lumbar-spine",
     "sourceBounds": {
-      "x0": 0,
-      "x1": 159,
-      "y0": 0,
-      "y1": 159,
-      "z0": 0,
-      "z1": 272
+      "x0": 57,
+      "x1": 106,
+      "y0": 19,
+      "y1": 73,
+      "z0": 39,
+      "z1": 104
     },
     "structures": [
       "vertebrae_L1",

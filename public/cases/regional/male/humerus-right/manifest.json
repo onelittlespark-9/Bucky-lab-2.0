@@ -4,9 +4,9 @@
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
-    160,
-    160,
-    273
+    43,
+    96,
+    59
   ],
   "spacingMm": [
     3.0,
@@ -94,12 +94,12 @@
   "coverage": {
     "region": "humerus-right",
     "sourceBounds": {
-      "x0": 0,
-      "x1": 159,
-      "y0": 0,
-      "y1": 159,
-      "z0": 0,
-      "z1": 272
+      "x0": 108,
+      "x1": 150,
+      "y0": 53,
+      "y1": 148,
+      "z0": 174,
+      "z1": 232
     },
     "structures": [
       "humerus_right"

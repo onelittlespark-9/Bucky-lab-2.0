@@ -6,468 +6,468 @@
     "adrenal_gland_left": {
       "sourceLabel": "adrenal_gland_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 71,
+        "x1": 75,
+        "y0": 60,
+        "y1": 64,
+        "z0": 99,
+        "z1": 109
       },
       "source": "segmentation"
     },
     "adrenal_gland_right": {
       "sourceLabel": "adrenal_gland_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 91,
+        "x1": 99,
+        "y0": 60,
+        "y1": 69,
+        "z0": 91,
+        "z1": 103
       },
       "source": "segmentation"
     },
     "aorta": {
       "sourceLabel": "aorta",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 64,
+        "x1": 94,
+        "y0": 41,
+        "y1": 90,
+        "z0": 59,
+        "z1": 164
       },
       "source": "segmentation"
     },
     "atrial_appendage_left": {
       "sourceLabel": "atrial_appendage_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 63,
+        "x1": 79,
+        "y0": 69,
+        "y1": 80,
+        "z0": 128,
+        "z1": 137
       },
       "source": "segmentation"
     },
     "autochthon_left": {
       "sourceLabel": "autochthon_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 58,
+        "x1": 83,
+        "y0": 26,
+        "y1": 70,
+        "z0": 29,
+        "z1": 201
       },
       "source": "segmentation"
     },
     "autochthon_right": {
       "sourceLabel": "autochthon_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 81,
+        "x1": 112,
+        "y0": 27,
+        "y1": 69,
+        "z0": 31,
+        "z1": 202
       },
       "source": "segmentation"
     },
     "brachiocephalic_trunk": {
       "sourceLabel": "brachiocephalic_trunk",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 83,
+        "x1": 91,
+        "y0": 75,
+        "y1": 85,
+        "z0": 158,
+        "z1": 169
       },
       "source": "segmentation"
     },
     "brachiocephalic_vein_left": {
       "sourceLabel": "brachiocephalic_vein_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 65,
+        "x1": 92,
+        "y0": 76,
+        "y1": 91,
+        "z0": 154,
+        "z1": 173
       },
       "source": "segmentation"
     },
     "brachiocephalic_vein_right": {
       "sourceLabel": "brachiocephalic_vein_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 87,
+        "x1": 95,
+        "y0": 76,
+        "y1": 85,
+        "z0": 155,
+        "z1": 176
       },
       "source": "segmentation"
     },
     "brain": {
       "sourceLabel": "brain",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 55,
+        "x1": 100,
+        "y0": 70,
+        "y1": 127,
+        "z0": 212,
+        "z1": 263
       },
       "source": "segmentation"
     },
     "clavicula_left": {
       "sourceLabel": "clavicula_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 40,
+        "x1": 75,
+        "y0": 50,
+        "y1": 90,
+        "z0": 165,
+        "z1": 196
       },
       "source": "segmentation"
     },
     "clavicula_right": {
       "sourceLabel": "clavicula_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 83,
+        "x1": 115,
+        "y0": 54,
+        "y1": 92,
+        "z0": 163,
+        "z1": 200
       },
       "source": "segmentation"
     },
     "colon": {
       "sourceLabel": "colon",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 32,
+        "x1": 109,
+        "y0": 39,
+        "y1": 104,
+        "z0": 13,
+        "z1": 127
       },
       "source": "segmentation"
     },
     "common_carotid_artery_left": {
       "sourceLabel": "common_carotid_artery_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 67,
+        "x1": 84,
+        "y0": 71,
+        "y1": 84,
+        "z0": 158,
+        "z1": 191
       },
       "source": "segmentation"
     },
     "common_carotid_artery_right": {
       "sourceLabel": "common_carotid_artery_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 83,
+        "x1": 93,
+        "y0": 74,
+        "y1": 85,
+        "z0": 166,
+        "z1": 196
       },
       "source": "segmentation"
     },
     "costal_cartilages": {
       "sourceLabel": "costal_cartilages",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 27,
+        "x1": 136,
+        "y0": 62,
+        "y1": 115,
+        "z0": 69,
+        "z1": 170
       },
       "source": "segmentation"
     },
     "duodenum": {
       "sourceLabel": "duodenum",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 65,
+        "x1": 91,
+        "y0": 62,
+        "y1": 90,
+        "z0": 58,
+        "z1": 97
       },
       "source": "segmentation"
     },
     "esophagus": {
       "sourceLabel": "esophagus",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 69,
+        "x1": 84,
+        "y0": 51,
+        "y1": 80,
+        "z0": 99,
+        "z1": 180
       },
       "source": "segmentation"
     },
     "femur_left": {
       "sourceLabel": "femur_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 25,
+        "x1": 60,
+        "y0": 54,
+        "y1": 78,
         "z0": 0,
-        "z1": 272
+        "z1": 28
       },
       "source": "segmentation"
     },
     "femur_right": {
       "sourceLabel": "femur_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 99,
+        "x1": 135,
+        "y0": 57,
+        "y1": 80,
         "z0": 0,
-        "z1": 272
+        "z1": 28
       },
       "source": "segmentation"
     },
     "gallbladder": {
       "sourceLabel": "gallbladder",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 98,
+        "x1": 116,
+        "y0": 82,
+        "y1": 104,
+        "z0": 69,
+        "z1": 95
       },
       "source": "segmentation"
     },
     "gluteus_maximus_left": {
       "sourceLabel": "gluteus_maximus_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 26,
+        "x1": 76,
+        "y0": 28,
+        "y1": 55,
         "z0": 0,
-        "z1": 272
+        "z1": 53
       },
       "source": "segmentation"
     },
     "gluteus_maximus_right": {
       "sourceLabel": "gluteus_maximus_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 89,
+        "x1": 133,
+        "y0": 28,
+        "y1": 58,
         "z0": 0,
-        "z1": 272
+        "z1": 54
       },
       "source": "segmentation"
     },
     "gluteus_medius_left": {
       "sourceLabel": "gluteus_medius_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 22,
+        "x1": 60,
+        "y0": 36,
+        "y1": 79,
+        "z0": 22,
+        "z1": 67
       },
       "source": "segmentation"
     },
     "gluteus_medius_right": {
       "sourceLabel": "gluteus_medius_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 103,
+        "x1": 138,
+        "y0": 38,
+        "y1": 79,
+        "z0": 19,
+        "z1": 66
       },
       "source": "segmentation"
     },
     "gluteus_minimus_left": {
       "sourceLabel": "gluteus_minimus_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 33,
+        "x1": 47,
+        "y0": 56,
+        "y1": 80,
+        "z0": 23,
+        "z1": 47
       },
       "source": "segmentation"
     },
     "gluteus_minimus_right": {
       "sourceLabel": "gluteus_minimus_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 109,
+        "x1": 128,
+        "y0": 54,
+        "y1": 82,
+        "z0": 22,
+        "z1": 53
       },
       "source": "segmentation"
     },
     "heart": {
       "sourceLabel": "heart",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 52,
+        "x1": 99,
+        "y0": 56,
+        "y1": 101,
+        "z0": 104,
+        "z1": 146
       },
       "source": "segmentation"
     },
     "hip_left": {
       "sourceLabel": "hip_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 29,
+        "x1": 80,
+        "y0": 29,
+        "y1": 90,
         "z0": 0,
-        "z1": 272
+        "z1": 70
       },
       "source": "segmentation"
     },
     "hip_right": {
       "sourceLabel": "hip_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 79,
+        "x1": 131,
+        "y0": 30,
+        "y1": 91,
         "z0": 0,
-        "z1": 272
+        "z1": 69
       },
       "source": "segmentation"
     },
     "humerus_left": {
       "sourceLabel": "humerus_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 12,
+        "x1": 41,
+        "y0": 55,
+        "y1": 135,
+        "z0": 175,
+        "z1": 222
       },
       "source": "segmentation"
     },
     "humerus_right": {
       "sourceLabel": "humerus_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 115,
+        "x1": 143,
+        "y0": 60,
+        "y1": 141,
+        "z0": 181,
+        "z1": 225
       },
       "source": "segmentation"
     },
     "iliac_artery_left": {
       "sourceLabel": "iliac_artery_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 52,
+        "x1": 79,
+        "y0": 61,
+        "y1": 89,
+        "z0": 11,
+        "z1": 66
       },
       "source": "segmentation"
     },
     "iliac_artery_right": {
       "sourceLabel": "iliac_artery_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 75,
+        "x1": 108,
+        "y0": 63,
+        "y1": 92,
+        "z0": 9,
+        "z1": 57
       },
       "source": "segmentation"
     },
     "iliac_vena_left": {
       "sourceLabel": "iliac_vena_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 56,
+        "x1": 82,
+        "y0": 57,
+        "y1": 89,
+        "z0": 10,
+        "z1": 59
       },
       "source": "segmentation"
     },
     "iliac_vena_right": {
       "sourceLabel": "iliac_vena_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 79,
+        "x1": 105,
+        "y0": 59,
+        "y1": 92,
+        "z0": 9,
+        "z1": 59
       },
       "source": "segmentation"
     },
     "iliopsoas_left": {
       "sourceLabel": "iliopsoas_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 39,
+        "x1": 74,
+        "y0": 41,
+        "y1": 87,
         "z0": 0,
-        "z1": 272
+        "z1": 94
       },
       "source": "segmentation"
     },
     "iliopsoas_right": {
       "sourceLabel": "iliopsoas_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
+        "x0": 89,
+        "x1": 121,
+        "y0": 41,
+        "y1": 90,
         "z0": 0,
-        "z1": 272
+        "z1": 92
       },
       "source": "segmentation"
     },
     "inferior_vena_cava": {
       "sourceLabel": "inferior_vena_cava",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 77,
+        "x1": 97,
+        "y0": 61,
+        "y1": 82,
+        "z0": 56,
+        "z1": 118
       },
       "source": "segmentation"
     },
@@ -498,912 +498,912 @@
     "kidney_left": {
       "sourceLabel": "kidney_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 42,
+        "x1": 76,
+        "y0": 38,
+        "y1": 58,
+        "z0": 88,
+        "z1": 115
       },
       "source": "segmentation"
     },
     "kidney_right": {
       "sourceLabel": "kidney_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 96,
+        "x1": 117,
+        "y0": 43,
+        "y1": 69,
+        "z0": 64,
+        "z1": 103
       },
       "source": "segmentation"
     },
     "liver": {
       "sourceLabel": "liver",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 67,
+        "x1": 136,
+        "y0": 43,
+        "y1": 111,
+        "z0": 51,
+        "z1": 115
       },
       "source": "segmentation"
     },
     "lung_lower_lobe_left": {
       "sourceLabel": "lung_lower_lobe_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 34,
+        "x1": 75,
+        "y0": 35,
+        "y1": 85,
+        "z0": 121,
+        "z1": 168
       },
       "source": "segmentation"
     },
     "lung_lower_lobe_right": {
       "sourceLabel": "lung_lower_lobe_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 79,
+        "x1": 136,
+        "y0": 34,
+        "y1": 102,
+        "z0": 91,
+        "z1": 152
       },
       "source": "segmentation"
     },
     "lung_middle_lobe_right": {
       "sourceLabel": "lung_middle_lobe_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 77,
+        "x1": 130,
+        "y0": 65,
+        "y1": 110,
+        "z0": 105,
+        "z1": 136
       },
       "source": "segmentation"
     },
     "lung_upper_lobe_left": {
       "sourceLabel": "lung_upper_lobe_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 35,
+        "x1": 79,
+        "y0": 46,
+        "y1": 105,
+        "z0": 109,
+        "z1": 181
       },
       "source": "segmentation"
     },
     "lung_upper_lobe_right": {
       "sourceLabel": "lung_upper_lobe_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 75,
+        "x1": 128,
+        "y0": 39,
+        "y1": 108,
+        "z0": 126,
+        "z1": 181
       },
       "source": "segmentation"
     },
     "pancreas": {
       "sourceLabel": "pancreas",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 53,
+        "x1": 91,
+        "y0": 52,
+        "y1": 87,
+        "z0": 79,
+        "z1": 121
       },
       "source": "segmentation"
     },
     "portal_vein_and_splenic_vein": {
       "sourceLabel": "portal_vein_and_splenic_vein",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 53,
+        "x1": 111,
+        "y0": 53,
+        "y1": 95,
+        "z0": 87,
+        "z1": 124
       },
       "source": "segmentation"
     },
     "prostate": {
       "sourceLabel": "prostate",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 70,
+        "x1": 89,
+        "y0": 61,
+        "y1": 75,
+        "z0": 9,
+        "z1": 20
       },
       "source": "segmentation"
     },
     "pulmonary_vein": {
       "sourceLabel": "pulmonary_vein",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 64,
+        "x1": 104,
+        "y0": 53,
+        "y1": 78,
+        "z0": 117,
+        "z1": 143
       },
       "source": "segmentation"
     },
     "rib_left_1": {
       "sourceLabel": "rib_left_1",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 50,
+        "x1": 101,
+        "y0": 59,
+        "y1": 126,
+        "z0": 159,
+        "z1": 221
       },
       "source": "segmentation"
     },
     "rib_left_10": {
       "sourceLabel": "rib_left_10",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 30,
+        "x1": 77,
+        "y0": 31,
+        "y1": 67,
+        "z0": 77,
+        "z1": 119
       },
       "source": "segmentation"
     },
     "rib_left_11": {
       "sourceLabel": "rib_left_11",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 28,
+        "x1": 76,
+        "y0": 32,
+        "y1": 147,
+        "z0": 74,
+        "z1": 263
       },
       "source": "segmentation"
     },
     "rib_left_12": {
       "sourceLabel": "rib_left_12",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 66,
+        "x1": 77,
+        "y0": 35,
+        "y1": 44,
+        "z0": 93,
+        "z1": 101
       },
       "source": "segmentation"
     },
     "rib_left_2": {
       "sourceLabel": "rib_left_2",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 42,
+        "x1": 68,
+        "y0": 52,
+        "y1": 99,
+        "z0": 151,
+        "z1": 182
       },
       "source": "segmentation"
     },
     "rib_left_3": {
       "sourceLabel": "rib_left_3",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 39,
+        "x1": 66,
+        "y0": 45,
+        "y1": 101,
+        "z0": 140,
+        "z1": 177
       },
       "source": "segmentation"
     },
     "rib_left_4": {
       "sourceLabel": "rib_left_4",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 36,
+        "x1": 66,
+        "y0": 41,
+        "y1": 103,
+        "z0": 131,
+        "z1": 170
       },
       "source": "segmentation"
     },
     "rib_left_5": {
       "sourceLabel": "rib_left_5",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 34,
+        "x1": 66,
+        "y0": 38,
+        "y1": 103,
+        "z0": 119,
+        "z1": 162
       },
       "source": "segmentation"
     },
     "rib_left_6": {
       "sourceLabel": "rib_left_6",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 31,
+        "x1": 68,
+        "y0": 35,
+        "y1": 101,
+        "z0": 107,
+        "z1": 154
       },
       "source": "segmentation"
     },
     "rib_left_7": {
       "sourceLabel": "rib_left_7",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 30,
+        "x1": 69,
+        "y0": 33,
+        "y1": 96,
+        "z0": 93,
+        "z1": 144
       },
       "source": "segmentation"
     },
     "rib_left_8": {
       "sourceLabel": "rib_left_8",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 27,
+        "x1": 72,
+        "y0": 32,
+        "y1": 89,
+        "z0": 80,
+        "z1": 136
       },
       "source": "segmentation"
     },
     "rib_left_9": {
       "sourceLabel": "rib_left_9",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 27,
+        "x1": 73,
+        "y0": 31,
+        "y1": 79,
+        "z0": 80,
+        "z1": 129
       },
       "source": "segmentation"
     },
     "rib_right_1": {
       "sourceLabel": "rib_right_1",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 90,
+        "x1": 106,
+        "y0": 62,
+        "y1": 95,
+        "z0": 159,
+        "z1": 186
       },
       "source": "segmentation"
     },
     "rib_right_10": {
       "sourceLabel": "rib_right_10",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 97,
+        "x1": 136,
+        "y0": 31,
+        "y1": 73,
+        "z0": 74,
+        "z1": 119
       },
       "source": "segmentation"
     },
     "rib_right_11": {
       "sourceLabel": "rib_right_11",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 94,
+        "x1": 130,
+        "y0": 32,
+        "y1": 61,
+        "z0": 72,
+        "z1": 110
       },
       "source": "segmentation"
     },
     "rib_right_12": {
       "sourceLabel": "rib_right_12",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 95,
+        "x1": 106,
+        "y0": 34,
+        "y1": 40,
+        "z0": 89,
+        "z1": 96
       },
       "source": "segmentation"
     },
     "rib_right_2": {
       "sourceLabel": "rib_right_2",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 89,
+        "x1": 115,
+        "y0": 55,
+        "y1": 101,
+        "z0": 152,
+        "z1": 182
       },
       "source": "segmentation"
     },
     "rib_right_3": {
       "sourceLabel": "rib_right_3",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 91,
+        "x1": 121,
+        "y0": 49,
+        "y1": 104,
+        "z0": 145,
+        "z1": 179
       },
       "source": "segmentation"
     },
     "rib_right_4": {
       "sourceLabel": "rib_right_4",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 94,
+        "x1": 125,
+        "y0": 44,
+        "y1": 108,
+        "z0": 135,
+        "z1": 173
       },
       "source": "segmentation"
     },
     "rib_right_5": {
       "sourceLabel": "rib_right_5",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 95,
+        "x1": 127,
+        "y0": 40,
+        "y1": 109,
+        "z0": 126,
+        "z1": 164
       },
       "source": "segmentation"
     },
     "rib_right_6": {
       "sourceLabel": "rib_right_6",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 97,
+        "x1": 129,
+        "y0": 37,
+        "y1": 107,
+        "z0": 112,
+        "z1": 158
       },
       "source": "segmentation"
     },
     "rib_right_7": {
       "sourceLabel": "rib_right_7",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 97,
+        "x1": 133,
+        "y0": 34,
+        "y1": 101,
+        "z0": 93,
+        "z1": 149
       },
       "source": "segmentation"
     },
     "rib_right_8": {
       "sourceLabel": "rib_right_8",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 97,
+        "x1": 137,
+        "y0": 32,
+        "y1": 101,
+        "z0": 88,
+        "z1": 138
       },
       "source": "segmentation"
     },
     "rib_right_9": {
       "sourceLabel": "rib_right_9",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 99,
+        "x1": 138,
+        "y0": 32,
+        "y1": 97,
+        "z0": 81,
+        "z1": 129
       },
       "source": "segmentation"
     },
     "sacrum": {
       "sourceLabel": "sacrum",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 58,
+        "x1": 103,
+        "y0": 28,
+        "y1": 63,
+        "z0": 5,
+        "z1": 57
       },
       "source": "segmentation"
     },
     "scapula_left": {
       "sourceLabel": "scapula_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 28,
+        "x1": 61,
+        "y0": 31,
+        "y1": 72,
+        "z0": 125,
+        "z1": 198
       },
       "source": "segmentation"
     },
     "scapula_right": {
       "sourceLabel": "scapula_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 98,
+        "x1": 137,
+        "y0": 34,
+        "y1": 77,
+        "z0": 129,
+        "z1": 202
       },
       "source": "segmentation"
     },
     "skull": {
       "sourceLabel": "skull",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 51,
+        "x1": 103,
+        "y0": 66,
+        "y1": 131,
+        "z0": 181,
+        "z1": 269
       },
       "source": "segmentation"
     },
     "small_bowel": {
       "sourceLabel": "small_bowel",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 32,
+        "x1": 106,
+        "y0": 49,
+        "y1": 107,
+        "z0": 27,
+        "z1": 121
       },
       "source": "segmentation"
     },
     "spinal_cord": {
       "sourceLabel": "spinal_cord",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 73,
+        "x1": 88,
+        "y0": 38,
+        "y1": 88,
+        "z0": 41,
+        "z1": 222
       },
       "source": "segmentation"
     },
     "spleen": {
       "sourceLabel": "spleen",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 39,
+        "x1": 71,
+        "y0": 34,
+        "y1": 61,
+        "z0": 114,
+        "z1": 138
       },
       "source": "segmentation"
     },
     "sternum": {
       "sourceLabel": "sternum",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 68,
+        "x1": 88,
+        "y0": 85,
+        "y1": 109,
+        "z0": 109,
+        "z1": 172
       },
       "source": "segmentation"
     },
     "stomach": {
       "sourceLabel": "stomach",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 46,
+        "x1": 93,
+        "y0": 74,
+        "y1": 113,
+        "z0": 72,
+        "z1": 106
       },
       "source": "segmentation"
     },
     "subclavian_artery_left": {
       "sourceLabel": "subclavian_artery_left",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 43,
+        "x1": 80,
+        "y0": 67,
+        "y1": 81,
+        "z0": 160,
+        "z1": 180
       },
       "source": "segmentation"
     },
     "subclavian_artery_right": {
       "sourceLabel": "subclavian_artery_right",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 85,
+        "x1": 112,
+        "y0": 67,
+        "y1": 84,
+        "z0": 163,
+        "z1": 182
       },
       "source": "segmentation"
     },
     "superior_vena_cava": {
       "sourceLabel": "superior_vena_cava",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 86,
+        "x1": 97,
+        "y0": 71,
+        "y1": 85,
+        "z0": 127,
+        "z1": 158
       },
       "source": "segmentation"
     },
     "thyroid_gland": {
       "sourceLabel": "thyroid_gland",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 72,
+        "x1": 87,
+        "y0": 73,
+        "y1": 84,
+        "z0": 166,
+        "z1": 179
       },
       "source": "segmentation"
     },
     "trachea": {
       "sourceLabel": "trachea",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 66,
+        "x1": 98,
+        "y0": 58,
+        "y1": 83,
+        "z0": 136,
+        "z1": 178
       },
       "source": "segmentation"
     },
     "urinary_bladder": {
       "sourceLabel": "urinary_bladder",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 64,
+        "x1": 98,
+        "y0": 55,
+        "y1": 90,
+        "z0": 14,
+        "z1": 40
       },
       "source": "segmentation"
     },
     "vertebrae_C1": {
       "sourceLabel": "vertebrae_C1",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 63,
+        "x1": 93,
+        "y0": 76,
+        "y1": 92,
+        "z0": 207,
+        "z1": 220
       },
       "source": "segmentation"
     },
     "vertebrae_C2": {
       "sourceLabel": "vertebrae_C2",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 68,
+        "x1": 89,
+        "y0": 70,
+        "y1": 90,
+        "z0": 200,
+        "z1": 217
       },
       "source": "segmentation"
     },
     "vertebrae_C3": {
       "sourceLabel": "vertebrae_C3",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 67,
+        "x1": 90,
+        "y0": 68,
+        "y1": 84,
+        "z0": 195,
+        "z1": 209
       },
       "source": "segmentation"
     },
     "vertebrae_C4": {
       "sourceLabel": "vertebrae_C4",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 68,
+        "x1": 89,
+        "y0": 64,
+        "y1": 81,
+        "z0": 190,
+        "z1": 203
       },
       "source": "segmentation"
     },
     "vertebrae_C5": {
       "sourceLabel": "vertebrae_C5",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 69,
+        "x1": 90,
+        "y0": 60,
+        "y1": 79,
+        "z0": 186,
+        "z1": 200
       },
       "source": "segmentation"
     },
     "vertebrae_C6": {
       "sourceLabel": "vertebrae_C6",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 68,
+        "x1": 90,
+        "y0": 57,
+        "y1": 77,
+        "z0": 181,
+        "z1": 195
       },
       "source": "segmentation"
     },
     "vertebrae_C7": {
       "sourceLabel": "vertebrae_C7",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 65,
+        "x1": 92,
+        "y0": 49,
+        "y1": 74,
+        "z0": 177,
+        "z1": 197
       },
       "source": "segmentation"
     },
     "vertebrae_L1": {
       "sourceLabel": "vertebrae_L1",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 68,
+        "x1": 98,
+        "y0": 26,
+        "y1": 60,
+        "z0": 77,
+        "z1": 97
       },
       "source": "segmentation"
     },
     "vertebrae_L2": {
       "sourceLabel": "vertebrae_L2",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 65,
+        "x1": 98,
+        "y0": 26,
+        "y1": 60,
+        "z0": 67,
+        "z1": 90
       },
       "source": "segmentation"
     },
     "vertebrae_L3": {
       "sourceLabel": "vertebrae_L3",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 64,
+        "x1": 99,
+        "y0": 27,
+        "y1": 63,
+        "z0": 58,
+        "z1": 80
       },
       "source": "segmentation"
     },
     "vertebrae_L4": {
       "sourceLabel": "vertebrae_L4",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 65,
+        "x1": 98,
+        "y0": 31,
+        "y1": 65,
+        "z0": 53,
+        "z1": 70
       },
       "source": "segmentation"
     },
     "vertebrae_L5": {
       "sourceLabel": "vertebrae_L5",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 64,
+        "x1": 97,
+        "y0": 32,
+        "y1": 66,
+        "z0": 46,
+        "z1": 64
       },
       "source": "segmentation"
     },
     "vertebrae_S1": {
       "sourceLabel": "vertebrae_S1",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 68,
+        "x1": 92,
+        "y0": 40,
+        "y1": 61,
+        "z0": 37,
+        "z1": 57
       },
       "source": "segmentation"
     },
     "vertebrae_T1": {
       "sourceLabel": "vertebrae_T1",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 66,
+        "x1": 93,
+        "y0": 43,
+        "y1": 70,
+        "z0": 172,
+        "z1": 189
       },
       "source": "segmentation"
     },
     "vertebrae_T10": {
       "sourceLabel": "vertebrae_T10",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 75,
+        "x1": 95,
+        "y0": 27,
+        "y1": 58,
+        "z0": 103,
+        "z1": 121
       },
       "source": "segmentation"
     },
     "vertebrae_T11": {
       "sourceLabel": "vertebrae_T11",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 75,
+        "x1": 95,
+        "y0": 27,
+        "y1": 58,
+        "z0": 95,
+        "z1": 114
       },
       "source": "segmentation"
     },
     "vertebrae_T12": {
       "sourceLabel": "vertebrae_T12",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 74,
+        "x1": 94,
+        "y0": 26,
+        "y1": 59,
+        "z0": 86,
+        "z1": 105
       },
       "source": "segmentation"
     },
     "vertebrae_T2": {
       "sourceLabel": "vertebrae_T2",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 66,
+        "x1": 93,
+        "y0": 39,
+        "y1": 67,
+        "z0": 164,
+        "z1": 185
       },
       "source": "segmentation"
     },
     "vertebrae_T3": {
       "sourceLabel": "vertebrae_T3",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 69,
+        "x1": 93,
+        "y0": 33,
+        "y1": 64,
+        "z0": 154,
+        "z1": 178
       },
       "source": "segmentation"
     },
     "vertebrae_T4": {
       "sourceLabel": "vertebrae_T4",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 74,
+        "x1": 87,
+        "y0": 33,
+        "y1": 60,
+        "z0": 154,
+        "z1": 168
       },
       "source": "segmentation"
     },
     "vertebrae_T5": {
       "sourceLabel": "vertebrae_T5",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 70,
+        "x1": 94,
+        "y0": 30,
+        "y1": 58,
+        "z0": 142,
+        "z1": 167
       },
       "source": "segmentation"
     },
     "vertebrae_T6": {
       "sourceLabel": "vertebrae_T6",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 71,
+        "x1": 97,
+        "y0": 29,
+        "y1": 57,
+        "z0": 133,
+        "z1": 159
       },
       "source": "segmentation"
     },
     "vertebrae_T7": {
       "sourceLabel": "vertebrae_T7",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 72,
+        "x1": 97,
+        "y0": 27,
+        "y1": 57,
+        "z0": 127,
+        "z1": 149
       },
       "source": "segmentation"
     },
     "vertebrae_T8": {
       "sourceLabel": "vertebrae_T8",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 73,
+        "x1": 97,
+        "y0": 27,
+        "y1": 57,
+        "z0": 117,
+        "z1": 138
       },
       "source": "segmentation"
     },
     "vertebrae_T9": {
       "sourceLabel": "vertebrae_T9",
       "bounds": {
-        "x0": 0,
-        "x1": 159,
-        "y0": 0,
-        "y1": 159,
-        "z0": 0,
-        "z1": 272
+        "x0": 73,
+        "x1": 97,
+        "y0": 27,
+        "y1": 58,
+        "z0": 109,
+        "z1": 131
       },
       "source": "segmentation"
     }

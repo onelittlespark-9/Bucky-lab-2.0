@@ -4,9 +4,9 @@
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
-    160,
-    160,
-    273
+    46,
+    59,
+    118
   ],
   "spacingMm": [
     3.0,
@@ -94,12 +94,12 @@
   "coverage": {
     "region": "thoracic-spine",
     "sourceBounds": {
-      "x0": 0,
-      "x1": 159,
-      "y0": 0,
-      "y1": 159,
-      "z0": 0,
-      "z1": 272
+      "x0": 59,
+      "x1": 104,
+      "y0": 19,
+      "y1": 77,
+      "z0": 79,
+      "z1": 196
     },
     "structures": [
       "vertebrae_T1",

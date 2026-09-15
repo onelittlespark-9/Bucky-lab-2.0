@@ -4,9 +4,9 @@
   "encoding": "int16-le",
   "compression": "gzip",
   "dimensions": [
-    160,
-    160,
-    273
+    117,
+    91,
+    105
   ],
   "spacingMm": [
     3.0,
@@ -94,12 +94,12 @@
   "coverage": {
     "region": "chest",
     "sourceBounds": {
-      "x0": 0,
-      "x1": 159,
-      "y0": 0,
-      "y1": 159,
-      "z0": 0,
-      "z1": 272
+      "x0": 27,
+      "x1": 143,
+      "y0": 27,
+      "y1": 117,
+      "z0": 84,
+      "z1": 188
     },
     "structures": [
       "lung_upper_lobe_left",
