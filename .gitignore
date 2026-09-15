@@ -1,0 +1,18 @@
+# Dependencies and builds
+node_modules/
+dist/
+.wrangler/
+*.log
+.env
+.env.*
+.DS_Store
+
+# Real-world imaging source data must not be committed
+data/source/
+data/work/
+public/cases/**/*.dcm
+public/cases/**/*.nii
+public/cases/**/*.nii.gz
+public/cases/**/*.i16
+public/cases/**/*.raw
+public/cases/**/*.bin
