@@ -1,11 +1,13 @@
-import React from 'react';
-export function PatientPositioner({rotation,x,y,onRotation}:{rotation:number;x:number;y:number;onRotation:(v:number)=>void}){
- return <div className="patient-positioner">
-  <div className="room-rail"><span>Tube</span></div><div className="detector-stand"><span>Detector</span></div>
-  <div className="patient-model" style={{transform:`translate(${x*.7}%,${-y*.7}%) rotateY(${rotation}deg)`}} aria-label="Patient positioning model">
-   <div className="model-head"/><div className="model-neck"/><div className="model-torso"/><div className="model-arm model-left"><i/><b/></div><div className="model-arm model-right"><i/><b/></div><div className="model-pelvis"/><div className="model-leg model-left"><i/><b/></div><div className="model-leg model-right"><i/><b/></div>
-  </div>
-  <label>Patient rotation <b>{rotation}°</b><input type="range" min="-180" max="180" value={rotation} onChange={e=>onRotation(+e.target.value)}/></label>
-  <small>Position the patient before exposure. Volumetric anatomy remains the projection source.</small>
+import React,{useRef}from'react';
+type Field={x:number;y:number;left:number;right:number;top:number;bottom:number};
+export function PatientPositioner({rotation,x,y,beamX,beamY,left,right,top,bottom,onRotation,onBeam,onField}:{rotation:number;x:number;y:number;beamX:number;beamY:number;left:number;right:number;top:number;bottom:number;onRotation:(v:number)=>void;onBeam:(x:number,y:number)=>void;onField:(v:{left:number;right:number;top:number;bottom:number})=>void}){
+ const stage=useRef<HTMLDivElement>(null),drag=useRef<{mode:'move'|'resize';sx:number;sy:number;f:Field}|null>(null);const width=Math.max(10,100-left-right),height=Math.max(10,100-top-bottom),fx=left+width/2+beamX,fy=top+height/2+beamY;
+ function start(e:React.PointerEvent,mode:'move'|'resize'){e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);drag.current={mode,sx:e.clientX,sy:e.clientY,f:{x:beamX,y:beamY,left,right,top,bottom}}}
+ function move(e:React.PointerEvent){const d=drag.current,r=stage.current?.getBoundingClientRect();if(!d||!r)return;const dx=(e.clientX-d.sx)/r.width*100,dy=(e.clientY-d.sy)/r.height*100;if(d.mode==='move'){onBeam(Math.max(-45,Math.min(45,d.f.x+dx)),Math.max(-45,Math.min(45,d.f.y+dy)))}else{const nx=Math.max(5,Math.min(48,(100-d.f.left-d.f.right)+dx*2)),ny=Math.max(5,Math.min(48,(100-d.f.top-d.f.bottom)+dy*2));onField({left:(100-nx)/2,right:(100-nx)/2,top:(100-ny)/2,bottom:(100-ny)/2})}}
+ function stop(){drag.current=null}
+ return <div className="patient-positioner" ref={stage}>
+  <div className="patient-model" style={{transform:`translate(${x*.7}%,${-y*.7}%) rotateY(${rotation}deg)`}} aria-label="Patient positioning model"><div className="model-head"/><div className="model-neck"/><div className="model-torso"/><div className="model-arm model-left"><i/><b/></div><div className="model-arm model-right"><i/><b/></div><div className="model-pelvis"/><div className="model-leg model-left"><i/><b/></div><div className="model-leg model-right"><i/><b/></div></div>
+  <div className="light-field" style={{left:`${fx-width/2}%`,top:`${fy-height/2}%`,width:`${width}%`,height:`${height}%`}} onPointerDown={e=>start(e,'move')} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop}><span className="field-centre"/><span className="field-label">LIGHT FIELD</span><button className="field-handle" aria-label="Resize collimation" onPointerDown={e=>{e.stopPropagation();start(e,'resize')}} onPointerMove={move} onPointerUp={stop}/></div>
+  <label>Patient rotation <b>{rotation}°</b><input type="range" min="-180" max="180" value={rotation} onChange={e=>onRotation(+e.target.value)}/></label><small>Drag the light field independently to centre the beam. Drag its corner to collimate to the anatomy of interest.</small>
  </div>
 }
