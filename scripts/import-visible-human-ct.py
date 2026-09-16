@@ -51,7 +51,7 @@ def main():
  manifest={
   'caseId':f'nlm-visible-human-{a.sex}',
   'dimensions':[512,512,len(files)],
-  'spacing':[a.spacing_xy,a.spacing_xy,a.spacing_z],
+  'spacingMm':[a.spacing_xy,a.spacing_xy,a.spacing_z],
   'volumeUrl':'volume.i16.gz',
   'huRange':[int(vol.min()),int(vol.max())],
   'source':{
