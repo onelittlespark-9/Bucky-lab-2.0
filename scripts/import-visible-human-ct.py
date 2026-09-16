@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 """Import NLM Visible Human CT into Bucky Lab's HU-volume format.
 
-Input is a directory of ordered 16-bit grayscale CT PNG slices exported by NLM.
+Input is an ordered directory of 16-bit grayscale CT PNG slices from NLM.
 The importer preserves the 512x512 source matrix and 1 mm z sampling, converts
-stored 12-bit CT values to signed HU using an explicit offset supplied from the
-source headers, and records provenance. It deliberately refuses to guess HU
-calibration or anatomical crop bounds.
+stored 12-bit CT values to signed HU using calibration supplied from the source
+header, and emits the same manifest schema consumed by the live viewer.
 
-Example:
-  python scripts/import-visible-human-ct.py --png-dir data/vhp-male-ct \
-    --out data/vhp-male --hu-offset 1024 --spacing-xy 0.8984375
-
-Verify --hu-offset and --spacing-xy against the NLM CT header accompanying the
-chosen series before importing. The output can then be segmented/landmarked and
-passed to build-regional-anatomy.py.
+It deliberately refuses to guess HU calibration, pixel spacing or anatomical
+crop bounds. Verify these against the NLM CT header accompanying the selected
+series before importing.
 """
 from __future__ import annotations
 import argparse,gzip,json,re
@@ -24,6 +19,9 @@ try:
 except ImportError as e:
  raise SystemExit('Pillow is required: pip install Pillow') from e
 
+NLM_SOURCE='https://www.nlm.nih.gov/research/visible/getting_data.html'
+NLM_TERMS='https://www.nlm.nih.gov/databases/download/terms_and_conditions.html'
+
 def natural_key(p:Path):
  return [int(x) if x.isdigit() else x.lower() for x in re.split(r'(\d+)',p.name)]
 
@@ -33,10 +31,12 @@ def main():
  ap.add_argument('--out',required=True)
  ap.add_argument('--hu-offset',type=int,required=True,help='Verified stored-value offset from NLM CT header; HU=stored-offset')
  ap.add_argument('--spacing-xy',type=float,required=True,help='Verified in-plane pixel spacing in mm from NLM CT header')
- ap.add_argument('--spacing-z',type=float,default=1.0)
+ ap.add_argument('--spacing-z',type=float,default=1.0,help='Slice interval in mm; NLM whole-body CT is documented at 1 mm')
  ap.add_argument('--sex',choices=['male','female'],required=True)
  ap.add_argument('--series-label',default='Visible Human whole-body CT')
+ ap.add_argument('--source-header',required=True,help='Identifier/path of the NLM CT header used to verify calibration and spacing')
  a=ap.parse_args()
+ if a.spacing_xy<=0 or a.spacing_z<=0:raise SystemExit('Spacing must be positive')
  files=sorted(Path(a.png_dir).glob('*.png'),key=natural_key)
  if not files:raise SystemExit('No PNG slices found')
  slices=[]
@@ -51,20 +51,23 @@ def main():
  manifest={
   'caseId':f'nlm-visible-human-{a.sex}',
   'dimensions':[512,512,len(files)],
-  'spacingMm':[a.spacing_xy,a.spacing_xy,a.spacing_z],
+  'spacing':[a.spacing_xy,a.spacing_xy,a.spacing_z],
   'volumeUrl':'volume.i16.gz',
   'huRange':[int(vol.min()),int(vol.max())],
   'source':{
    'name':'NLM Visible Human Project',
    'record':'Visible Human Project whole-body CT',
-   'url':'https://www.nlm.nih.gov/research/visible/getting_data.html',
+   'url':NLM_SOURCE,
+   'termsUrl':NLM_TERMS,
+   'acknowledgement':'Courtesy of the U.S. National Library of Medicine',
    'patientType':'postmortem cadaver',
    'sex':a.sex,
-   'licence':'NLM public-domain resource / current NLM terms and conditions'
+   'licence':'Public-domain library; redistribution remains subject to current NLM Terms and Conditions',
+   'sourceHeader':a.source_header
   },
   'provenance':{
    'kind':'derived-from-real-source','clinicalSource':True,
-   'notes':'Source-derived postmortem CT voxels converted from NLM lossless PNG; not a living-patient examination. HU calibration and spacing supplied from the accompanying source CT header.'
+   'notes':'Source-derived postmortem CT voxels converted from NLM lossless PNG; not a living-patient examination. HU calibration and spacing were supplied from the identified NLM source CT header. NLM does not endorse Bucky Lab.'
   },
   'import':{'sliceCount':len(files),'huOffset':a.hu_offset,'sourceStoredBits':12,'seriesLabel':a.series_label}
  }
