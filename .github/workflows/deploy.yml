@@ -30,6 +30,11 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Stamp production build
+        shell: bash
+        run: |
+          printf '{"sha":"%s","run":"%s","builtAt":"%s"}\n' "$GITHUB_SHA" "$GITHUB_RUN_NUMBER" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/version.json
+
       - name: Build
         run: npm run build
 
