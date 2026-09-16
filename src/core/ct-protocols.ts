@@ -1,9 +1,6 @@
-export type ContrastPhase='none'|'arterial'|'portal-venous'|'delayed'|'split-bolus'|'enteric';
+export type ContrastPhase='none'|'non-contrast'|'arterial'|'portal-venous'|'delayed'|'split-bolus'|'enteric';
 export type CtAnatomyRegion='head'|'neck'|'chest'|'aorta'|'cap'|'abdomen-pelvis'|'kub'|'colon'|'trauma';
 export interface CtProtocol{ id:string;label:string;region:CtAnatomyRegion;anatomy:string;coverage:string;coverageLandmarks:string[];contrast:ContrastPhase[];defaultPhase:ContrastPhase;windowKeys:string[];reconstructions:string[];detailTarget:string;notes:string }
-// Teaching protocol definitions describe the anatomy that a dedicated acquisition must contain.
-// They must not be implemented as arbitrary percentage crops of a whole-body volume. Coverage is
-// resolved from anatomical landmarks/segmentations for each male/female source volume.
 export const CT_PROTOCOLS:CtProtocol[]=[
 {id:'head-nc',label:'Head — non-contrast',region:'head',anatomy:'Brain, calvarium and skull base',coverage:'C2/skull base to vertex',coverageLandmarks:['c2','skull_base','vertex'],contrast:['none'],defaultPhase:'none',windowKeys:['brain','bone'],reconstructions:['thin axial','axial brain','coronal brain','sagittal brain','axial bone','coronal bone','sagittal bone'],detailTarget:'Sub-millimetre source/reconstruction target where source data permits; preserve posterior fossa and skull-base detail.',notes:'Dedicated head acquisition; not a whole-body slice selector.'},
 {id:'head-contrast',label:'Head — post contrast',region:'head',anatomy:'Brain, intracranial structures, calvarium and skull base',coverage:'C2/skull base to vertex',coverageLandmarks:['c2','skull_base','vertex'],contrast:['portal-venous'],defaultPhase:'portal-venous',windowKeys:['brain','bone'],reconstructions:['thin axial','axial brain','coronal brain','sagittal brain'],detailTarget:'Dedicated high-detail head volume with the complete cranial vault and skull base.',notes:'Post-contrast run requires a true enhanced volume; display brightness must not imitate enhancement.'},
