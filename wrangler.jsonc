@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "bucky-lab-2",
+  "name": "bucky-lab-2-0",
   "compatibility_date": "2026-09-15",
   "assets": { "directory": "./dist", "not_found_handling": "single-page-application" }
 }
