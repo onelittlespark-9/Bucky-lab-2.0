@@ -1,0 +1,5 @@
+import type{FullBodyPose}from'./radiographic-positions';
+export interface PositionerPose{stanceClass:string;bodyYaw:number;headPitch:number;headYaw:number;leftShoulder:number;rightShoulder:number;leftElbow:number;rightElbow:number;leftHip:number;rightHip:number;leftKnee:number;rightKnee:number}
+const v=(n?:number)=>n??0;
+export function positionerPose(p:FullBodyPose):PositionerPose{return{stanceClass:`stance-${p.stance}`,bodyYaw:p.bodyYaw,headPitch:p.headExtension,headYaw:p.headRotation,leftShoulder:v(p.leftShoulder.flexion),rightShoulder:v(p.rightShoulder.flexion),leftElbow:v(p.leftElbow.flexion),rightElbow:v(p.rightElbow.flexion),leftHip:v(p.leftHip.flexion),rightHip:v(p.rightHip.flexion),leftKnee:v(p.leftKnee.flexion),rightKnee:v(p.rightKnee.flexion)}}
+export function requiresArticulation(p:FullBodyPose){const q=positionerPose(p);return Math.max(Math.abs(q.headPitch),Math.abs(q.headYaw),Math.abs(q.leftShoulder),Math.abs(q.rightShoulder),Math.abs(q.leftElbow),Math.abs(q.rightElbow),Math.abs(q.leftHip),Math.abs(q.rightHip),Math.abs(q.leftKnee),Math.abs(q.rightKnee))>5}
