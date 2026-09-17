@@ -16,8 +16,8 @@ export function projectVolume(v:TeachingVolume,o:ProjectionOptions){
   for(let q=0;q<=samples;q++){const t=q/samples,x=src[0]+dx*t,y=src[1]+dy*t,z=src[2]+dz*t,rx=c*(x-cx)-s*(y-cy)+cx,ry=s*(x-cx)+c*(y-cy)+cy,hu=sample(v,rx,ry,z);if(hu>-999){const mm=step*Math.sqrt((sx*sx+sy*sy+sz*sz)/3);sum+=attenuation(hu,o.kVp)*mm;count++}}
   raySamples=Math.max(raySamples,count);if(!count)continue;const primary=Math.exp(-sum),scatter=scatterFraction*primary*Math.min(1,count/120),expected=Math.max(.5,incidentPhotons*(primary+scatter)),noise=(random()+random()+random()+random()-2)*Math.sqrt(expected),detected=Math.max(.25,expected+noise);raw[idx]=detected;mask[idx]=1;
  }
- // Fixed detector response: unlike per-image min/max normalisation this deliberately preserves exposure.
- // More mAs/kVp output or shorter SID increases receptor signal (darker image); low photon counts increase quantum mottle.
- const reference=incidentPhotons*.72;const out=new Uint8ClampedArray(width*height);for(let i=0;i<out.length;i++){if(!mask[i]){out[i]=8;continue}const signal=Math.log1p(raw[i])/Math.log1p(reference),density=Math.max(0,Math.min(1.15,signal));out[i]=Math.round(248-Math.min(238,density*205))}
+ // Fixed calibrated teaching reference: it must not be derived from this exposure, otherwise mAs/SID changes cancel during display mapping.
+ // More mAs/kVp output or shorter SID therefore changes receptor signal; low photon counts also increase quantum mottle.
+ const reference=12500;const out=new Uint8ClampedArray(width*height);for(let i=0;i<out.length;i++){if(!mask[i]){out[i]=8;continue}const signal=Math.log1p(raw[i])/Math.log1p(reference),density=Math.max(0,Math.min(1.15,signal));out[i]=Math.round(248-Math.min(238,density*205))}
  const flipped=new Uint8ClampedArray(out.length);for(let y=0;y<height;y++)flipped.set(out.subarray((height-1-y)*width,(height-y)*width),y*width);const image=radiographImage(width,height,flipped);renderRadiographWhenMounted(image);return{width,height,pixels:flipped,raySamples,exposure:{incidentPhotons,inverseSquare,fieldArea,scatterFraction}};
 }
