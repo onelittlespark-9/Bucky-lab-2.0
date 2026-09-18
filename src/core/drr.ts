@@ -1,4 +1,4 @@
-import type{TeachingVolume}from'./teaching-volume';import{radiographImage,renderRadiographWhenMounted}from'./radiograph-image';
+import type{TeachingVolume}from'./teaching-volume';import{radiographImage}from'./radiograph-image';
 export type ProjectionView='AP'|'PA'|'LATERAL';
 export interface CollimatorEdges{left:number;right:number;top:number;bottom:number}
 export interface ProjectionOptions{axis?:'x'|'y'|'z';patientXPercent?:number;patientYPercent?:number;view?:ProjectionView;stepVoxels?:number;kVp:number;mAs:number;sidCm?:number;rotationDeg?:number;fieldPercent?:number;collimation?:Partial<CollimatorEdges>;centreXPercent?:number;centreYPercent?:number;tubeAngleDeg?:number;seed?:number;detectorWidthCm?:number;detectorHeightCm?:number}
@@ -43,5 +43,5 @@ export function projectVolume(v:TeachingVolume,o:ProjectionOptions){
  // Keep the physical detector canvas. Regional CT bounds are anatomy data, not permission to
  // crop/zoom the acquired radiograph after exposure. Invalid occupancy must be fixed in geometry.
  const finalPixels=flipped,finalWidth=width,finalHeight=height;
- const image=radiographImage(finalWidth,finalHeight,finalPixels);renderRadiographWhenMounted(image);return{width:finalWidth,height:finalHeight,pixels:finalPixels,raySamples,anatomyBounds,anatomyFraction,exposure:{incidentPhotons,inverseSquare,fieldArea,scatterFraction,magnification}};
+ radiographImage(finalWidth,finalHeight,finalPixels);return{width:finalWidth,height:finalHeight,pixels:finalPixels,raySamples,anatomyBounds,anatomyFraction,exposure:{incidentPhotons,inverseSquare,fieldArea,scatterFraction,magnification}};
 }
