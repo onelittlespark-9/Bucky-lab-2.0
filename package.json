@@ -7,9 +7,10 @@
     "dev": "node scripts/generate-browser-case.mjs && vite",
     "typecheck": "tsc --noEmit",
     "validate:ct": "node scripts/validate-regional-assets.mjs",
-    "build": "node scripts/generate-browser-case.mjs && npm run validate:ct && npm run validate:drr && npm run typecheck && vite build",
+    "build": "node scripts/generate-browser-case.mjs && npm run validate:patient && npm run validate:ct && npm run validate:drr && npm run typecheck && vite build",
     "deploy": "npm run build && wrangler deploy",
     "render:drr": "node --import tsx scripts/render-drr-reference.ts",
+    "validate:patient": "node scripts/validate-articulated-patient.mjs",
     "validate:drr": "node --import tsx scripts/validate-drr-geometry.ts"
   },
   "dependencies": {
