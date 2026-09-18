@@ -10,6 +10,16 @@ type Rig = {
   joints: Record<string, number[]>;
 };
 type Weights = { weights: Record<string, [number, number][]> };
+type PatientModel = {
+  positions: Float32Array;
+  indices: Uint32Array;
+  jointIndices: Uint16Array;
+  jointWeights: Float32Array;
+  bones: Record<string, THREE.Bone>;
+  skeleton: THREE.Skeleton;
+  patient: THREE.Group;
+};
+
 async function compressedText(url: string) {
   const response = await fetch(url);
   if (!response.ok)
@@ -20,6 +30,7 @@ async function compressedText(url: string) {
     response.body!.pipeThrough(new DecompressionStream("gzip")),
   ).text();
 }
+
 function meshData(text: string) {
   const positions: number[] = [],
     indices: number[] = [];
@@ -37,9 +48,195 @@ function meshData(text: string) {
         indices.push(face[0], face[i], face[i + 1]);
     }
   }
-  return { positions, indices };
+  return {
+    positions: new Float32Array(positions),
+    indices: new Uint32Array(indices),
+  };
 }
+
 const radians = (degrees = 0) => THREE.MathUtils.degToRad(degrees);
+
+function applyPose(model: PatientModel, pose: FullBodyPose, rotation: number) {
+  model.patient.rotation.set(
+    radians(pose.bodyPitch),
+    radians(rotation),
+    radians(pose.bodyRoll),
+  );
+  const set = (name: string, x = 0, y = 0, z = 0) =>
+    model.bones[name]?.rotation.set(radians(x), radians(y), radians(z));
+  set("head", pose.headExtension, pose.headRotation);
+  set(
+    "upperarm01.L",
+    pose.leftShoulder.flexion,
+    pose.leftShoulder.rotation,
+    pose.leftShoulder.abduction,
+  );
+  set(
+    "upperarm01.R",
+    pose.rightShoulder.flexion,
+    pose.rightShoulder.rotation,
+    -(pose.rightShoulder.abduction ?? 0),
+  );
+  set("lowerarm01.L", pose.leftElbow.flexion, pose.leftElbow.rotation);
+  set("lowerarm01.R", pose.rightElbow.flexion, pose.rightElbow.rotation);
+  set(
+    "upperleg01.L",
+    pose.leftHip.flexion,
+    pose.leftHip.rotation,
+    pose.leftHip.abduction,
+  );
+  set(
+    "upperleg01.R",
+    pose.rightHip.flexion,
+    pose.rightHip.rotation,
+    -(pose.rightHip.abduction ?? 0),
+  );
+  set("lowerleg01.L", pose.leftKnee.flexion);
+  set("lowerleg01.R", pose.rightKnee.flexion);
+  model.patient.updateMatrixWorld(true);
+  model.skeleton.update();
+}
+
+function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("Canvas 2D rendering is unavailable");
+  const ratio = Math.min(window.devicePixelRatio || 1, 2),
+    width = Math.max(1, Math.round(canvas.clientWidth * ratio)),
+    height = Math.max(1, Math.round(canvas.clientHeight * ratio));
+  if (canvas.width !== width || canvas.height !== height) {
+    canvas.width = width;
+    canvas.height = height;
+  }
+  context.clearRect(0, 0, width, height);
+  if (!model.skeleton.boneMatrices)
+    throw new Error("Patient rig matrices are unavailable");
+  const boneMatrices = model.skeleton.boneMatrices,
+    vertexCount = model.positions.length / 3,
+    transformed = new Float32Array(model.positions.length),
+    source = new THREE.Vector3(),
+    result = new THREE.Vector3(),
+    weighted = new THREE.Vector3(),
+    matrix = new THREE.Matrix4();
+  for (let vertex = 0; vertex < vertexCount; vertex++) {
+    source.fromArray(model.positions, vertex * 3);
+    result.set(0, 0, 0);
+    for (let influence = 0; influence < 4; influence++) {
+      const offset = vertex * 4 + influence,
+        weight = model.jointWeights[offset];
+      if (!weight) continue;
+      matrix.fromArray(boneMatrices, model.jointIndices[offset] * 16);
+      weighted.copy(source).applyMatrix4(matrix).multiplyScalar(weight);
+      result.add(weighted);
+    }
+    transformed.set([result.x, result.y, result.z], vertex * 3);
+  }
+  const triangles: { a: number; b: number; c: number; depth: number }[] = [];
+  for (let i = 0; i < model.indices.length; i += 3) {
+    const a = model.indices[i],
+      b = model.indices[i + 1],
+      c = model.indices[i + 2];
+    triangles.push({
+      a,
+      b,
+      c,
+      depth:
+        (transformed[a * 3 + 2] +
+          transformed[b * 3 + 2] +
+          transformed[c * 3 + 2]) /
+        3,
+    });
+  }
+  triangles.sort((left, right) => left.depth - right.depth);
+  const scale = Math.min(width / 12, height / 18.4),
+    centreX = width / 2,
+    centreY = height * 0.485,
+    light = new THREE.Vector3(-0.35, 0.25, 1).normalize(),
+    ab = new THREE.Vector3(),
+    ac = new THREE.Vector3(),
+    normal = new THREE.Vector3();
+  for (const triangle of triangles) {
+    const ax = transformed[triangle.a * 3],
+      ay = transformed[triangle.a * 3 + 1],
+      az = transformed[triangle.a * 3 + 2],
+      bx = transformed[triangle.b * 3],
+      by = transformed[triangle.b * 3 + 1],
+      bz = transformed[triangle.b * 3 + 2],
+      cx = transformed[triangle.c * 3],
+      cy = transformed[triangle.c * 3 + 1],
+      cz = transformed[triangle.c * 3 + 2];
+    ab.set(bx - ax, by - ay, bz - az);
+    ac.set(cx - ax, cy - ay, cz - az);
+    normal.crossVectors(ab, ac).normalize();
+    const illumination = Math.max(0, Math.abs(normal.dot(light))),
+      value = Math.round(42 + illumination * 35);
+    context.fillStyle = `hsl(20 31% ${value}%)`;
+    context.beginPath();
+    context.moveTo(centreX + ax * scale, centreY - ay * scale);
+    context.lineTo(centreX + bx * scale, centreY - by * scale);
+    context.lineTo(centreX + cx * scale, centreY - cy * scale);
+    context.closePath();
+    context.fill();
+  }
+}
+
+function buildPatient(obj: string, rigText: string, weightsText: string) {
+  const data = meshData(obj),
+    rig = JSON.parse(rigText) as Rig,
+    skin = JSON.parse(weightsText) as Weights,
+    names = Object.keys(rig.bones),
+    jointLookup = new Map(names.map((name, index) => [name, index])),
+    perVertex: Array<[number, number][]> = Array.from(
+      { length: data.positions.length / 3 },
+      () => [],
+    );
+  for (const [name, entries] of Object.entries(skin.weights)) {
+    const joint = jointLookup.get(name);
+    if (joint === undefined) continue;
+    for (const [vertex, weight] of entries)
+      perVertex[vertex]?.push([joint, weight]);
+  }
+  const jointIndices = new Uint16Array(perVertex.length * 4),
+    jointWeights = new Float32Array(perVertex.length * 4);
+  perVertex.forEach((influences, vertex) => {
+    const top = influences.sort((a, b) => b[1] - a[1]).slice(0, 4),
+      total = top.reduce((sum, item) => sum + item[1], 0) || 1;
+    top.forEach(([joint, weight], influence) => {
+      jointIndices[vertex * 4 + influence] = joint;
+      jointWeights[vertex * 4 + influence] = weight / total;
+    });
+  });
+  const jointPosition = (joint: string) => {
+      const vertices = rig.joints[joint] ?? [],
+        point = new THREE.Vector3();
+      for (const vertex of vertices)
+        point.add(new THREE.Vector3().fromArray(data.positions, vertex * 3));
+      return vertices.length
+        ? point.multiplyScalar(1 / vertices.length)
+        : point;
+    },
+    heads: Record<string, THREE.Vector3> = {},
+    bones: Record<string, THREE.Bone> = {};
+  for (const name of names) {
+    heads[name] = jointPosition(rig.bones[name].head);
+    bones[name] = new THREE.Bone();
+    bones[name].name = name;
+  }
+  const patient = new THREE.Group();
+  for (const name of names) {
+    const parent = rig.bones[name].parent,
+      bone = bones[name];
+    bone.position.copy(
+      parent ? heads[name].clone().sub(heads[parent]) : heads[name],
+    );
+    if (parent) bones[parent].add(bone);
+    else patient.add(bone);
+  }
+  patient.updateMatrixWorld(true);
+  const skeleton = new THREE.Skeleton(names.map((name) => bones[name]));
+  skeleton.calculateInverses();
+  return { ...data, jointIndices, jointWeights, bones, skeleton, patient };
+}
+
 export function ArticulatedPatient({
   pose,
   rotation,
@@ -48,14 +245,17 @@ export function ArticulatedPatient({
   rotation: number;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null),
-    bones = useRef<Record<string, THREE.Bone>>({}),
-    root = useRef<THREE.Group | null>(null);
+    model = useRef<PatientModel | null>(null),
+    current = useRef({ pose, rotation });
+  current.current = { pose, rotation };
   useEffect(() => {
     const element = canvas.current;
     if (!element) return;
-    let disposed = false,
-      renderer: THREE.WebGLRenderer | null = null,
-      frame = 0;
+    let disposed = false;
+    const resize = new ResizeObserver(() => {
+      if (model.current) drawPatient(element, model.current);
+    });
+    resize.observe(element);
     Promise.all([
       compressedText(meshUrl),
       compressedText(skeletonUrl),
@@ -63,171 +263,27 @@ export function ArticulatedPatient({
     ])
       .then(([obj, rigText, weightsText]) => {
         if (disposed) return;
-        const data = meshData(obj),
-          rig = JSON.parse(rigText) as Rig,
-          skin = JSON.parse(weightsText) as Weights,
-          geometry = new THREE.BufferGeometry();
-        geometry.setAttribute(
-          "position",
-          new THREE.Float32BufferAttribute(data.positions, 3),
+        model.current = buildPatient(obj, rigText, weightsText);
+        applyPose(
+          model.current,
+          current.current.pose,
+          current.current.rotation,
         );
-        geometry.setIndex(data.indices);
-        geometry.computeVertexNormals();
-        const names = Object.keys(rig.bones),
-          index = new Map(names.map((name, i) => [name, i])),
-          perVertex: Array<[number, number][]> = Array.from(
-            { length: data.positions.length / 3 },
-            () => [],
-          );
-        for (const [name, entries] of Object.entries(skin.weights)) {
-          const joint = index.get(name);
-          if (joint === undefined) continue;
-          for (const [vertex, weight] of entries)
-            perVertex[vertex]?.push([joint, weight]);
-        }
-        const jointData: number[] = [],
-          weightData: number[] = [];
-        for (const influences of perVertex) {
-          const top = influences.sort((a, b) => b[1] - a[1]).slice(0, 4),
-            total = top.reduce((sum, item) => sum + item[1], 0) || 1;
-          for (let i = 0; i < 4; i++) {
-            jointData.push(top[i]?.[0] ?? 0);
-            weightData.push((top[i]?.[1] ?? 0) / total);
-          }
-        }
-        geometry.setAttribute(
-          "skinIndex",
-          new THREE.Uint16BufferAttribute(jointData, 4),
-        );
-        geometry.setAttribute(
-          "skinWeight",
-          new THREE.Float32BufferAttribute(weightData, 4),
-        );
-        const position = geometry.getAttribute("position"),
-          jointPosition = (joint: string) => {
-            const vertices = rig.joints[joint] ?? [];
-            const point = new THREE.Vector3();
-            for (const vertex of vertices)
-              point.add(
-                new THREE.Vector3(
-                  position.getX(vertex),
-                  position.getY(vertex),
-                  position.getZ(vertex),
-                ),
-              );
-            return vertices.length
-              ? point.multiplyScalar(1 / vertices.length)
-              : point;
-          },
-          heads: Record<string, THREE.Vector3> = {};
-        for (const name of names)
-          heads[name] = jointPosition(rig.bones[name].head);
-        const boneMap: Record<string, THREE.Bone> = {};
-        for (const name of names) {
-          const bone = new THREE.Bone();
-          bone.name = name;
-          boneMap[name] = bone;
-        }
-        for (const name of names) {
-          const parent = rig.bones[name].parent,
-            bone = boneMap[name],
-            head = heads[name];
-          bone.position.copy(parent ? head.clone().sub(heads[parent]) : head);
-          if (parent) boneMap[parent].add(bone);
-        }
-        const mesh = new THREE.SkinnedMesh(
-          geometry,
-          new THREE.MeshStandardMaterial({
-            color: 0xc9997d,
-            roughness: 0.82,
-            metalness: 0,
-            side: THREE.DoubleSide,
-          }),
-        );
-        for (const name of names)
-          if (!rig.bones[name].parent) mesh.add(boneMap[name]);
-        mesh.bind(new THREE.Skeleton(names.map((name) => boneMap[name])));
-        const scene = new THREE.Scene(),
-          patient = new THREE.Group();
-        patient.add(mesh);
-        scene.add(patient);
-        scene.add(new THREE.HemisphereLight(0xe8f4ff, 0x26313b, 2.2));
-        const key = new THREE.DirectionalLight(0xffffff, 2.8);
-        key.position.set(-6, 10, 12);
-        scene.add(key);
-        const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 100);
-        camera.position.set(0, 0, 28);
-        camera.lookAt(0, 0, 0);
-        renderer = new THREE.WebGLRenderer({
-          canvas: element,
-          antialias: true,
-          alpha: true,
-        });
-        renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-        bones.current = boneMap;
-        root.current = patient;
-        const render = () => {
-          if (disposed || !renderer) return;
-          const w = element.clientWidth,
-            h = element.clientHeight;
-          renderer.setSize(w, h, false);
-          camera.aspect = w / Math.max(1, h);
-          camera.updateProjectionMatrix();
-          renderer.render(scene, camera);
-          frame = requestAnimationFrame(render);
-        };
-        render();
+        drawPatient(element, model.current);
       })
       .catch((error) => {
         element.dataset.error = String(error);
       });
     return () => {
       disposed = true;
-      cancelAnimationFrame(frame);
-      renderer?.dispose();
+      resize.disconnect();
+      model.current = null;
     };
   }, []);
   useEffect(() => {
-    const rig = bones.current,
-      patient = root.current;
-    if (!patient) return;
-    patient.rotation.set(
-      radians(pose.bodyPitch),
-      radians(rotation),
-      radians(pose.bodyRoll),
-    );
-    const set = (name: string, x = 0, y = 0, z = 0) =>
-      rig[name]?.rotation.set(radians(x), radians(y), radians(z));
-    set("head", pose.headExtension, pose.headRotation);
-    set(
-      "upperarm01.L",
-      pose.leftShoulder.flexion,
-      pose.leftShoulder.rotation,
-      pose.leftShoulder.abduction,
-    );
-    set(
-      "upperarm01.R",
-      pose.rightShoulder.flexion,
-      pose.rightShoulder.rotation,
-      -(pose.rightShoulder.abduction ?? 0),
-    );
-    set("lowerarm01.L", pose.leftElbow.flexion, pose.leftElbow.rotation);
-    set("lowerarm01.R", pose.rightElbow.flexion, pose.rightElbow.rotation);
-    set(
-      "upperleg01.L",
-      pose.leftHip.flexion,
-      pose.leftHip.rotation,
-      pose.leftHip.abduction,
-    );
-    set(
-      "upperleg01.R",
-      pose.rightHip.flexion,
-      pose.rightHip.rotation,
-      -(pose.rightHip.abduction ?? 0),
-    );
-    set("lowerleg01.L", pose.leftKnee.flexion);
-    set("lowerleg01.R", pose.rightKnee.flexion);
+    if (!canvas.current || !model.current) return;
+    applyPose(model.current, pose, rotation);
+    drawPatient(canvas.current, model.current);
   }, [pose, rotation]);
   return (
     <canvas
