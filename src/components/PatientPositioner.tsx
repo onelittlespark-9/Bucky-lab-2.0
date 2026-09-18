@@ -5,7 +5,6 @@ import type {
   FullBodyPose,
   RespirationInstruction,
 } from "../core/radiographic-positions";
-import { xrayAoiFor } from "../core/xray-aoi";
 import type { RadiographicPosition } from "../core/radiographic-positions";
 import { ArticulatedPatient } from "./ArticulatedPatient";
 import "./PatientPositioner.css";
@@ -108,9 +107,7 @@ export function PatientPositioner({
     }, 150);
     return () => clearInterval(id);
   }, [volume]);
-  const activeSex = sex ?? volumeSex(activeVolume),
-    aoi = position ? xrayAoiFor(position) : null,
-    zoom = aoi?.defaultZoom ?? 1;
+  const activeSex = sex ?? volumeSex(activeVolume);
   function start(e: React.PointerEvent, mode: "move" | "resize") {
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -163,7 +160,7 @@ export function PatientPositioner({
       <div
         className={`anatomy-patient real-mesh skin-patient ${activeSex}`}
         style={{
-          transform: `translate(${x * 0.7}%,${-y * 0.7}%) scale(${zoom})`,
+          transform: `translate(${x * 0.7}%,${-y * 0.7}%)`,
         }}
       >
         <ArticulatedPatient pose={pose} rotation={rotation} />
