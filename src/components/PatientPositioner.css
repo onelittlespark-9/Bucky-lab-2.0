@@ -2,3 +2,12 @@
 
 .pose-fidelity-badge{position:absolute;right:10px;top:38px;padding:4px 7px;border-radius:6px;background:#4a2818e8;border:1px solid #c67a3a;color:#ffd7b0;font-size:9px;font-weight:800;letter-spacing:.06em;pointer-events:none}
 .articulated-patient-canvas{display:block;width:100%;height:100%;background:radial-gradient(circle at 50% 42%,#263342 0,#101923 58%,#081018 100%)}
+
+
+/* Radiography-room geometry: the patient is positioned against a visible upright receptor. */
+.patient-positioner:before{content:'UPRIGHT BUCKY';position:absolute;z-index:1;left:50%;top:7%;bottom:12%;width:min(44%,360px);transform:translateX(-50%);border:2px solid #536b7f;border-radius:10px;background:linear-gradient(90deg,#111c25,#253744 48%,#111c25);box-shadow:0 20px 55px #000a,inset 0 0 0 8px #071019;color:#7f96a8;font-size:9px;letter-spacing:.14em;text-align:center;padding-top:8px}
+.patient-positioner:after{content:'';position:absolute;z-index:2;left:50%;top:8%;bottom:13%;width:1px;transform:translateX(-50%);background:#f6df6350;box-shadow:0 0 10px #f6df6360;pointer-events:none}
+.anatomy-patient{z-index:5;inset:-2% 15% 10%}
+.articulated-patient-canvas{background:transparent}
+.patient-positioner .light-field{mix-blend-mode:screen}
+@media(max-width:760px){.patient-positioner:before{width:52%;top:6%;bottom:15%}.anatomy-patient{inset:-1% 8% 13%}}
