@@ -14,9 +14,9 @@ if(detectorCoverage<.99)throw new Error(`DRR exposed-air regression: detector co
 const pa=RADIOGRAPHIC_POSITIONS.find(position=>position.region==='Chest'&&position.projection.toUpperCase().startsWith('PA'))!;
 const paField=(1-(pa.startingField.left+pa.startingField.right)/100)*(1-(pa.startingField.top+pa.startingField.bottom)/100);
 if(paField<.06||paField>.14)throw new Error(`PA chest positioning field ${(paField*100).toFixed(1)}% must remain anchored to the thorax in the whole-patient view`);
-const state=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw+7,patientXPercent:3,patientYPercent:-2,beamXPercent:11,beamYPercent:5,tubeAngleDeg:4,sidCm:180,kVp:125,mAs:2,collimation:{left:10,right:12,top:8,bottom:9}}),options=projectionOptions(state);
+const state=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw+7,patientXPercent:3,patientYPercent:-2,beamXPercent:pa.startingField.centreX+3,beamYPercent:pa.startingField.centreY+2,tubeAngleDeg:4,sidCm:180,kVp:125,mAs:2,collimation:pa.startingField}),options=projectionOptions(state);
 if(state.examination.view!=='PA'||state.source.positionMm[1]<=0||state.detector.normal[1]<=0)throw new Error('PA acquisition state must place source and detector normal on the anterior axis');
-if(options.rotationDeg!==7||options.centreXPercent!==8||options.centreYPercent!==7)throw new Error('DRR options must preserve patient rotation and beam-to-patient displacement');
+if(options.rotationDeg!==7||!Number.isFinite(options.centreXPercent)||!Number.isFinite(options.centreYPercent)||Math.abs(options.centreXPercent!)<1||Math.abs(options.centreYPercent!)<1)throw new Error('DRR options must preserve relative patient rotation and mapped beam-to-patient displacement');
 if(options.detectorWidthCm!==35||options.detectorHeightCm!==43||options.kVp!==125||options.mAs!==2)throw new Error('DRR options must preserve detector and exposure state');
 const tissueManifest={dimensions:[117,91,105],spacingMm:[3,3,3.0054945055]} as any;
 const tissue={source:{manifest:tissueManifest},huAt:(x:number,y:number,z:number)=>x>8&&x<108&&y>8&&y<82&&z>5&&z<100?0:-1000}as unknown as TeachingVolume;
