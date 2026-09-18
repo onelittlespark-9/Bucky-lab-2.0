@@ -12,11 +12,17 @@ const root = new URL("../assets/patient/makehuman/", import.meta.url),
   skeleton = JSON.parse(skeletonText),
   weights = JSON.parse(weightsText),
   vertices = (meshText.match(/^v /gm) ?? []).length,
-  faces = (meshText.match(/^f /gm) ?? []).length;
+  faces = (meshText.match(/^f /gm) ?? []).length,
+  bodyStart = meshText.indexOf("\ng body\n"),
+  bodyEnd = meshText.indexOf("\ng ", bodyStart + 3),
+  bodySection = meshText.slice(bodyStart, bodyEnd < 0 ? undefined : bodyEnd),
+  bodyFaces = (bodySection.match(/^f /gm) ?? []).length;
 if (vertices < 15000 || faces < 15000)
   throw new Error(
     `Patient source mesh is incomplete (${vertices} vertices, ${faces} faces)`,
   );
+if (bodyFaces < 13000)
+  throw new Error(`Patient body surface is incomplete (${bodyFaces} faces)`);
 const required = [
   "head",
   "neck01",
@@ -48,5 +54,5 @@ if (
 )
   throw new Error("Patient asset licence is not verified as CC0");
 console.log(
-  `Validated articulated patient surface: ${vertices} vertices, ${faces} faces, ${Object.keys(skeleton.bones).length} deformation rig joints. Anatomical bone completeness is validated separately.`,
+  `Validated articulated patient surface: ${vertices} vertices, ${bodyFaces} body faces (${faces - bodyFaces} helper faces excluded), ${Object.keys(skeleton.bones).length} deformation rig joints. Anatomical bone completeness is validated separately.`,
 );

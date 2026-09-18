@@ -34,11 +34,14 @@ async function compressedText(url: string) {
 function meshData(text: string) {
   const positions: number[] = [],
     indices: number[] = [];
+  let group = "";
   for (const line of text.split("\n")) {
-    if (line.startsWith("v ")) {
+    if (line.startsWith("g ")) {
+      group = line.slice(2).trim();
+    } else if (line.startsWith("v ")) {
       const [, x, y, z] = line.trim().split(/\s+/);
       positions.push(+x, +y, +z);
-    } else if (line.startsWith("f ")) {
+    } else if (line.startsWith("f ") && group === "body") {
       const face = line
         .trim()
         .split(/\s+/)
