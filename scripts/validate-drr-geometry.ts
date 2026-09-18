@@ -22,4 +22,6 @@ const tissueManifest={dimensions:[117,91,105],spacingMm:[3,3,3.0054945055]} as a
 const tissue={source:{manifest:tissueManifest},huAt:(x:number,y:number,z:number)=>x>8&&x<108&&y>8&&y<82&&z>5&&z<100?0:-1000}as unknown as TeachingVolume;
 const chest=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:6,right:6,top:7,bottom:9}});
 if(!chest.anatomyBounds||chest.anatomyBounds.width/chest.width<.65||chest.anatomyBounds.height/chest.height<.55)throw new Error('DRR anatomy footprint regression: chest-sized anatomy must occupy the detector at physical scale');
+const centre=chest.pixels[Math.floor(chest.height/2)*chest.width+Math.floor(chest.width/2)],corner=chest.pixels[Math.floor(chest.height*.12)*chest.width+Math.floor(chest.width*.12)];
+if(centre<=corner+8)throw new Error('DRR polarity regression: attenuating central anatomy must render brighter than exposed air');
 console.log('Validated DRR geometry invariants.');
