@@ -17,7 +17,7 @@ export function projectVolume(v:TeachingVolume,o:ProjectionOptions){
   // anatomy whenever voxel spacing differs or the regional crop has unequal dimensions.
   if(lateral){src=[cx-sourceDistanceMm/sx,cy,cz-sourceDistanceMm*tube/sz];det=[cx+detectorDistanceMm/sx,cy+uMm/sy,cz+zMm/sz]}else{const pa=view==='PA',sdir=pa?1:-1;src=[cx,cy+sdir*sourceDistanceMm/sy,cz-sourceDistanceMm*tube/sz];det=[cx+uMm/sx,cy-sdir*detectorDistanceMm/sy,cz+zMm/sz]}
   const dx=det[0]-src[0],dy=det[1]-src[1],dz=det[2]-src[2],distance=Math.sqrt(dx*dx+dy*dy+dz*dz),samples=Math.max(1,Math.ceil(distance/step));let sum=0,count=0;
-  for(let q=0;q<=samples;q++){const t=q/samples,x=src[0]+dx*t,y=src[1]+dy*t,z=src[2]+dz*t,tx=x-patientShiftX,tz=z-patientShiftZ,rx=c*(tx-cx)-s*(y-cy)+cx,ry=s*(tx-cx)+c*(y-cy)+cy,hu=sample(v,rx,ry,tz);if(hu>-999){const stepX=dx/samples*sx,stepY=dy/samples*sy,stepZ=dz/samples*sz,mm=Math.sqrt(stepX*stepX+stepY*stepY+stepZ*stepZ);sum+=attenuation(hu,o.kVp)*mm;count++}}
+  for(let q=0;q<=samples;q++){const t=q/samples,x=src[0]+dx*t,y=src[1]+dy*t,z=src[2]+dz*t,tx=x-patientShiftX,tz=z-patientShiftZ,rx=c*(tx-cx)+s*(y-cy)+cx,ry=-s*(tx-cx)+c*(y-cy)+cy,hu=sample(v,rx,ry,tz);if(hu>-999){const stepX=dx/samples*sx,stepY=dy/samples*sy,stepZ=dz/samples*sz,mm=Math.sqrt(stepX*stepX+stepY*stepY+stepZ*stepZ);sum+=attenuation(hu,o.kVp)*mm;count++}}
   // Every ray inside the collimated beam irradiates the detector, including rays which traverse
   // only air outside a tightly cropped regional CT. Anatomy contributes attenuation; the crop
   // cuboid must never become an artificial image boundary.
