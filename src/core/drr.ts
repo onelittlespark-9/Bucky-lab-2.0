@@ -25,7 +25,11 @@ export function projectVolume(v:TeachingVolume,o:ProjectionOptions){
  }
  // Fixed calibrated teaching reference: it must not be derived from this exposure, otherwise mAs/SID changes cancel during display mapping.
  // More mAs/kVp output or shorter SID therefore changes receptor signal; low photon counts also increase quantum mottle.
- const reference=12500;const out=new Uint8ClampedArray(width*height);for(let i=0;i<out.length;i++){if(!mask[i]){out[i]=8;continue}const signal=Math.log1p(raw[i])/Math.log1p(reference),density=Math.max(0,Math.min(1.15,signal));out[i]=Math.round(248-Math.min(238,density*205))}
+ const reference=12500;const out=new Uint8ClampedArray(width*height);
+ // Log transmission display calibrated to the reference exposure. Preserve exposure response but
+ // use attenuation as the image-forming signal: air is dark, denser/thicker anatomy is brighter.
+ const exposureShift=Math.log(Math.max(.05,incidentPhotons/reference));
+ for(let i=0;i<out.length;i++){if(!mask[i]){out[i]=8;continue}const transmission=Math.max(1e-6,raw[i]/Math.max(1,incidentPhotons)),lineIntegral=-Math.log(transmission),display=lineIntegral*.78-exposureShift*.16;out[i]=Math.round(Math.max(8,Math.min(245,18+display*118)))}
  const flipped=new Uint8ClampedArray(out.length);for(let y=0;y<height;y++)flipped.set(out.subarray((height-1-y)*width,(height-y)*width),y*width);
  // Guard against a projection-space regression that collapses regional anatomy to a thumbnail.
  // This does not zoom or post-process the image: it measures the detector footprint produced by
