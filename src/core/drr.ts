@@ -36,7 +36,7 @@ export function projectVolume(v:TeachingVolume,o:ProjectionOptions){
  // the physical ray tracer so validation can fail instead of shipping an obviously invalid DRR.
  let minX=width,minY=height,maxX=-1,maxY=-1,anatomyPixels=0;
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){const i=y*width+x;if(mask[i]&&raw[i]<incidentPhotons*.985){anatomyPixels++;if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y}}
- const anatomyBounds=maxX>=minX?{left:minX,top:minY,width:maxX-minX+1,height:maxY-minY+1}:null,anatomyFraction=anatomyPixels/(width*height);
+ const unflippedBounds=maxX>=minX?{left:minX,top:minY,width:maxX-minX+1,height:maxY-minY+1}:null,anatomyBounds=unflippedBounds?{...unflippedBounds,top:height-(unflippedBounds.top+unflippedBounds.height)}:null,anatomyFraction=anatomyPixels/(width*height);
  // Keep the physical detector canvas. Regional CT bounds are anatomy data, not permission to
  // crop/zoom the acquired radiograph after exposure. Invalid occupancy must be fixed in geometry.
  const finalPixels=flipped,finalWidth=width,finalHeight=height;
