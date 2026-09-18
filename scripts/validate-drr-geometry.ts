@@ -24,4 +24,7 @@ const chest=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,coll
 if(!chest.anatomyBounds||chest.anatomyBounds.width/chest.width<.65||chest.anatomyBounds.height/chest.height<.55)throw new Error('DRR anatomy footprint regression: chest-sized anatomy must occupy the detector at physical scale');
 const centre=chest.pixels[Math.floor(chest.height/2)*chest.width+Math.floor(chest.width/2)],corner=chest.pixels[Math.floor(chest.height*.12)*chest.width+Math.floor(chest.width*.12)];
 if(centre<=corner+8)throw new Error('DRR polarity regression: attenuating central anatomy must render brighter than exposed air');
+const shifted=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,patientXPercent:12,patientYPercent:8,collimation:{left:18,right:18,top:13,bottom:17},centreYPercent:-8});
+if(!shifted.anatomyBounds||!chest.anatomyBounds)throw new Error('Patient translation validation requires anatomy bounds');
+if(Math.abs(shifted.anatomyBounds.left-chest.anatomyBounds.left)<3&&Math.abs(shifted.anatomyBounds.top-chest.anatomyBounds.top)<3)throw new Error('Patient translation is not represented in the generated DRR');
 console.log('Validated DRR geometry invariants.');
