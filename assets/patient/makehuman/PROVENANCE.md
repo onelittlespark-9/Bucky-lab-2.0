@@ -9,7 +9,8 @@ These files are the MakeHuman HM08 base mesh, default skeleton and default skin 
 - Weights: `makehuman/data/rigs/default_weights.mhw`
 - Asset licence: CC0 1.0 Universal (`LICENSE.CC0.md`)
 
-The three source files are stored with lossless gzip compression. The source mesh is anatomically proportioned and the supplied skeleton/weights provide actual
-deformation data. Bucky Lab must convert and validate this source before presenting it in the
+The three source files are stored with lossless gzip compression. The source mesh is anatomically proportioned and the supplied rig/weights provide actual
+surface-deformation data. Its 163 rig joints are animation controls, not an anatomical skeleton and
+must never be described as the adult body's 206 bones. Bucky Lab must convert and validate this source before presenting it in the
 radiography workspace. The legacy external `human.glb` is not derived from these files and is not
 an acceptable final positioning model.
