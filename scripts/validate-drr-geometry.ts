@@ -22,6 +22,8 @@ const tissueManifest={dimensions:[117,91,105],spacingMm:[3,3,3.0054945055]} as a
 const tissue={source:{manifest:tissueManifest},huAt:(x:number,y:number,z:number)=>x>8&&x<108&&y>8&&y<82&&z>5&&z<100?0:-1000}as unknown as TeachingVolume;
 const chest=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:18,right:18,top:13,bottom:17},centreYPercent:-8});
 if(!chest.anatomyBounds||chest.anatomyBounds.width/chest.width<.45||chest.anatomyBounds.height/chest.height<.45)throw new Error('DRR anatomy footprint regression: chest-sized anatomy must retain a substantial physical detector footprint');
+const chestAspect=chest.anatomyBounds.width/chest.anatomyBounds.height,detectorAspect=chest.width/chest.height;if(chestAspect<.55||chestAspect>1.65)throw new Error(`DRR anatomy aspect regression: ${chestAspect.toFixed(2)}`);if(chest.anatomyFraction<.08)throw new Error(`DRR anatomy occupancy regression: ${(chest.anatomyFraction*100).toFixed(1)}%`);
+
 const centre=chest.pixels[Math.floor(chest.height/2)*chest.width+Math.floor(chest.width/2)],corner=chest.pixels[Math.floor(chest.height*.12)*chest.width+Math.floor(chest.width*.12)];
 if(centre<=corner+8)throw new Error('DRR polarity regression: attenuating central anatomy must render brighter than exposed air');
 const shifted=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,patientXPercent:12,patientYPercent:8,collimation:{left:18,right:18,top:13,bottom:17},centreYPercent:-8});
