@@ -13,14 +13,14 @@ const detectorCoverage=air.pixels.filter(value=>value>8).length/air.pixels.lengt
 if(detectorCoverage<.99)throw new Error(`DRR exposed-air regression: detector coverage ${(detectorCoverage*100).toFixed(1)}% must exceed 99%`);
 const pa=RADIOGRAPHIC_POSITIONS.find(position=>position.region==='Chest'&&position.projection.toUpperCase().startsWith('PA'))!;
 const paField=(1-(pa.startingField.left+pa.startingField.right)/100)*(1-(pa.startingField.top+pa.startingField.bottom)/100);
-if(paField<.7)throw new Error(`PA chest starting field occupies only ${(paField*100).toFixed(1)}% of the detector`);
+if(paField<.4||paField>.65)throw new Error(`PA chest starting field ${(paField*100).toFixed(1)}% must remain thorax-focused without becoming a tiny field or full-detector default`);
 const state=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:7,patientXPercent:3,patientYPercent:-2,beamXPercent:11,beamYPercent:5,tubeAngleDeg:4,sidCm:180,kVp:125,mAs:2,collimation:{left:10,right:12,top:8,bottom:9}}),options=projectionOptions(state);
 if(state.examination.view!=='PA'||state.source.positionMm[1]<=0||state.detector.normal[1]<=0)throw new Error('PA acquisition state must place source and detector normal on the anterior axis');
 if(options.rotationDeg!==7||options.centreXPercent!==8||options.centreYPercent!==7)throw new Error('DRR options must preserve patient rotation and beam-to-patient displacement');
 if(options.detectorWidthCm!==35||options.detectorHeightCm!==43||options.kVp!==125||options.mAs!==2)throw new Error('DRR options must preserve detector and exposure state');
 const tissueManifest={dimensions:[117,91,105],spacingMm:[3,3,3.0054945055]} as any;
 const tissue={source:{manifest:tissueManifest},huAt:(x:number,y:number,z:number)=>x>8&&x<108&&y>8&&y<82&&z>5&&z<100?0:-1000}as unknown as TeachingVolume;
-const chest=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:6,right:6,top:7,bottom:9}});
+const chest=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:18,right:18,top:13,bottom:17},centreYPercent:-8});
 if(!chest.anatomyBounds||chest.anatomyBounds.width/chest.width<.65||chest.anatomyBounds.height/chest.height<.55)throw new Error('DRR anatomy footprint regression: chest-sized anatomy must occupy the detector at physical scale');
 const centre=chest.pixels[Math.floor(chest.height/2)*chest.width+Math.floor(chest.width/2)],corner=chest.pixels[Math.floor(chest.height*.12)*chest.width+Math.floor(chest.width*.12)];
 if(centre<=corner+8)throw new Error('DRR polarity regression: attenuating central anatomy must render brighter than exposed air');
