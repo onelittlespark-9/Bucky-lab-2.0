@@ -9,8 +9,8 @@
     105
   ],
   "spacingMm": [
-    3.0,
-    3.0,
+    3,
+    3,
     3.0054945054945055
   ],
   "volumeUrl": "/cases/regional/male/chest/volume.i16.gz",
@@ -31,14 +31,14 @@
     "voxelOrder": "x-fastest",
     "sourceAffine": [
       [
-        3.0,
+        3,
         0,
         0,
         0.75
       ],
       [
         0,
-        3.0,
+        3,
         0,
         0.75
       ],
@@ -57,14 +57,14 @@
     ],
     "affine": [
       [
-        3.0,
+        3,
         0,
         0,
         0.75
       ],
       [
         0,
-        3.0,
+        3,
         0,
         0.75
       ],
@@ -113,6 +113,23 @@
     "modalities": [
       "ct",
       "xray-drr"
-    ]
+    ],
+    "sourcePatient": {
+      "dimensions": [
+        160,
+        160,
+        273
+      ],
+      "spacingMm": [
+        3,
+        3,
+        3.0054945054945055
+      ],
+      "originMm": [
+        0.75,
+        0.75,
+        0.7527472527472527
+      ]
+    }
   }
 }
