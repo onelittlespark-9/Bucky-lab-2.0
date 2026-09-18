@@ -20,3 +20,4 @@ export function huAt(v:PatientVolume,x:number,y:number,z:number){const[nx,ny,nz]
 
 /** Map a regional voxel into the common source-patient voxel frame. */
 export function regionalToSourceVoxel(v:PatientVolume,x:number,y:number,z:number):[number,number,number]{const b=v.manifest.coverage?.sourceBounds;return b?[x+b.x0,y+b.y0,z+b.z0]:[x,y,z]}
+
