@@ -1,0 +1,8 @@
+@media(max-width:760px){
+ .mobile-control-sheet{max-height:55px;transform:none;overflow:hidden}
+ .mobile-control-sheet.open{max-height:64vh;overflow:auto}
+ .mobile-control-sheet:not(.open) .sheet-content{display:none}
+ .mobile-control-sheet:not(.open) .sheet-grab{display:none}
+ .patient-sex-badge{right:6px;top:6px;max-width:44%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .patient-positioner{margin-bottom:8px}
+}
