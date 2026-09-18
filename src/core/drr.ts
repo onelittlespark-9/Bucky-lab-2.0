@@ -37,11 +37,8 @@ export function projectVolume(v:TeachingVolume,o:ProjectionOptions){
  let minX=width,minY=height,maxX=-1,maxY=-1,anatomyPixels=0;
  for(let y=0;y<height;y++)for(let x=0;x<width;x++){const i=y*width+x;if(mask[i]&&raw[i]<incidentPhotons*.92){anatomyPixels++;if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y}}
  const anatomyBounds=maxX>=minX?{left:minX,top:minY,width:maxX-minX+1,height:maxY-minY+1}:null,anatomyFraction=anatomyPixels/(width*height);
- // A regional volume is a crop around the examination anatomy, not the whole patient. The detector
- // still has physical dimensions, but the displayed acquisition should use the anatomy-bearing
- // footprint rather than presenting the crop as a tiny floating thumbnail. Crop only to measured
- // irradiated anatomy, preserving aspect ratio and all attenuation values (no synthetic anatomy).
- let finalPixels=flipped,finalWidth=width,finalHeight=height;
- if(anatomyBounds&&anatomyBounds.width/width<.65&&anatomyBounds.height/height<.65){const padX=Math.max(4,Math.round(anatomyBounds.width*.08)),padY=Math.max(4,Math.round(anatomyBounds.height*.08)),x0=Math.max(0,anatomyBounds.left-padX),y0=Math.max(0,anatomyBounds.top-padY),x1=Math.min(width,anatomyBounds.left+anatomyBounds.width+padX),y1=Math.min(height,anatomyBounds.top+anatomyBounds.height+padY);finalWidth=x1-x0;finalHeight=y1-y0;finalPixels=new Uint8ClampedArray(finalWidth*finalHeight);for(let y=0;y<finalHeight;y++)finalPixels.set(flipped.subarray((y0+y)*width+x0,(y0+y)*width+x1),y*finalWidth)}
+ // Keep the physical detector canvas. Regional CT bounds are anatomy data, not permission to
+ // crop/zoom the acquired radiograph after exposure. Invalid occupancy must be fixed in geometry.
+ const finalPixels=flipped,finalWidth=width,finalHeight=height;
  const image=radiographImage(finalWidth,finalHeight,finalPixels);renderRadiographWhenMounted(image);return{width:finalWidth,height:finalHeight,pixels:finalPixels,raySamples,anatomyBounds,anatomyFraction,exposure:{incidentPhotons,inverseSquare,fieldArea,scatterFraction,magnification}};
 }
