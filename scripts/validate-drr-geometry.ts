@@ -18,4 +18,8 @@ const state=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:7,p
 if(state.examination.view!=='PA'||state.source.positionMm[1]<=0||state.detector.normal[1]<=0)throw new Error('PA acquisition state must place source and detector normal on the anterior axis');
 if(options.rotationDeg!==7||options.centreXPercent!==8||options.centreYPercent!==7)throw new Error('DRR options must preserve patient rotation and beam-to-patient displacement');
 if(options.detectorWidthCm!==35||options.detectorHeightCm!==43||options.kVp!==125||options.mAs!==2)throw new Error('DRR options must preserve detector and exposure state');
+const tissueManifest={dimensions:[117,91,105],spacingMm:[3,3,3.0054945055]} as any;
+const tissue={source:{manifest:tissueManifest},huAt:(x:number,y:number,z:number)=>x>8&&x<108&&y>8&&y<82&&z>5&&z<100?0:-1000}as unknown as TeachingVolume;
+const chest=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:6,right:6,top:7,bottom:9}});
+if(!chest.anatomyBounds||chest.anatomyBounds.width/chest.width<.65||chest.anatomyBounds.height/chest.height<.55)throw new Error('DRR anatomy footprint regression: chest-sized anatomy must occupy the detector at physical scale');
 console.log('Validated DRR geometry invariants.');
