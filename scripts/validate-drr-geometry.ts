@@ -35,3 +35,8 @@ const contrast=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,c
 const vals=Array.from(contrast.pixels).filter(v=>v>8).sort((a,b)=>a-b),p=(q:number)=>vals[Math.min(vals.length-1,Math.floor((vals.length-1)*q))]??0;
 if(p(.95)-p(.05)<45)throw new Error(`DRR display contrast regression: P95-P05=${p(.95)-p(.05)}`);
 if(p(.95)>=245&&p(.5)>=235)throw new Error('DRR display saturation regression: chest image is predominantly clipped white');
+
+const paNeutral=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw,patientXPercent:0,patientYPercent:0,beamXPercent:pa.startingField.centreX,beamYPercent:pa.startingField.centreY,tubeAngleDeg:pa.tubeAngleDeg,sidCm:pa.exposure.sidCm,kVp:pa.exposure.kVp,mAs:pa.exposure.mAs,collimation:pa.startingField});
+if(projectionOptions(paNeutral).rotationDeg!==0)throw new Error('PA preset yaw must project as zero relative rotation; projection view already encodes PA orientation');
+const paRotated=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw+12,patientXPercent:0,patientYPercent:0,beamXPercent:pa.startingField.centreX,beamYPercent:pa.startingField.centreY,tubeAngleDeg:pa.tubeAngleDeg,sidCm:pa.exposure.sidCm,kVp:pa.exposure.kVp,mAs:pa.exposure.mAs,collimation:pa.startingField});
+if(projectionOptions(paRotated).rotationDeg!==12)throw new Error('Patient rotation must be measured relative to the projection preset');
