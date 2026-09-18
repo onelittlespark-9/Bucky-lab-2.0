@@ -120,6 +120,7 @@ function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
   for (let vertex = 0; vertex < vertexCount; vertex++) {
     source.fromArray(model.positions, vertex * 3);
     result.set(0, 0, 0);
+    let appliedWeight = 0;
     for (let influence = 0; influence < 4; influence++) {
       const offset = vertex * 4 + influence,
         weight = model.jointWeights[offset];
@@ -127,7 +128,10 @@ function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
       matrix.fromArray(boneMatrices, model.jointIndices[offset] * 16);
       weighted.copy(source).applyMatrix4(matrix).multiplyScalar(weight);
       result.add(weighted);
+      appliedWeight += weight;
     }
+    if (!appliedWeight)
+      result.copy(source).applyMatrix4(model.patient.matrixWorld);
     transformed.set([result.x, result.y, result.z], vertex * 3);
   }
   const triangles: { a: number; b: number; c: number; depth: number }[] = [];
@@ -147,9 +151,9 @@ function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
     });
   }
   triangles.sort((left, right) => left.depth - right.depth);
-  const scale = Math.min(width / 12, height / 18.4),
+  const scale = Math.min(width / 12, height / 20),
     centreX = width / 2,
-    centreY = height * 0.485,
+    centreY = height * 0.51,
     light = new THREE.Vector3(-0.35, 0.25, 1).normalize(),
     ab = new THREE.Vector3(),
     ac = new THREE.Vector3(),
