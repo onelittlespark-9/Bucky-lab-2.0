@@ -4,3 +4,16 @@
 .learning-topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0}.learning-topic{min-height:240px}.learning-topic h2{margin:8px 0}.learning-topic ul{padding-left:18px;color:#b9c9d6;line-height:1.5}.learning-topic li+li{margin-top:7px}@media(max-width:900px){.learning-topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.learning-topic-grid{grid-template-columns:1fr}.learning-topic{min-height:0}}
 
 .aoi-review-overlay{position:absolute;inset:0;z-index:7;pointer-events:none}.aoi-field{position:absolute;border:2px dashed;border-radius:4px}.aoi-field span{position:absolute;left:4px;top:4px;padding:2px 4px;background:#050a10d9;font-size:9px;letter-spacing:.08em}.aoi-ideal{border-color:#72c8dd}.aoi-actual{border-color:#f6df63}.aoi-centre{position:absolute;width:14px;height:14px;border:2px solid;border-radius:50%;transform:translate(-50%,-50%)}.aoi-centre-ideal{border-color:#72c8dd}.aoi-centre-actual{border-color:#f6df63}
+
+
+/* Reference-workstation pass: denser clinical workspace on desktop. */
+@media(min-width:1100px){
+ .lab-shell{max-width:1800px;padding-left:2vw;padding-right:2vw}
+ .lab-grid{grid-template-columns:minmax(0,1fr) 360px;gap:12px}
+ .room-stage{display:grid;grid-template-columns:minmax(0,1fr);align-content:start}
+ .patient-positioner,.radiograph-stage{height:calc(100vh - 190px);max-height:780px;min-height:600px;border-radius:8px}
+ .desktop-controls{border-radius:8px;padding:16px;max-height:calc(100vh - 190px);overflow:auto}
+ .lab-heading{margin-bottom:10px}
+ .lab-heading h1{font-size:30px}
+ .stage-actions{margin:8px 0}
+}
