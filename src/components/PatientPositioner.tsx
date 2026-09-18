@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { latestLoadedVolume, type PatientVolume } from "../core/volume";
+import type { PatientVolume } from "../core/volume";
 import type { PatientSex } from "../core/patients";
 import type {
   FullBodyPose,
@@ -49,7 +49,7 @@ function volumeSex(v?: PatientVolume | null): PatientSex {
 export function PatientPositioner({
   sex,
   volume,
-  position,
+  position: _position,
   rotation,
   x,
   y,
@@ -81,9 +81,6 @@ export function PatientPositioner({
       top,
       bottom,
     }),
-    [activeVolume, setActiveVolume] = useState<PatientVolume | null>(
-      volume ?? latestLoadedVolume(),
-    ),
     [completed, setCompleted] = useState<Set<number>>(new Set());
   const f =
       onBeam || onField
@@ -96,18 +93,9 @@ export function PatientPositioner({
   useEffect(() => {
     setCompleted(new Set());
   }, [instructions, respiration]);
-  useEffect(() => {
-    if (volume) {
-      setActiveVolume(volume);
-      return;
-    }
-    const id = setInterval(() => {
-      const v = latestLoadedVolume();
-      if (v) setActiveVolume(v);
-    }, 150);
-    return () => clearInterval(id);
-  }, [volume]);
-  const activeSex = sex ?? volumeSex(activeVolume);
+  // The X-ray workspace owns its examination volume. Never poll the global
+  // latest-volume cache here: a CT load must not silently change X-ray state.
+  const activeSex = sex ?? volumeSex(volume);
   function start(e: React.PointerEvent, mode: "move" | "resize") {
     e.preventDefault();
     e.currentTarget.setPointerCapture(e.pointerId);
