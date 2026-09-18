@@ -13,7 +13,7 @@ const detectorCoverage=air.pixels.filter(value=>value>8).length/air.pixels.lengt
 if(detectorCoverage<.99)throw new Error(`DRR exposed-air regression: detector coverage ${(detectorCoverage*100).toFixed(1)}% must exceed 99%`);
 const pa=RADIOGRAPHIC_POSITIONS.find(position=>position.region==='Chest'&&position.projection.toUpperCase().startsWith('PA'))!;
 const paField=(1-(pa.startingField.left+pa.startingField.right)/100)*(1-(pa.startingField.top+pa.startingField.bottom)/100);
-if(paField<.75||paField>.9)throw new Error(`PA chest starting field ${(paField*100).toFixed(1)}% must provide clinically usable thoracic detector coverage`);
+if(paField<.06||paField>.14)throw new Error(`PA chest positioning field ${(paField*100).toFixed(1)}% must remain anchored to the thorax in the whole-patient view`);
 const state=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw+7,patientXPercent:3,patientYPercent:-2,beamXPercent:11,beamYPercent:5,tubeAngleDeg:4,sidCm:180,kVp:125,mAs:2,collimation:{left:10,right:12,top:8,bottom:9}}),options=projectionOptions(state);
 if(state.examination.view!=='PA'||state.source.positionMm[1]<=0||state.detector.normal[1]<=0)throw new Error('PA acquisition state must place source and detector normal on the anterior axis');
 if(options.rotationDeg!==7||options.centreXPercent!==8||options.centreYPercent!==7)throw new Error('DRR options must preserve patient rotation and beam-to-patient displacement');
@@ -40,3 +40,10 @@ const paNeutral=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg
 if(projectionOptions(paNeutral).rotationDeg!==0)throw new Error('PA preset yaw must project as zero relative rotation; projection view already encodes PA orientation');
 const paRotated=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw+12,patientXPercent:0,patientYPercent:0,beamXPercent:pa.startingField.centreX,beamYPercent:pa.startingField.centreY,tubeAngleDeg:pa.tubeAngleDeg,sidCm:pa.exposure.sidCm,kVp:pa.exposure.kVp,mAs:pa.exposure.mAs,collimation:pa.startingField});
 if(projectionOptions(paRotated).rotationDeg!==12)throw new Error('Patient rotation must be measured relative to the projection preset');
+
+const defaultMapped=projectionOptions(createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw,patientXPercent:0,patientYPercent:0,beamXPercent:pa.startingField.centreX,beamYPercent:pa.startingField.centreY,tubeAngleDeg:pa.tubeAngleDeg,sidCm:pa.exposure.sidCm,kVp:pa.exposure.kVp,mAs:pa.exposure.mAs,collimation:pa.startingField}));
+if(Math.abs(defaultMapped.centreXPercent??99)>.001||Math.abs(defaultMapped.centreYPercent??99)>.001)throw new Error('Default PA chest field must map to the centre of the dedicated chest CT');
+if(Object.values(defaultMapped.collimation??{}).some(v=>Math.abs(v)>.001))throw new Error('Default PA chest field must expose the full dedicated chest CT rather than inherit whole-body screen margins');
+const halfW=(100-pa.startingField.left-pa.startingField.right)/2,halfH=(100-pa.startingField.top-pa.startingField.bottom)/2,cx=pa.startingField.left+(100-pa.startingField.left-pa.startingField.right)/2,cy=pa.startingField.top+(100-pa.startingField.top-pa.startingField.bottom)/2,halfField={left:cx-halfW/2,right:100-(cx+halfW/2),top:cy-halfH/2,bottom:100-(cy+halfH/2)};
+const tightMapped=projectionOptions(createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw,patientXPercent:0,patientYPercent:0,beamXPercent:0,beamYPercent:0,tubeAngleDeg:0,sidCm:180,kVp:125,mAs:2,collimation:halfField}));
+if((tightMapped.collimation?.left??0)<20||(tightMapped.collimation?.right??0)<20||(tightMapped.collimation?.top??0)<20||(tightMapped.collimation?.bottom??0)<20)throw new Error('Tighter light-field collimation must become a centred regional detector crop');
