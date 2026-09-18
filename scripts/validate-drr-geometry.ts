@@ -30,3 +30,8 @@ const shifted=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,pa
 if(!shifted.anatomyBounds||!chest.anatomyBounds)throw new Error('Patient translation validation requires anatomy bounds');
 if(Math.abs(shifted.anatomyBounds.left-chest.anatomyBounds.left)<3&&Math.abs(shifted.anatomyBounds.top-chest.anatomyBounds.top)<3)throw new Error('Patient translation is not represented in the generated DRR');
 console.log('Validated DRR geometry invariants.');
+
+const contrast=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:18,right:18,top:13,bottom:17},centreYPercent:-8});
+const vals=Array.from(contrast.pixels).filter(v=>v>8).sort((a,b)=>a-b),p=(q:number)=>vals[Math.min(vals.length-1,Math.floor((vals.length-1)*q))]??0;
+if(p(.95)-p(.05)<45)throw new Error(`DRR display contrast regression: P95-P05=${p(.95)-p(.05)}`);
+if(p(.95)>=245&&p(.5)>=235)throw new Error('DRR display saturation regression: chest image is predominantly clipped white');
