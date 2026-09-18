@@ -12,6 +12,8 @@ const air=projectVolume(airVolume,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,col
 const detectorCoverage=air.pixels.filter(value=>value>8).length/air.pixels.length;
 if(detectorCoverage<.99)throw new Error(`DRR exposed-air regression: detector coverage ${(detectorCoverage*100).toFixed(1)}% must exceed 99%`);
 const pa=RADIOGRAPHIC_POSITIONS.find(position=>position.region==='Chest'&&position.projection.toUpperCase().startsWith('PA'))!;
+const paField=(1-(pa.startingField.left+pa.startingField.right)/100)*(1-(pa.startingField.top+pa.startingField.bottom)/100);
+if(paField<.7)throw new Error(`PA chest starting field occupies only ${(paField*100).toFixed(1)}% of the detector`);
 const state=createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:7,patientXPercent:3,patientYPercent:-2,beamXPercent:11,beamYPercent:5,tubeAngleDeg:4,sidCm:180,kVp:125,mAs:2,collimation:{left:10,right:12,top:8,bottom:9}}),options=projectionOptions(state);
 if(state.examination.view!=='PA'||state.source.positionMm[1]<=0||state.detector.normal[1]<=0)throw new Error('PA acquisition state must place source and detector normal on the anterior axis');
 if(options.rotationDeg!==7||options.centreXPercent!==8||options.centreYPercent!==7)throw new Error('DRR options must preserve patient rotation and beam-to-patient displacement');

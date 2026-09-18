@@ -4,13 +4,14 @@ import{resolve}from'node:path';
 import{projectVolume,type ProjectionOptions}from'../src/core/drr';
 import{createTeachingVolume}from'../src/core/teaching-volume';
 import type{PatientVolume,VolumeManifest}from'../src/core/volume';
+import{RADIOGRAPHIC_POSITIONS}from'../src/core/radiographic-positions';
 
 const root=resolve(import.meta.dirname,'..'),caseDir=resolve(root,'public/cases/regional/male/chest'),outputDir=resolve(process.argv[2]??'/tmp/bucky-drr-validation');
 const manifest=JSON.parse(await readFile(resolve(caseDir,'manifest.json'),'utf8'))as VolumeManifest;
 const packed=await readFile(resolve(caseDir,'volume.i16.gz')),raw=gunzipSync(packed),view=new DataView(raw.buffer,raw.byteOffset,raw.byteLength),hu=new Int16Array(raw.byteLength/2);
 for(let i=0;i<hu.length;i++)hu[i]=view.getInt16(i*2,true);
 const source:PatientVolume={manifest,hu,regions:[]},volume=createTeachingVolume(source,'real-source');
-const base:ProjectionOptions={view:'PA',stepVoxels:2,kVp:125,mAs:2,sidCm:180,rotationDeg:0,collimation:{left:0,right:0,top:0,bottom:0},centreXPercent:0,centreYPercent:0,tubeAngleDeg:0,detectorWidthCm:35,detectorHeightCm:43,seed:17};
+const chestPa=RADIOGRAPHIC_POSITIONS.find(position=>position.id==='chest-pa-erect')!,base:ProjectionOptions={view:'PA',stepVoxels:2,kVp:125,mAs:2,sidCm:180,rotationDeg:0,collimation:chestPa.startingField,centreXPercent:chestPa.startingField.centreX,centreYPercent:chestPa.startingField.centreY,tubeAngleDeg:0,detectorWidthCm:35,detectorHeightCm:43,seed:17};
 const cases:Record<string,ProjectionOptions>={
  'pa-reference':base,
  'rotation-12deg':{...base,rotationDeg:12},
