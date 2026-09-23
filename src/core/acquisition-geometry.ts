@@ -18,7 +18,7 @@ const map=(v:number,a0:number,a1:number,b0:number,b1:number)=>Math.abs(a1-a0)<1e
  * homologous CT landmarks. The regional box remains the fallback/coverage contract only.
  */
 export function createAcquisitionState(input:AcquisitionInput):AcquisitionState{
- const{position}=input,view=projectionView(position.projection),landscape=position.detector==='landscape',dimensionsCm=landscape?[43,35]as const:[35,43]as const;
+ const{position}=input,view=projectionView(position.projection),lateral=view==='LATERAL',landscape=position.detector==='landscape',dimensionsCm=landscape?[43,35]as const:[35,43]as const;
  const preset=position.startingField,presetW=Math.max(1,100-preset.left-preset.right),presetH=Math.max(1,100-preset.top-preset.bottom),currentW=Math.max(1,100-input.collimation.left-input.collimation.right),currentH=Math.max(1,100-input.collimation.top-input.collimation.bottom);
  const presetCx=preset.left+presetW/2+preset.centreX,presetCy=preset.top+presetH/2+preset.centreY,currentCx=input.collimation.left+currentW/2+input.beamXPercent,currentCy=input.collimation.top+currentH/2+input.beamYPercent,screenDx=currentCx-presetCx,screenDy=currentCy-presetCy;
  const centreX=screenDx/presetW*100-input.patientXPercent,centreY=screenDy/presetH*100-input.patientYPercent,beamW=clamp(currentW/presetW*100,4,100),beamH=clamp(currentH/presetH*100,4,100);
