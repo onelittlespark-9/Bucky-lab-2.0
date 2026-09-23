@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { PatientVolume } from "../core/volume";
 import type { PatientSex } from "../core/patients";
 import type {
@@ -6,7 +6,8 @@ import type {
   RespirationInstruction,
 } from "../core/radiographic-positions";
 import type { RadiographicPosition } from "../core/radiographic-positions";
-import { ArticulatedPatient } from "./ArticulatedPatient";
+import { ArticulatedPatient, type PatientScreenRegistration } from "./ArticulatedPatient";
+import type { ScreenPatientRegistration } from "../core/acquisition-geometry";
 import "./PatientPositioner.css";
 type Field = {
   x: number;
@@ -33,6 +34,7 @@ type Props = {
   instructions?: string[];
   respiration?: RespirationInstruction;
   onRotation: (v: number) => void;
+  onScreenRegistration?: (v: ScreenPatientRegistration) => void;
   onBeam?: (x: number, y: number) => void;
   onField?: (v: {
     left: number;
@@ -63,10 +65,12 @@ export function PatientPositioner({
   instructions = [],
   respiration = "none",
   onRotation,
+  onScreenRegistration,
   onBeam,
   onField,
 }: Props) {
   const stage = useRef<HTMLDivElement>(null),
+    anatomy = useRef<HTMLDivElement>(null),
     drag = useRef<{
       mode: "move" | "resize";
       sx: number;
@@ -136,6 +140,13 @@ export function PatientPositioner({
       return n;
     });
   }
+  const reportRegistration = useCallback((v:PatientScreenRegistration) => {
+    const sr=stage.current?.getBoundingClientRect(),ar=anatomy.current?.getBoundingClientRect();
+    if(!sr||!ar||!sr.width||!sr.height)return;
+    const x=(n:number)=>(ar.left-sr.left+n*ar.width)/sr.width*100,
+      y=(n:number)=>(ar.top-sr.top+n*ar.height)/sr.height*100;
+    onScreenRegistration?.({headY:y(v.headY),pelvisY:y(v.pelvisY),leftShoulderX:x(v.leftShoulderX),rightShoulderX:x(v.rightShoulderX)});
+  },[onScreenRegistration]);
   const shoulder = instructions.find((v) => /shoulder/i.test(v)),
     breathing = instructions.find((v) =>
       /breath|inspiration|expiration|hold/i.test(v),
@@ -146,12 +157,13 @@ export function PatientPositioner({
   return (
     <div className="patient-positioner" ref={stage}>
       <div
+        ref={anatomy}
         className={`anatomy-patient real-mesh skin-patient ${activeSex}`}
         style={{
           transform: `translate(${x * 0.7}%,${-y * 0.7}%)`,
         }}
       >
-        <ArticulatedPatient pose={pose} rotation={rotation} />
+        <ArticulatedPatient pose={pose} rotation={rotation} onRegistration={reportRegistration} />
         <span className="patient-sex-badge">{activeSex.toUpperCase()}</span>
         <span className="pose-fidelity-badge">ARTICULATED · CC0</span>
       </div>
