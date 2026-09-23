@@ -59,3 +59,8 @@ const highField=projectionOptions(createAcquisitionState({position:pa,patientSex
 if(!highField.sourceCentreVoxel||highField.sourceCentreVoxel[2]<=mappedDefault.sourceCentreVoxel[2]+35)throw new Error('Moving the light field superiorly on the rendered patient must move the DRR target superiorly in source CT');
 const lowField=projectionOptions(createAcquisitionState({position:pa,patientSex:'male',bodyYawDeg:pa.pose.bodyYaw,patientXPercent:0,patientYPercent:0,beamXPercent:pa.startingField.centreX,beamYPercent:pa.startingField.centreY+12,tubeAngleDeg:0,sidCm:180,kVp:125,mAs:2,collimation:pa.startingField,regionalGeometry,screenRegistration}));
 if(!lowField.sourceCentreVoxel||lowField.sourceCentreVoxel[2]>=mappedDefault.sourceCentreVoxel[2]-35)throw new Error('Moving the light field inferiorly on the rendered patient must move the DRR target inferiorly in source CT');
+
+const targetA=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:0,right:0,top:0,bottom:0},sourceCentreVoxel:[58,45,30]});
+const targetB=projectVolume(tissue,{kVp:125,mAs:2,sidCm:180,view:'PA',seed:17,collimation:{left:0,right:0,top:0,bottom:0},sourceCentreVoxel:[58,45,75]});
+let changed=0,totalDelta=0;for(let i=0;i<targetA.pixels.length;i++){const d=Math.abs(targetA.pixels[i]-targetB.pixels[i]);totalDelta+=d;if(d>8)changed++}
+if(changed/targetA.pixels.length<.08||totalDelta/targetA.pixels.length<3)throw new Error('DRR sourceCentreVoxel regression: moving the mapped anatomical target must materially change the radiograph');
