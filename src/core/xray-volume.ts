@@ -3,18 +3,24 @@ import{PATIENTS,type PatientSex}from'./patients';
 import type{PatientSide}from'./limb-regions';
 import{resolveExaminationXrayModel,xrayAvailabilityMessage,type XrayAnatomyModel}from'./xray-anatomy';
 
-export interface RegionalGeometry{sourceBounds:VoxelBounds;sourcePatient:{dimensions:[number,number,number]}}
-/**
- * Radiography is traced through the canonical source-patient CT, not a detached regional crop.
- * The dedicated regional manifest remains the anatomical registration/availability contract.
- */
+export interface SourcePatientAnchors{headZ:number;pelvisZ:number;leftShoulderX:number;rightShoulderX:number}
+export interface RegionalGeometry{sourceBounds:VoxelBounds;sourcePatient:{dimensions:[number,number,number]};sourceAnchors:SourcePatientAnchors}
 export interface XrayVolumeSource{model:XrayAnatomyModel;volume:PatientVolume;regionalGeometry:RegionalGeometry}
 
+const centre=(b:VoxelBounds,axis:'x'|'y'|'z')=>(b[axis+'0' as keyof VoxelBounds]+b[axis+'1' as keyof VoxelBounds])/2;
+function sourceAnchors(v:PatientVolume):SourcePatientAnchors{
+ const pick=(names:string[])=>v.regions.filter(r=>names.includes(r.region));
+ const avg=(regions:typeof v.regions,axis:'x'|'z',fallback:number)=>regions.length?regions.reduce((n,r)=>n+centre(r.bounds,axis),0)/regions.length:fallback;
+ const[dX,,dZ]=v.manifest.dimensions;
+ const head=pick(['skull','brain']),pelvis=pick(['hip_left','hip_right','sacrum']);
+ const leftShoulder=pick(['clavicula_left','scapula_left','humerus_left']),rightShoulder=pick(['clavicula_right','scapula_right','humerus_right']);
+ return{headZ:avg(head,'z',dZ-1),pelvisZ:avg(pelvis,'z',0),leftShoulderX:avg(leftShoulder,'x',dX*.35),rightShoulderX:avg(rightShoulder,'x',dX*.65)};
+}
+
 /**
- * Resolve the examination's verified regional anatomy, then load the same patient's canonical
- * source CT for projection. This keeps the light field, displayed patient and DRR in one patient
- * coordinate frame: moving the field superiorly/inferiorly genuinely changes the anatomy crossed
- * by the rays instead of recentring an isolated chest crop.
+ * Load the canonical patient CT and keep the examination's verified regional registration.
+ * Screen-to-CT targeting is then landmark registered rather than inferred from arbitrary stage
+ * percentages or from an isolated crop.
  */
 export async function loadExaminationXrayVolume(sex:PatientSex,examinationRegion:string,side?:PatientSide):Promise<XrayVolumeSource>{
  const model=resolveExaminationXrayModel(sex,examinationRegion,side);
@@ -26,9 +32,7 @@ export async function loadExaminationXrayVolume(sex:PatientSex,examinationRegion
  const volume=await loadVolume(`/cases/${patient.caseId}/manifest.json`);
  const[d0,d1,d2]=coverage.sourcePatient.dimensions,[v0,v1,v2]=volume.manifest.dimensions;
  if(d0!==v0||d1!==v1||d2!==v2)throw new Error(`Regional/source geometry mismatch: ${d0}x${d1}x${d2} != ${v0}x${v1}x${v2}`);
- return{model,volume,regionalGeometry:{sourceBounds:coverage.sourceBounds,sourcePatient:{dimensions:coverage.sourcePatient.dimensions}}};
+ return{model,volume,regionalGeometry:{sourceBounds:coverage.sourceBounds,sourcePatient:{dimensions:coverage.sourcePatient.dimensions},sourceAnchors:sourceAnchors(volume)}};
 }
 
-export function canExposeExamination(sex:PatientSex,examinationRegion:string,side?:PatientSide){
- return resolveExaminationXrayModel(sex,examinationRegion,side)!==null;
-}
+export function canExposeExamination(sex:PatientSex,examinationRegion:string,side?:PatientSide){return resolveExaminationXrayModel(sex,examinationRegion,side)!==null}
