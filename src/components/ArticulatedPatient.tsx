@@ -10,6 +10,7 @@ type Rig = {
   joints: Record<string, number[]>;
 };
 type Weights = { weights: Record<string, [number, number][]> };
+export type PatientScreenRegistration = { headY:number; pelvisY:number; leftShoulderX:number; rightShoulderX:number };
 type PatientModel = {
   positions: Float32Array;
   indices: Uint32Array;
@@ -100,7 +101,7 @@ function applyPose(model: PatientModel, pose: FullBodyPose, rotation: number) {
   model.skeleton.update();
 }
 
-function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
+function drawPatient(canvas: HTMLCanvasElement, model: PatientModel, onRegistration?: (v:PatientScreenRegistration)=>void) {
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Canvas 2D rendering is unavailable");
   const ratio = Math.min(window.devicePixelRatio || 1, 2),
@@ -157,6 +158,8 @@ function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
   const scale = Math.min(width / 12, height / 20),
     centreX = width / 2,
     centreY = height * 0.51,
+    projectBone=(name:string)=>{const p=new THREE.Vector3();model.bones[name]?.getWorldPosition(p);return{x:(centreX+p.x*scale)/width,y:(centreY-p.y*scale)/height}},
+    head=projectBone("head"),hipL=projectBone("upperleg01.L"),hipR=projectBone("upperleg01.R"),shoulderL=projectBone("upperarm01.L"),shoulderR=projectBone("upperarm01.R"),
     light = new THREE.Vector3(-0.35, 0.25, 1).normalize(),
     ab = new THREE.Vector3(),
     ac = new THREE.Vector3(),
@@ -184,6 +187,7 @@ function drawPatient(canvas: HTMLCanvasElement, model: PatientModel) {
     context.closePath();
     context.fill();
   }
+  onRegistration?.({headY:head.y,pelvisY:(hipL.y+hipR.y)/2,leftShoulderX:shoulderL.x,rightShoulderX:shoulderR.x});
 }
 
 function buildPatient(obj: string, rigText: string, weightsText: string) {
@@ -247,9 +251,11 @@ function buildPatient(obj: string, rigText: string, weightsText: string) {
 export function ArticulatedPatient({
   pose,
   rotation,
+  onRegistration,
 }: {
   pose: FullBodyPose;
   rotation: number;
+  onRegistration?: (v:PatientScreenRegistration)=>void;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null),
     model = useRef<PatientModel | null>(null),
@@ -260,7 +266,7 @@ export function ArticulatedPatient({
     if (!element) return;
     let disposed = false;
     const resize = new ResizeObserver(() => {
-      if (model.current) drawPatient(element, model.current);
+      if (model.current) drawPatient(element, model.current,onRegistration);
     });
     resize.observe(element);
     Promise.all([
@@ -276,7 +282,7 @@ export function ArticulatedPatient({
           current.current.pose,
           current.current.rotation,
         );
-        drawPatient(element, model.current);
+        drawPatient(element, model.current,onRegistration);
       })
       .catch((error) => {
         element.dataset.error = String(error);
@@ -290,8 +296,8 @@ export function ArticulatedPatient({
   useEffect(() => {
     if (!canvas.current || !model.current) return;
     applyPose(model.current, pose, rotation);
-    drawPatient(canvas.current, model.current);
-  }, [pose, rotation]);
+    drawPatient(canvas.current, model.current,onRegistration);
+  }, [pose, rotation,onRegistration]);
   return (
     <canvas
       ref={canvas}
