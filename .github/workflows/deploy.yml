@@ -38,6 +38,21 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install browser for reference regression
+        run: npx playwright install --with-deps chromium
+
+      - name: Validate reference switching
+        shell: bash
+        run: |
+          npm exec vite -- preview --host 127.0.0.1 &
+          PREVIEW_PID=$!
+          trap 'kill "$PREVIEW_PID"' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173 > /dev/null; then break; fi
+            sleep 1
+          done
+          npm run validate:reference
+
       - name: Verify Cloudflare credentials
         shell: bash
         env:

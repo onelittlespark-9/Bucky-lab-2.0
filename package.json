@@ -12,7 +12,8 @@
     "render:drr": "node --import tsx scripts/render-drr-reference.ts",
     "validate:patient": "node scripts/validate-articulated-patient.mjs",
     "validate:drr": "node --import tsx scripts/validate-drr-geometry.ts",
-    "validate:ct-series": "node --import tsx scripts/validate-ct-series.ts"
+    "validate:ct-series": "node --import tsx scripts/validate-ct-series.ts",
+    "validate:reference": "node scripts/validate-reference-library.mjs"
   },
   "dependencies": {
     "@types/three": "^0.186.0",
@@ -24,6 +25,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.1",
+    "playwright": "1.51.1",
     "tsx": "^4.20.0",
     "typescript": "7.0.2",
     "vite": "8.3.0",
