@@ -11,3 +11,5 @@
 .reference-exposure{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px;padding:14px;border-radius:16px;background:#102538;border:1px solid #31546f}.reference-exposure span,.reference-exposure strong{padding:7px 10px;border-radius:10px;background:#0a1723;border:1px solid #35546a}.reference-exposure strong{background:#15334a}.reference-source-note{font-size:.85rem;color:#8fa2b2;margin:12px 3px 0}
 @media(max-width:900px){.reference-image-grid{grid-template-columns:1fr}.reference-teaching-grid{grid-template-columns:1fr 1fr}.reference-patient-frame,.reference-xray-frame{min-height:430px}.reference-xray-frame canvas{max-height:430px}}
 @media(max-width:560px){.exposure-library{padding:13px;border-radius:18px}.reference-teaching-grid{grid-template-columns:1fr}.reference-patient-frame,.reference-xray-frame{min-height:390px}.reference-library-head label{min-width:100%}.reference-xray-frame canvas{max-height:390px}}
+
+.reference-static-frame{display:flex;align-items:center;justify-content:center;padding:0;background:#02080d}.reference-static-image{display:block;width:100%;height:100%;object-fit:contain;border-radius:14px}
