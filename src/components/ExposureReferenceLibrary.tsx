@@ -16,6 +16,7 @@ function draw(canvas:HTMLCanvasElement,pixels:Uint8ClampedArray,width:number,hei
 }
 
 function PatientReference({entry,field}:{entry:ExposureReferenceEntry;field:boolean}){
+ const staticImage=field?entry.collimationImage:entry.positionImage;if(staticImage)return <div className="reference-patient-frame reference-static-frame"><img className="reference-static-image" src={staticImage} alt={`${entry.title} ${field?'collimation':'positioning'} reference`}/></div>;
  const p=RADIOGRAPHIC_POSITIONS.find(x=>x.id===entry.id)??RADIOGRAPHIC_POSITIONS[0],f=p.startingField;
  const width=100-f.left-f.right,height=100-f.top-f.bottom,left=f.left+f.centreX,top=f.top+f.centreY;
  return <div className="reference-patient-frame">
