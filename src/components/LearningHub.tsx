@@ -24,14 +24,16 @@ export function LearningHub({pathology, onXray, onCt}: {
     {!selected && <div className="area-grid">{AREAS.map(a => <button className="area-card" key={a.id} onClick={() => setArea(a.id)}>
       <strong>{a.title}</strong><span>{a.summary}</span><span className="area-link">Open area →</span>
     </button>)}</div>}
-    {module && <article className="learning-topic learning-detail"><h2>{module.title}</h2>
+    {module && area !== 'pathology' && <article className="learning-topic learning-detail"><h2>{module.title}</h2>
       <ul>{module.points.map(point => <li key={point}>{point}</li>)}</ul>
     </article>}
     {area === 'anatomy' && <article className="learning-detail"><h2>Anatomy labelling</h2>
       <p>Open an acquired X-ray or CT image, then activate Learning overlay to review the available labels.</p>
       <div className="learning-actions"><button onClick={onXray}>Choose an X-ray examination</button><button onClick={onCt}>Open CT lab</button></div>
     </article>}
-    {area === 'pathology' && <>{pathology}<div className="learning-actions"><button onClick={onCt}>Practise CT review</button></div></>}
+    {area === 'pathology' && <>{pathology}<details className="pathology-search-reminder"><summary>Systematic search reminder</summary>
+      <ul><li>Inspect the complete image before focusing on the suspected abnormality.</li><li>Describe location, morphology and effect on adjacent structures.</li><li>Reveal the findings after forming an initial interpretation.</li></ul>
+    </details><div className="learning-actions"><button onClick={onCt}>Practise CT review</button></div></>}
     {area === 'reference' && <ExposureReferenceLibrary/>}
     {(area === 'positioning' || area === 'exposure' || area === 'room') && <div className="learning-actions">
       <button onClick={() => setArea('reference')}>Browse examination reference</button>

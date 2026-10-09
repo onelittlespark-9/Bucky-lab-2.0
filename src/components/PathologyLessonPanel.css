@@ -1,0 +1,15 @@
+.pathology-panel>label{max-width:480px;margin-bottom:0}.pathology-panel>select{max-width:480px;display:block}
+.pathology-case-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:24px;align-items:start;margin-top:24px}
+.pathology-figure{margin:0;min-width:0}.pathology-image-frame{background:#010407;border:1px solid #31485d;border-radius:12px;overflow:hidden;min-height:300px;display:flex;align-items:center;justify-content:center}
+.pathology-image-frame img{display:block;width:100%;height:auto;max-height:650px;object-fit:contain}.pathology-image-frame img[hidden]{display:none}
+.pathology-image-frame>p,.pathology-image-frame>[role=alert]{padding:20px;text-align:center}
+.pathology-figure figcaption{font-size:13px;color:#afc1d1;line-height:1.5;margin:12px 0}.pathology-figure figcaption strong{color:#e8f0f7}
+.pathology-findings h3{margin:10px 0;font-size:25px}.pathology-findings li{margin:10px 0;line-height:1.6;color:#c7d3dc}.pathology-findings ul{padding-left:20px}
+.pathology-panel a,.pathology-dialog a{color:#85d0e4;text-underline-offset:3px}
+.pathology-limitation{font-size:13px;padding:14px;border-left:3px solid #627e92;background:#07111f}
+.pathology-credit{font-size:12px;line-height:1.6;color:#afc1d1;overflow-wrap:anywhere}.pathology-guidance{margin-top:24px}
+.pathology-search-reminder{margin-top:18px;color:#afc1d1;line-height:1.6}.pathology-search-reminder summary{cursor:pointer;min-height:44px;padding:10px 0;color:#e8f0f7}
+.pathology-dialog{background:#07111f;color:#e8f0f7;border:1px solid #627e92;border-radius:14px;max-width:1100px;width:95vw;max-height:94vh;padding:18px}
+.pathology-dialog::backdrop{background:#000c}.pathology-dialog-bar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#07111f;padding:8px 0}
+.pathology-dialog img{display:block;max-width:100%;width:auto;height:auto;max-height:75vh;margin:auto;object-fit:contain}
+@media(max-width:760px){.pathology-case-grid{grid-template-columns:1fr;gap:24px}.pathology-panel{padding:16px}.pathology-image-frame{min-height:220px}.pathology-figure>button{width:100%}.pathology-dialog{padding:10px}.pathology-dialog-bar strong{font-size:13px}.pathology-dialog-bar button{flex-shrink:0}}

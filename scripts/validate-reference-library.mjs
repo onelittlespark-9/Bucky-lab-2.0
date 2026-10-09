@@ -17,7 +17,8 @@ try{
   for(const title of titles){
    await hub.getByRole('button',{name:title,exact:false}).click();
    assert.equal(await hub.locator('h1').innerText(),title);
-   assert.equal(await hub.locator('img, canvas, .reference-patient').count(),0);
+   assert.equal(await hub.locator('canvas, .reference-patient').count(),0);
+   if(title!=='Pathology search strategy')assert.equal(await hub.locator('img').count(),0);
    assert.equal(await hub.locator('.area-card').count(),0);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
    if(title==='Examination reference'){
@@ -32,6 +33,46 @@ try{
     assert.match(await library.innerText(),/90/);
     await select.selectOption('chest-pa-erect');
     assert.equal(await select.inputValue(),'chest-pa-erect');
+   }
+   if(title==='Pathology search strategy'){
+    const select=hub.getByLabel('Pathology',{exact:true});
+    const cases=[['pneumothorax','pneumothorax.jpg',877,807],['pleural-effusion','pleural-effusion.png',1030,871],['intracranial-haemorrhage','intracranial-haemorrhage.jpg',1200,1484]];
+    for(const [id,file,width,height] of cases){
+     await select.selectOption(id);
+     const frame=hub.locator('.pathology-image-frame');
+     await page.waitForFunction(()=>document.querySelector('.pathology-image-frame')?.dataset.state==='ready');
+     assert.equal(await frame.locator('img').getAttribute('src'),`/pathology/${file}`);
+     assert.deepEqual(await frame.locator('img').evaluate(i=>[i.naturalWidth,i.naturalHeight]),[width,height]);
+     assert.equal(await hub.getByRole('button',{name:'Reveal findings'}).getAttribute('aria-expanded'),'false');
+     assert.equal(await hub.locator('.pathology-guidance').count(),0);
+     await hub.getByRole('button',{name:'Reveal findings'}).click();
+     assert.equal(await hub.getByRole('heading',{name:'Findings in this image'}).isVisible(),true);
+     assert.equal(await hub.locator('.pathology-credit a').count()>0,true);
+     await hub.getByRole('button',{name:'Enlarge image'}).click();
+     assert.equal(await page.getByRole('dialog').isVisible(),true);
+     assert.equal(await page.getByRole('dialog').locator('img').getAttribute('src'),`/pathology/${file}`);
+     await page.keyboard.press('Escape');
+     assert.equal(await page.getByRole('dialog').count(),0);
+     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    }
+    // A failed image must not leave another diagnosis's image visible; retry must recover.
+    await page.route('**/pathology/pleural-effusion.png',route=>route.fulfill({status:503,body:'unavailable'}));
+    await select.selectOption('pleural-effusion');
+    await hub.getByRole('alert').waitFor();
+    assert.equal(await hub.locator('.pathology-image-frame img').count(),0);
+    assert.equal(await hub.getByRole('button',{name:'Enlarge image'}).isDisabled(),true);
+    await page.unroute('**/pathology/pleural-effusion.png');
+    await hub.getByRole('button',{name:'Retry image'}).click();
+    await page.waitForFunction(()=>document.querySelector('.pathology-image-frame')?.dataset.state==='ready');
+    // A late response from a previous selection cannot replace the current image.
+    let release,arrived;
+    const gate=new Promise(r=>{release=r}),requested=new Promise(r=>{arrived=r});
+    await page.route('**/pathology/pneumothorax.jpg',async route=>{arrived();await gate;await route.continue()});
+    await select.selectOption('pneumothorax');await requested;
+    await select.selectOption('intracranial-haemorrhage');
+    release();await page.waitForLoadState('networkidle');
+    assert.equal(await hub.locator('.pathology-image-frame img').getAttribute('src'),'/pathology/intracranial-haemorrhage.jpg');
+    await page.unroute('**/pathology/pneumothorax.jpg');
    }
    await hub.getByRole('button',{name:'All learning areas'}).click();
   }
@@ -64,7 +105,7 @@ try{
   assert.equal(await exams.isVisible(),true);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   assert.deepEqual(errors,[]);
-  console.log(`Learning areas, all reference projections without images, exam selection and return navigation passed (${viewport.width}px).`);
+  console.log(`Learning areas, pathology images/reveal/enlargement/error recovery, image-free positioning references and exam navigation passed (${viewport.width}px).`);
   await page.close();
  }
 }finally{await browser.close()}
