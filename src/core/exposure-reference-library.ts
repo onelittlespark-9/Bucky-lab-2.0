@@ -61,7 +61,7 @@ const G:Record<string,Partial<Guidance>>={
 
 function build(p:RadiographicPosition):ExposureReferenceEntry{
  const g={...generic(p),...(G[p.id]??{})} as Guidance;
- const images=p.id==='elbow-ap'?{positionImage:'/reference/elbow-ap-position.svg',collimationImage:'/reference/elbow-ap-collimation.svg'}:p.id==='elbow-lateral'?{positionImage:'/reference/elbow-lateral-position.svg',collimationImage:'/reference/elbow-lateral-collimation.svg'}:{};
+ const images={positionImage:`/reference/${p.id}-position.svg`,collimationImage:`/reference/${p.id}-collimation.svg`};
  return{id:p.id,region:p.region,projection:p.projection,title:`${p.region} · ${p.projection}`,centringPoint:g.centringPoint,areaOfInterest:g.areaOfInterest,expectedAnatomy:g.expectedAnatomy,rotationChecks:g.rotationChecks,qualityChecks:g.qualityChecks,positioning:p.patientInstructions.length?p.patientInstructions:p.pose.notes.length?p.pose.notes:['Position the patient according to the selected projection and keep the required anatomy close to the receptor.'],exposure:{kVp:p.exposure.kVp,mAs:p.exposure.mAs,sidCm:p.exposure.sidCm,grid:!!p.exposure.grid,aec:!!p.exposure.aec},...images,sourceNote:'Positioning criteria are paraphrased from standard radiographic positioning guidance, including Clark’s Positioning in Radiography. Exposure factors are Bucky Lab departmental examples for an average adult and are not a universal clinical technique chart.'};
 }
 export const EXPOSURE_REFERENCE_LIBRARY=RADIOGRAPHIC_POSITIONS.map(build);

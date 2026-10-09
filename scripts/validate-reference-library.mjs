@@ -26,8 +26,7 @@ try{
     const projections=await select.locator('option').evaluateAll(options=>options.map(o=>o.value));
     for(const id of projections){
      await select.selectOption(id);
-     const expected=id==='elbow-ap'?['/reference/elbow-ap-position.svg','/reference/elbow-ap-collimation.svg']:
-       id==='elbow-lateral'?['/reference/elbow-lateral-position.svg','/reference/elbow-lateral-collimation.svg']:[];
+     const expected=[`/reference/${id}-position.svg`,`/reference/${id}-collimation.svg`];
      assert.equal(await library.locator('canvas').count(),0);
      assert.equal(await library.locator('.reference-illustration img').count(),expected.length);
      for(const src of expected){
@@ -37,10 +36,9 @@ try{
        const element=document.querySelector(`img[src="${path}"]`);
        return element instanceof HTMLImageElement && element.complete && element.naturalWidth>0;
       },src);
-      assert.ok((await img.getAttribute('alt')).includes('Elbow'));
+      assert.ok((await img.getAttribute('alt')).includes('diagram'));
      }
-     if(expected.length===0)assert.match(await library.locator('.reference-image-missing').innerText(),/not yet been validated/);
-     else assert.equal(await library.locator('.reference-image-missing').count(),0);
+     assert.equal(await library.locator('.reference-image-missing').count(),0);
      assert.ok((await library.locator('.reference-summary').innerText()).length>30);
     }
     await select.selectOption('elbow-lateral');
