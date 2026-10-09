@@ -8,6 +8,9 @@ on:
       - 'scripts/prepare-clinical-radiographs.mjs'
       - 'scripts/prepare-learning-anatomy.mjs'
       - 'src/core/anatomy-image-sources.json'
+      - 'src/core/learning-photo-sources.json'
+      - 'scripts/prepare-learning-photos.mjs'
+      - 'scripts/create-exposure-demonstrations.py'
   workflow_dispatch:
 
 permissions:
@@ -25,6 +28,12 @@ jobs:
         run: node scripts/prepare-clinical-radiographs.mjs
       - name: Download and verify real Learning anatomy
         run: node scripts/prepare-learning-anatomy.mjs
+      - name: Download authentic X-ray room photography
+        run: node scripts/prepare-learning-photos.mjs
+      - name: Build qualitative comparison for exposure learning
+        run: |
+          python3 -m pip install --user Pillow==11.3.0
+          python3 scripts/create-exposure-demonstrations.py
       - name: Commit reviewed assets
         run: |
           git config user.name "github-actions[bot]"

@@ -12,8 +12,9 @@ const AREAS = [
 
 function LearningExample({item}: {item: LearningVisual}) {
   const [labelled,setLabelled]=useState(true);
-  return <figure className={item.kind==='clinical'?'learning-example learning-example--clinical':'learning-example'}>
-    {item.kind==='clinical'?<div className="learning-clinical-stage">
+  const sourced=item.kind==='clinical'||item.kind==='photograph'||item.kind==='derived';
+  return <figure className={sourced?'learning-example learning-example--clinical':'learning-example'}>
+    {sourced?<div className="learning-clinical-stage">
       <div className="learning-clinical-image-wrap">
         <img className="learning-example-image learning-clinical-image" src={item.src} alt={item.alt} loading="eager" decoding="async"/>
         {labelled&&item.markers?.map((m,i)=><span className="learning-clinical-marker" key={m.label}
@@ -22,25 +23,25 @@ function LearningExample({item}: {item: LearningVisual}) {
     </div>:<img className="learning-example-image" src={item.src} alt={item.alt} loading="eager" decoding="async"/>}
     <figcaption>
       <strong>{item.title}</strong><p>{item.caption}</p>
-      {item.kind==='clinical'&&<>
+      {sourced&&<>
         {item.markers&&<div className="learning-clinical-key">
           <button type="button" aria-pressed={labelled} onClick={()=>setLabelled(v=>!v)}>{labelled?'Hide':'Show'} anatomy pointers</button>
           <ol>{item.markers.map(m=><li key={m.label}>{m.label}</li>)}</ol>
         </div>}
-        <p className="learning-clinical-credit">Real clinical image: {item.source?.author}. <a href={item.source?.url} target="_blank" rel="noopener noreferrer">View source</a> · {item.source?.licence}. These examples are not produced by the simulator.</p>
+        <p className="learning-clinical-credit">{item.kind==='photograph'?'Real photograph':item.kind==='derived'?'Digitally modified teaching image':'Published clinical image'}: {item.source?.author}. <a href={item.source?.url} target="_blank" rel="noopener noreferrer">View source</a> · {item.source?.licence}. These examples are not produced by the simulator.</p>
       </>}
     </figcaption>
   </figure>;
 }
 function VisualExamples({items}: {items: LearningVisual[]}) {
-  const clinical=items.some(item=>item.kind==='clinical');
+  const clinical=items.some(item=>item.kind!=='schematic'&&!!item.kind);
   return <section className="learning-visual-section" aria-label="Teaching images and examples">
     <h2>Visual examples</h2>
     <div className={clinical?'learning-visual-grid learning-visual-grid--clinical':'learning-visual-grid'}>
-      {items.map(item=><LearningExample key={item.src} item={item}/>)}
+      {items.map(item=><LearningExample key={item.title+item.src} item={item}/>)}
     </div>
     <p className="learning-visual-provenance">{clinical
-      ?'Clinical images are separate, credited examples; pointers show approximate anatomical locations. They are not the live simulator patient or a substitute for interpreting a complete examination.'
+      ?'Sourced photographs and clinical images are credited alongside their teaching purpose. Digitally derived comparisons are identified as simulations. Anatomical pointers are approximate, not validated radiological segmentations or measurements.'
       :'Generated educational teaching diagrams are illustrative and not to scale. They are not patient images or substitutes for validated clinical positioning references.'}</p>
   </section>;
 }

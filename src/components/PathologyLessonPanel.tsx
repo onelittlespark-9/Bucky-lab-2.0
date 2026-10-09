@@ -52,7 +52,7 @@ function ReferenceCase({image, lesson}: {image: PathologyImage; lesson: Patholog
     {revealed && <figure className="learning-pathology-visual">
       <img className="learning-example-image" src={PATHOLOGY_VISUAL[lesson.id].src} alt={PATHOLOGY_VISUAL[lesson.id].alt} loading="eager"/>
       <figcaption><strong>{PATHOLOGY_VISUAL[lesson.id].title}</strong><p>{PATHOLOGY_VISUAL[lesson.id].caption}</p>
-        <p>Generated explanation of the finding, not a reproduction of the reference case or a clinical scan.</p></figcaption>
+        <p>Published clinical reference image shown again for the teaching discussion. The original image is unchanged; refer to the diagnostic features identified above.</p><p>Source: {image.author} · <a href={image.sourceUrl} target="_blank" rel="noopener noreferrer">{image.licence}</a></p></figcaption>
     </figure>}
     {revealed && <div className="pathology-guidance"><h3>General lesson guidance</h3><LessonGuidance lesson={lesson}/></div>}
     <dialog ref={dialog} className="pathology-dialog" aria-label={`${lesson.title} enlarged reference`}>

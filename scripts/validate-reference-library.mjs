@@ -23,6 +23,12 @@ try{
    await hub.getByRole('button',{name:title,exact:false}).click();
    assert.equal(await hub.locator('h1').innerText(),title);
    assert.equal(await hub.locator('canvas, .reference-patient').count(),0);
+   if(title==='X-ray physics' || title==='Exposure factors' || title==='Room setup' || title==='Image critique & reporting'){
+    assert.equal(await hub.locator('.learning-example--clinical').count(),2);
+    const srcs=await hub.locator('.learning-example-image').evaluateAll(nodes=>nodes.map(el=>new URL(el.src).pathname));
+    assert.ok(srcs.every(src=>src.startsWith('/clinical-reference/')),title+' must use sourced/derived imaging');
+    assert.equal(await hub.locator('.learning-clinical-credit a').count(),2);
+   }
    if(title==='Radiographic anatomy'){
     const imgs=hub.locator('.learning-example-image');
     assert.deepEqual(await imgs.evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname)),
@@ -104,7 +110,7 @@ try{
      assert.equal(await hub.getByRole('heading',{name:'Findings in this image'}).isVisible(),true);
      const explanation=hub.locator('.learning-pathology-visual img');
      assert.equal(await explanation.count(),1);
-     assert.equal(await explanation.getAttribute('src'),`/learning/pathology-${id}.svg`);
+     assert.equal(await explanation.getAttribute('src'),`/pathology/${file}`);
      await explanation.evaluate(async img=>{if(!img.complete)await new Promise((ok,bad)=>{img.addEventListener('load',ok,{once:true});img.addEventListener('error',bad,{once:true});});if(img.naturalWidth===0)throw Error('Missing pathology explanatory diagram');});
      assert.equal(await hub.locator('.pathology-credit a').count()>0,true);
      await hub.getByRole('button',{name:'Enlarge image'}).click();

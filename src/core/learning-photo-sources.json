@@ -1,0 +1,26 @@
+{
+  "components-radiography": {
+    "file": "Components of projectional radiography.jpg",
+    "fileName": "components-radiography.jpg",
+    "type": "jpeg",
+    "sha1": "aba0c83f9b33c02192e4b8fadbe45a6d03ce7100",
+    "width": 1117,
+    "height": 864
+  },
+  "xray-room-philips": {
+    "file": "Hospital Radiology Room Philips DigitalDiagnost Digital Radiography System.jpg",
+    "fileName": "xray-room-philips.jpg",
+    "type": "jpeg",
+    "sha1": "8b426e0afda563b3cbc56bd2ba607c4c1d845415",
+    "width": 2460,
+    "height": 2584
+  },
+  "xray-room-college": {
+    "file": "X-ray Room.jpg",
+    "fileName": "xray-room-college.jpg",
+    "type": "jpeg",
+    "sha1": "0e3e95fb9405365728d23f5feec66f8a6d26eb1c",
+    "width": 3264,
+    "height": 2448
+  }
+}

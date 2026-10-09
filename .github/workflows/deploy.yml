@@ -33,6 +33,14 @@ jobs:
       - name: Prepare authentic Learning anatomy images
         run: node scripts/prepare-learning-anatomy.mjs
 
+      - name: Prepare real room and equipment photographs
+        run: node scripts/prepare-learning-photos.mjs
+
+      - name: Generate labelled exposure demonstrations
+        run: |
+          python3 -m pip install --user Pillow==11.3.0
+          python3 scripts/create-exposure-demonstrations.py
+
       - name: Typecheck
         run: npm run typecheck
 
