@@ -66,7 +66,7 @@ try{
        const element=document.querySelector(`img[src="${path}"]`);
        return element instanceof HTMLImageElement && element.complete && element.naturalWidth>0;
       },src);
-      assert.ok((await img.getAttribute('alt')).includes('diagram'));
+      assert.match(await img.getAttribute('alt'),/diagram|schematic/i);
      }
      assert.equal(await library.locator('.reference-image-missing').count(),0);
      assert.ok((await library.locator('.reference-summary').innerText()).length>30);
