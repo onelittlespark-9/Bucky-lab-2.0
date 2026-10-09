@@ -1,0 +1,34 @@
+name: Persist reviewed radiograph assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/core/real-radiograph-manifest.json'
+      - 'scripts/prepare-clinical-radiographs.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download and verify licensed images
+        run: node scripts/prepare-clinical-radiographs.mjs
+      - name: Commit reviewed assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/clinical-reference/*.jpg
+          if git diff --cached --quiet; then
+            echo "Clinical images already versioned."
+          else
+            git commit -m "Store verified CC0 radiograph assets for reference library"
+            git push origin HEAD:main
+          fi

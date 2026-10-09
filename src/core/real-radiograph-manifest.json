@@ -1,0 +1,122 @@
+{
+  "elbow-ap": {
+    "file": "X-ray of normal elbow by anteroposterior projection.jpg",
+    "note": "Left elbow, adult normal AP projection.",
+    "markers": [
+      {
+        "x": 51,
+        "y": 31,
+        "label": "Distal humerus"
+      },
+      {
+        "x": 61,
+        "y": 52,
+        "label": "Radial head"
+      },
+      {
+        "x": 35,
+        "y": 57,
+        "label": "Proximal ulna"
+      }
+    ],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_elbow_by_anteroposterior_projection.jpg"
+  },
+  "elbow-lateral": {
+    "file": "X-ray of normal elbow by lateral projection.jpg",
+    "note": "Left elbow, adult true lateral.",
+    "markers": [
+      {
+        "x": 74,
+        "y": 52,
+        "label": "Distal humerus"
+      },
+      {
+        "x": 62,
+        "y": 71,
+        "label": "Joint space"
+      },
+      {
+        "x": 48,
+        "y": 82,
+        "label": "Proximal ulna"
+      }
+    ],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_elbow_by_lateral_projection.jpg"
+  },
+  "wrist-pa": {
+    "file": "X-ray of normal wrist by dorsoplantar projection.jpg",
+    "note": "Normal PA wrist appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_wrist_by_dorsoplantar_projection.jpg"
+  },
+  "wrist-lateral": {
+    "file": "X-ray of normal wrist by lateral projection.jpg",
+    "note": "Normal lateral wrist appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_wrist_by_lateral_projection.jpg"
+  },
+  "hand-pa": {
+    "file": "X-ray of normal hand by dorsoplantar projection.jpg",
+    "note": "Normal PA hand appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_hand_by_dorsoplantar_projection.jpg"
+  },
+  "hand-oblique": {
+    "file": "X-ray of normal hand by oblique projection.jpg",
+    "note": "Normal oblique hand appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_hand_by_oblique_projection.jpg"
+  },
+  "knee-ap": {
+    "file": "X-ray of a normal knee by anteroposterior projection.jpg",
+    "note": "Adult AP knee appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_a_normal_knee_by_anteroposterior_projection.jpg"
+  },
+  "knee-lateral": {
+    "file": "X-ray of a normal knee by lateral projection.jpg",
+    "note": "Lateral knee; subtle patellar osteophyte may be present.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_a_normal_knee_by_lateral_projection.jpg"
+  },
+  "foot-dp": {
+    "file": "X-ray of normal right foot by dorsoplantar projection.jpg",
+    "note": "Right foot DP appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_right_foot_by_dorsoplantar_projection.jpg"
+  },
+  "foot-oblique": {
+    "file": "X-ray of normal right foot by oblique projection.jpg",
+    "note": "Right foot oblique appearance.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_right_foot_by_oblique_projection.jpg"
+  },
+  "foot-lateral": {
+    "file": "X-ray of normal right foot by lateral projection.jpg",
+    "note": "Right foot lateral weight-bearing appearance; the source describes a flat arch.",
+    "markers": [],
+    "author": "Mikael Häggström, MD",
+    "licence": "CC0 1.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:X-ray_of_normal_right_foot_by_lateral_projection.jpg"
+  }
+}

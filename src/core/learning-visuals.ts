@@ -21,8 +21,8 @@ export const LEARNING_VISUALS: Record<string, LearningVisual[]> = {
     {src:'/learning/physics-sid.svg',title:'Source-to-image distance and inverse square',alt:'Two detectors shown at 100 cm and 200 cm with relative fluence one and one quarter respectively.',caption:'At constant output, doubling the distance reduces fluence to approximately one-quarter at the further plane.'},
   ],
   positioning: [
-    {src:'/reference/elbow-ap-position.svg',title:'AP elbow: position the arm and receptor',alt:'Generated AP elbow teaching schematic showing an extended supinated arm aligned with the image receptor.',caption:'Observe the relationship between the posterior arm, elbow, forearm and receptor before considering centring.'},
-    {src:'/reference/elbow-lateral-position.svg',title:'Lateral elbow: flexion and alignment',alt:'Generated lateral elbow positioning schematic showing a flexed elbow, thumb orientation and detector relationship.',caption:'Compare the 90-degree flexion and limb alignment with the AP position. Refer to the examination-specific guidance for precise landmarks.'},
+    {src:'/clinical-reference/elbow-ap.jpg',title:'AP elbow: expected real radiograph',alt:'Real AP elbow radiograph showing distal humerus, radius and ulna.',caption:'Study real elbow anatomy; patient positioning steps are in Examination reference.'},
+    {src:'/clinical-reference/elbow-lateral.jpg',title:'Lateral elbow: expected real radiograph',alt:'Real lateral elbow radiograph showing distal humerus, proximal radius and ulna.',caption:'Compare the AP and lateral radiographic appearances; for patient setup refer to projection guidance.'},
   ],
   exposure: [
     {src:'/learning/exposure-noise.svg',title:'Photon fluence and quantum mottle',alt:'Two stylised detector images showing a noisier low-photon example and a less noisy higher-photon example.',caption:'Conceptual illustration only: fewer detected photons can increase quantum mottle. Do not infer exposure values from these graphics.'},
@@ -33,8 +33,8 @@ export const LEARNING_VISUALS: Record<string, LearningVisual[]> = {
     {src:'/learning/room-alignment.svg',title:'Align the X-ray tube, patient and detector',alt:'Side-view alignment diagram showing central ray, image receptor, patient, light field and source-to-image distance.',caption:'Check tube and detector alignment, central-ray entry, collimation and the selected SID before exposure.'},
   ],
   reference: [
-    {src:'/reference/elbow-ap-position.svg',title:'Projection-specific positioning',alt:'AP elbow positioning illustration from the examination reference library.',caption:'The examination reference has a corresponding positioning image for every configured projection.'},
-    {src:'/reference/elbow-ap-collimation.svg',title:'Projection-specific field',alt:'AP elbow centring and collimation illustration.',caption:'Select a projection to see its area of interest and image evaluation guidance.'},
+    {src:'/clinical-reference/elbow-ap.jpg',title:'Expected AP elbow appearance',alt:'Real AP elbow clinical reference radiograph, with anatomical labels in Examination reference.',caption:'The examination reference has a corresponding positioning image for every configured projection.'},
+    {src:'/clinical-reference/elbow-lateral.jpg',title:'Expected lateral elbow appearance',alt:'Real lateral elbow clinical reference radiograph.',caption:'Select a projection to see its area of interest and image evaluation guidance.'},
   ],
   reporting: [
     {src:'/learning/reporting-search.svg',title:'Systematic chest-image review',alt:'Chest diagram indicating an airway, lung, cardiac, diaphragm and other-structures inspection sequence.',caption:'Practise a consistent review route. This ABCDE-style example is a learning aid, not a complete diagnostic reporting protocol.'},

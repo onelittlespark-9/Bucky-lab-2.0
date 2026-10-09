@@ -16,3 +16,19 @@
 .reference-illustration [role="alert"]{padding:22px 12px;color:#f2c2b9}
 .reference-image-missing{color:#bfceda;line-height:1.55;margin:0}
 @media(max-width:600px){.reference-images-section{padding:12px}.reference-illustration{padding:8px}}
+
+.reference-real-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(280px,.88fr);gap:16px;margin-top:12px}
+.reference-real-figure{margin:0;background:#04101b;border:1px solid #355d75;border-radius:12px;padding:14px;min-width:0}
+.reference-image-kind{margin:0 0 12px;font-size:13px;font-weight:700;letter-spacing:.04em;color:#89d6e5}
+.reference-real-image-wrap{position:relative;display:table;margin:0 auto;max-width:100%;background:#000;border:1px solid #527187;border-radius:8px;overflow:hidden}
+.reference-real-image{display:block;width:auto;height:auto;max-height:630px;max-width:100%;object-fit:contain}
+.reference-anatomy-pin{position:absolute;display:flex;align-items:center;justify-content:center;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#103045;border:2px solid #ffe17a;color:#ffe17a;font-size:12px;font-weight:800;box-shadow:0 0 0 2px #0008;pointer-events:none}
+.reference-real-figure figcaption{color:#b6cdda;font-size:14px;line-height:1.55;margin-top:12px}
+.reference-real-figure figcaption strong{color:#eaf5fa}
+.reference-real-figure figcaption p{margin:8px 0}
+.reference-real-figure a{color:#82d9f2}
+.reference-toggle-labels{font-size:13px;margin:8px 0 0}
+.reference-anatomy-key{padding-left:22px;margin:12px 0}.reference-anatomy-key li{margin:4px 0}
+.reference-position-steps{margin:0;padding:18px;background:#0c2334;border:1px solid #31556e;border-radius:12px}
+.reference-position-steps h4{margin:3px 0 12px;color:#f3f9fc}.reference-position-steps p,.reference-position-steps li{color:#bdd1de;line-height:1.55}.reference-position-steps li{margin:8px 0}
+@media(max-width:850px){.reference-real-grid{grid-template-columns:1fr}.reference-position-steps{padding:15px}}

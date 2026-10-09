@@ -43,7 +43,20 @@ try{
     const projections=await select.locator('option').evaluateAll(options=>options.map(o=>o.value));
     for(const id of projections){
      await select.selectOption(id);
-     const expected=[`/reference/${id}-position.svg`,`/reference/${id}-collimation.svg`];
+     const realIds=["elbow-ap","elbow-lateral","wrist-pa","wrist-lateral","hand-pa","hand-oblique","knee-ap","knee-lateral","foot-dp","foot-oblique","foot-lateral"];
+     const isReal=realIds.includes(id);
+     const expected=isReal?[]:[`/reference/${id}-position.svg`,`/reference/${id}-collimation.svg`];
+     if(isReal){
+      const img=library.locator(`img[data-clinical-reference="${id}"]`);
+      assert.equal(await img.count(),1,`Missing verified projection ${id}`);
+      await img.scrollIntoViewIfNeeded();
+      await img.evaluate(async element=>{
+       if(!element.complete)await new Promise((resolve,reject)=>{element.addEventListener('load',resolve,{once:true});element.addEventListener('error',reject,{once:true});});
+       if(element.naturalWidth<250||element.naturalHeight<250)throw Error('Missing or low-resolution radiograph: '+element.src);
+      });
+      assert.match(await library.locator('.reference-real-figure figcaption').innerText(),/radiographic anatomy/);
+      assert.equal(await library.locator('.reference-position-steps').count(),1);
+     }
      assert.equal(await library.locator('canvas').count(),0);
      assert.equal(await library.locator('.reference-illustration img').count(),expected.length);
      for(const src of expected){
