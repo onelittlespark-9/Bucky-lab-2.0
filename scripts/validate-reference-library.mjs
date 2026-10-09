@@ -18,7 +18,7 @@ try{
    await hub.getByRole('button',{name:title,exact:false}).click();
    assert.equal(await hub.locator('h1').innerText(),title);
    assert.equal(await hub.locator('canvas, .reference-patient').count(),0);
-   if(title!=='Pathology search strategy')assert.equal(await hub.locator('img').count(),0);
+   if(title!=='Pathology search strategy'&&title!=='Examination reference')assert.equal(await hub.locator('img').count(),0);
    assert.equal(await hub.locator('.area-card').count(),0);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
    if(title==='Examination reference'){
@@ -26,7 +26,21 @@ try{
     const projections=await select.locator('option').evaluateAll(options=>options.map(o=>o.value));
     for(const id of projections){
      await select.selectOption(id);
-     assert.equal(await library.locator('img, canvas').count(),0);
+     const expected=id==='elbow-ap'?['/reference/elbow-ap-position.svg','/reference/elbow-ap-collimation.svg']:
+       id==='elbow-lateral'?['/reference/elbow-lateral-position.svg','/reference/elbow-lateral-collimation.svg']:[];
+     assert.equal(await library.locator('canvas').count(),0);
+     assert.equal(await library.locator('.reference-illustration img').count(),expected.length);
+     for(const src of expected){
+      const img=library.locator(`img[src="${src}"]`);
+      await img.scrollIntoViewIfNeeded();
+      await page.waitForFunction(path=>{
+       const element=document.querySelector(`img[src="${path}"]`);
+       return element instanceof HTMLImageElement && element.complete && element.naturalWidth>0;
+      },src);
+      assert.ok((await img.getAttribute('alt')).includes('Elbow'));
+     }
+     if(expected.length===0)assert.match(await library.locator('.reference-image-missing').innerText(),/not yet been validated/);
+     else assert.equal(await library.locator('.reference-image-missing').count(),0);
      assert.ok((await library.locator('.reference-summary').innerText()).length>30);
     }
     await select.selectOption('elbow-lateral');
@@ -105,7 +119,7 @@ try{
   assert.equal(await exams.isVisible(),true);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
   assert.deepEqual(errors,[]);
-  console.log(`Learning areas, pathology images/reveal/enlargement/error recovery, image-free positioning references and exam navigation passed (${viewport.width}px).`);
+  console.log(`Learning areas, pathology images/reveal/enlargement/error recovery, projection-specific positioning schematics and exam navigation passed (${viewport.width}px).`);
   await page.close();
  }
 }finally{await browser.close()}
