@@ -38,10 +38,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install browser for reference regression
+      - name: Install browser for navigation regression
         run: npx playwright install --with-deps chromium
 
-      - name: Validate reference switching
+      - name: Validate learning and examination navigation
         shell: bash
         run: |
           npm exec vite -- preview --host 127.0.0.1 &

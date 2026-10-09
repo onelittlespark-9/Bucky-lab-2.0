@@ -24,3 +24,21 @@
 
 /* Radiography result: the canvas bitmap remains the native DRR resolution; CSS alone enlarges it to the detector. */
 .radiograph-stage canvas.image-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;display:block!important}
+
+/* Focused entry screens for learning and examination selection. */
+.page-intro{max-width:760px;color:#afc1d1;line-height:1.65}
+.learning-hub h1,.exam-selection h1{font-size:clamp(30px,4vw,48px);line-height:1.12}
+.area-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0}
+.area-card{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:24px;text-align:left;background:#0b1724;border:1px solid #26384d;border-radius:16px;min-width:0}
+.area-card strong{font-size:21px;line-height:1.3}.area-card>span{color:#afc1d1;line-height:1.5}
+.area-card .area-link{margin-top:auto;color:#72c8dd;font-weight:600;font-size:13px}
+.area-card:hover{border-color:#72c8dd;background:#10283a}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #72c8dd;outline-offset:3px}
+h1[tabindex]:focus{outline:none}
+.learning-detail{margin-top:22px;max-width:1000px;min-height:0}.learning-detail h2{font-size:22px}
+.learning-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}.back-link{margin-bottom:20px}
+.exam-filters{display:grid;grid-template-columns:minmax(180px,300px) minmax(240px,480px);gap:20px}
+.exam-filters input{display:block;width:100%;min-height:44px;margin-top:7px;padding:10px 12px;border:1px solid #37526a;border-radius:8px;background:#13283a;color:#e8f0f7;font:inherit}
+.availability-note{padding:14px 18px;border-left:3px solid #72c8dd;background:#0b1724;color:#afc1d1;line-height:1.6}
+@media(max-width:1000px){.area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.area-grid,.exam-filters{grid-template-columns:1fr}.area-card{padding:20px}.exam-filters{gap:0}.learning-hub,.exam-selection{padding-top:24px}.learning-actions>button{width:100%}}
