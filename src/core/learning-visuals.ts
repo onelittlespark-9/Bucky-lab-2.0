@@ -1,15 +1,18 @@
-// Only diagrams with a local, bundled image file are registered here.
-// Pathology SVGs illustrate general image signs; clinical images remain separate.
+// Images must be bundled locally; clinically sourced examples have per-item attribution.
+// Other Learning areas still have explicitly labelled generated educational schematics.
 export interface LearningVisual {
   src: string;
   title: string;
   alt: string;
   caption: string;
+  kind?: 'clinical' | 'schematic';
+  source?: {url:string; author:string; licence:string};
+  markers?: {x:number;y:number;label:string}[];
 }
 export const LEARNING_VISUALS: Record<string, LearningVisual[]> = {
   anatomy: [
-    {src:'/learning/anatomy-chest-landmarks.svg',title:'PA chest: recognise normal landmarks',alt:'Generated PA chest anatomical schematic labelled with trachea, lung fields, hila, mediastinum and costophrenic angle.',caption:'Identify each structure on the teaching diagram, then compare its expected position with a real radiograph. This is not a radiograph.'},
-    {src:'/learning/anatomy-ct-axial.svg',title:'Axial CT: orientation and structures',alt:'Diagram of an axial abdominal CT, with patient right on image left, liver, spleen, aorta and vertebra.',caption:'Remember that axial CT is conventionally viewed from the patient’s feet, so their right is displayed on your left.'},
+    {src:'/clinical-reference/chest-pa-normal.jpg',title:'PA chest: recognise normal landmarks',alt:'Genuine normal posteroanterior chest radiograph, with visible clavicles, ribs, lungs, hila, heart and diaphragms.',caption:'Actual normal PA chest radiograph. Inspect the trachea, lung fields, hila, heart borders and costophrenic angles. Overlay pointers are teaching aids, not measurements.',kind:'clinical',source:{url:'https://commons.wikimedia.org/wiki/File:Normal_posteroanterior_(PA)_chest_radiograph_(X-ray).jpg',author:'Mikael Häggström',licence:'CC0 1.0'},markers:[{x:50,y:17,label:'Trachea'},{x:43,y:49,label:'Right hilum'},{x:58,y:47,label:'Left hilum'},{x:22,y:84,label:'Right costophrenic angle'},{x:81,y:84,label:'Left costophrenic angle'}]},
+    {src:'/clinical-reference/abdomen-axial-normal.png',title:'Axial CT: orientation and structures',alt:'Real normal contrast-enhanced axial CT of the abdomen and pelvis, showing transverse anatomical sections in the source image format.',caption:'Real contrast-enhanced CT from a normal abdominal/pelvic series. Conventionally viewed from the feet: image left represents patient right. Structures depend on the selected slice; use the CT lab to scroll.',kind:'clinical',source:{url:'https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_axial_plane_71.png',author:'Mikael Häggström, MD',licence:'CC0 1.0'}},
   ],
   pathology: [
     {src:'/learning/pathology-pneumothorax.svg',title:'Pneumothorax: pleural line',alt:'Schematic of pneumothorax showing a pleural line and absent peripheral lung markings.',caption:'The visceral pleural line and absent peripheral vascular markings are key signs. Compare the schematic with the published clinical reference.'},

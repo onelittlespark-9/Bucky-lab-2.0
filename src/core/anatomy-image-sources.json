@@ -1,0 +1,18 @@
+{
+  "chest-pa-normal": {
+    "file": "Normal posteroanterior (PA) chest radiograph (X-ray).jpg",
+    "fileName": "chest-pa-normal.jpg",
+    "type": "jpeg",
+    "sha1": "3124c4cf4c55eb3d2defa9b909f08f94e941ec43",
+    "width": 1929,
+    "height": 2207
+  },
+  "abdomen-axial-normal": {
+    "file": "CT of a normal abdomen and pelvis, axial plane 71.png",
+    "fileName": "abdomen-axial-normal.png",
+    "type": "png",
+    "sha1": "1b63b4d593a17f6dd8f6ddef1a47d1af5ef0c95a",
+    "width": 786,
+    "height": 346
+  }
+}

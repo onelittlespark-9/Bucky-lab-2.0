@@ -6,6 +6,8 @@ on:
     paths:
       - 'src/core/real-radiograph-manifest.json'
       - 'scripts/prepare-clinical-radiographs.mjs'
+      - 'scripts/prepare-learning-anatomy.mjs'
+      - 'src/core/anatomy-image-sources.json'
   workflow_dispatch:
 
 permissions:
@@ -21,11 +23,13 @@ jobs:
           node-version: 22
       - name: Download and verify licensed images
         run: node scripts/prepare-clinical-radiographs.mjs
+      - name: Download and verify real Learning anatomy
+        run: node scripts/prepare-learning-anatomy.mjs
       - name: Commit reviewed assets
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/clinical-reference/*.jpg
+          git add public/clinical-reference/*.jpg public/clinical-reference/*.png
           if git diff --cached --quiet; then
             echo "Clinical images already versioned."
           else

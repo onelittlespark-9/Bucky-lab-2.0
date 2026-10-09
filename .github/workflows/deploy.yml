@@ -30,6 +30,9 @@ jobs:
       - name: Prepare medically reviewed radiographs
         run: node scripts/prepare-clinical-radiographs.mjs
 
+      - name: Prepare authentic Learning anatomy images
+        run: node scripts/prepare-learning-anatomy.mjs
+
       - name: Typecheck
         run: npm run typecheck
 

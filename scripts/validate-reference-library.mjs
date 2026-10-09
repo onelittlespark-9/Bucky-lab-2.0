@@ -23,6 +23,19 @@ try{
    await hub.getByRole('button',{name:title,exact:false}).click();
    assert.equal(await hub.locator('h1').innerText(),title);
    assert.equal(await hub.locator('canvas, .reference-patient').count(),0);
+   if(title==='Radiographic anatomy'){
+    const imgs=hub.locator('.learning-example-image');
+    assert.deepEqual(await imgs.evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname)),
+      ['/clinical-reference/chest-pa-normal.jpg','/clinical-reference/abdomen-axial-normal.png']);
+    assert.equal(await hub.locator('.learning-example--clinical').count(),2);
+    const toggle=hub.getByRole('button',{name:'Hide anatomy pointers'});
+    assert.equal(await hub.locator('.learning-clinical-marker').count(),5);
+    await toggle.click();
+    assert.equal(await hub.locator('.learning-clinical-marker').count(),0);
+    await hub.getByRole('button',{name:'Show anatomy pointers'}).click();
+    assert.equal(await hub.locator('.learning-clinical-marker').count(),5);
+    assert.equal(await hub.locator('.learning-clinical-credit a').count(),2);
+   }
    if(title!=='Pathology search strategy'&&title!=='Examination reference'){
     const examples=hub.locator('.learning-example-image');
     assert.equal(await examples.count(),2,`Expected two examples for ${title}`);

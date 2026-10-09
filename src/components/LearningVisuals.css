@@ -11,3 +11,17 @@
 .learning-pathology-visual{max-width:860px;margin:19px auto}
 .learning-pathology-visual .learning-example-image{max-height:550px}
 @media(max-width:650px){.learning-visual-grid{grid-template-columns:1fr}.learning-example figcaption,.learning-pathology-visual figcaption{padding:14px}}
+
+.learning-visual-grid--clinical{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.learning-example--clinical .learning-clinical-stage{display:flex;justify-content:center;align-items:center;min-height:240px;padding:12px;background:#020812}
+.learning-clinical-image-wrap{display:inline-block;position:relative;max-width:100%;border:1px solid #456b81;border-radius:6px;overflow:hidden;line-height:0}
+.learning-example--clinical .learning-clinical-image{width:auto;max-width:100%;height:auto;max-height:690px;aspect-ratio:auto;object-fit:contain}
+.learning-clinical-marker{position:absolute;display:flex;align-items:center;justify-content:center;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:#092e48ed;border:2px solid #f5da73;color:#f5da73;font:bold 12px Arial,sans-serif;line-height:1;pointer-events:none}
+.learning-clinical-credit{font-size:13px;color:#bdd2dc}
+.learning-clinical-credit a{color:#8ee2f6;text-decoration:underline}
+.learning-clinical-key{margin:8px 0}
+.learning-clinical-key button{font-size:13px}
+.learning-clinical-key ol{margin:11px 0;padding-left:23px;columns:2}
+.learning-clinical-key li{break-inside:avoid;font-size:13px;line-height:1.6}
+@media(max-width:850px){.learning-visual-grid--clinical{grid-template-columns:1fr}.learning-example--clinical .learning-clinical-image{max-height:550px}}
+@media(max-width:380px){.learning-clinical-key ol{columns:1}}
