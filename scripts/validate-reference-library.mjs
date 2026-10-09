@@ -12,13 +12,30 @@ try{
   await page.getByRole('button',{name:'Open learning hub'}).click();
   const hub=page.locator('.learning-hub');
   assert.equal(await hub.locator('.area-card').count(),8);
+  assert.equal(await hub.locator('.learning-card-preview').count(),8);
+  for(const image of await hub.locator('.learning-card-preview').all()){
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate(async img=>{if(!img.complete)await new Promise((ok,bad)=>{img.addEventListener('load',ok,{once:true});img.addEventListener('error',bad,{once:true});});if(img.naturalWidth===0)throw Error(`Missing learning card: ${img.src}`);});
+  }
   assert.equal(await hub.locator('article, .exposure-library').count(),0);
   const titles=await hub.locator('.area-card strong').allTextContents();
   for(const title of titles){
    await hub.getByRole('button',{name:title,exact:false}).click();
    assert.equal(await hub.locator('h1').innerText(),title);
    assert.equal(await hub.locator('canvas, .reference-patient').count(),0);
-   if(title!=='Pathology search strategy'&&title!=='Examination reference')assert.equal(await hub.locator('img').count(),0);
+   if(title!=='Pathology search strategy'&&title!=='Examination reference'){
+    const examples=hub.locator('.learning-example-image');
+    assert.equal(await examples.count(),2,`Expected two examples for ${title}`);
+    for(const image of await examples.all()){
+     await image.scrollIntoViewIfNeeded();
+     await image.evaluate(async img=>{
+      if(!(img instanceof HTMLImageElement))throw new Error('Not an image');
+      if(!img.complete)await new Promise((resolve,reject)=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',reject,{once:true});});
+      if(img.naturalWidth===0)throw new Error(`Missing learning image: ${img.src}`);
+     });
+     assert.ok((await image.getAttribute('alt')).length>20);
+    }
+   }
    assert.equal(await hub.locator('.area-card').count(),0);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
    if(title==='Examination reference'){
@@ -59,6 +76,10 @@ try{
      assert.equal(await hub.locator('.pathology-guidance').count(),0);
      await hub.getByRole('button',{name:'Reveal findings'}).click();
      assert.equal(await hub.getByRole('heading',{name:'Findings in this image'}).isVisible(),true);
+     const explanation=hub.locator('.learning-pathology-visual img');
+     assert.equal(await explanation.count(),1);
+     assert.equal(await explanation.getAttribute('src'),`/learning/pathology-${id}.svg`);
+     await explanation.evaluate(async img=>{if(!img.complete)await new Promise((ok,bad)=>{img.addEventListener('load',ok,{once:true});img.addEventListener('error',bad,{once:true});});if(img.naturalWidth===0)throw Error('Missing pathology explanatory diagram');});
      assert.equal(await hub.locator('.pathology-credit a').count()>0,true);
      await hub.getByRole('button',{name:'Enlarge image'}).click();
      assert.equal(await page.getByRole('dialog').isVisible(),true);

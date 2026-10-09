@@ -1,6 +1,7 @@
 import {useRef, useState} from 'react';
 import {PATHOLOGY_LESSONS, pathologyLesson, type PathologyLesson} from '../core/imaging-learning-model';
 import {pathologyImage, type PathologyImage} from '../core/pathology-images';
+import {PATHOLOGY_VISUAL} from '../core/learning-visuals';
 import './PathologyLessonPanel.css';
 
 function LessonGuidance({lesson}: {lesson: PathologyLesson}) {
@@ -48,6 +49,11 @@ function ReferenceCase({image, lesson}: {image: PathologyImage; lesson: Patholog
         <a href={image.readingUrl} target="_blank" rel="noopener noreferrer">Further reading: Radiology Masterclass</a>
       </div>
     </div>
+    {revealed && <figure className="learning-pathology-visual">
+      <img className="learning-example-image" src={PATHOLOGY_VISUAL[lesson.id].src} alt={PATHOLOGY_VISUAL[lesson.id].alt} loading="eager"/>
+      <figcaption><strong>{PATHOLOGY_VISUAL[lesson.id].title}</strong><p>{PATHOLOGY_VISUAL[lesson.id].caption}</p>
+        <p>Generated explanation of the finding, not a reproduction of the reference case or a clinical scan.</p></figcaption>
+    </figure>}
     {revealed && <div className="pathology-guidance"><h3>General lesson guidance</h3><LessonGuidance lesson={lesson}/></div>}
     <dialog ref={dialog} className="pathology-dialog" aria-label={`${lesson.title} enlarged reference`}>
       <div className="pathology-dialog-bar"><strong>{lesson.title} · {image.modality}</strong><button autoFocus onClick={() => dialog.current?.close()}>Close image</button></div>

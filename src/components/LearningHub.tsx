@@ -1,5 +1,7 @@
 import {useEffect, useRef, useState, type ReactNode} from 'react';
 import {LEARNING_MODULES} from '../core/learning-library';
+import {LEARNING_VISUALS, type LearningVisual} from '../core/learning-visuals';
+import './LearningVisuals.css';
 import {ExposureReferenceLibrary} from './ExposureReferenceLibrary';
 
 const AREAS = [
@@ -7,6 +9,17 @@ const AREAS = [
   {id: 'reference', title: 'Examination reference', summary: 'Find written positioning, centring, collimation and image evaluation guidance by projection.'},
   {id: 'reporting', title: 'Image critique & reporting', summary: 'Practise a systematic image review in the radiography workspace.'},
 ];
+
+function VisualExamples({items}: {items: LearningVisual[]}) {
+  return <section className="learning-visual-section" aria-label="Generated teaching illustrations">
+    <h2>Visual examples</h2>
+    <div className="learning-visual-grid">{items.map(item => <figure className="learning-example" key={item.src}>
+      <img className="learning-example-image" src={item.src} alt={item.alt} loading="eager" decoding="async"/>
+      <figcaption><strong>{item.title}</strong><p>{item.caption}</p></figcaption>
+    </figure>)}</div>
+    <p className="learning-visual-provenance">These original, generated teaching diagrams are illustrative and not to scale. They are not patient images or substitutes for verified clinical positioning references.</p>
+  </section>;
+}
 
 export function LearningHub({pathology, onXray, onCt}: {
   pathology: ReactNode; onXray: () => void; onCt: () => void;
@@ -22,8 +35,10 @@ export function LearningHub({pathology, onXray, onCt}: {
     <h1 ref={title} id="learning-title" tabIndex={-1}>{selected?.title ?? 'Choose a learning area'}</h1>
     <p className="page-intro">{selected?.summary ?? 'Open one topic at a time. Return here whenever you want to change focus.'}</p>
     {!selected && <div className="area-grid">{AREAS.map(a => <button className="area-card" key={a.id} onClick={() => setArea(a.id)}>
+      <img className="learning-card-preview" src={LEARNING_VISUALS[a.id][0].src} alt="" loading="lazy" decoding="async"/>
       <strong>{a.title}</strong><span>{a.summary}</span><span className="area-link">Open area →</span>
     </button>)}</div>}
+    {area && area !== 'pathology' && area !== 'reference' && <VisualExamples items={LEARNING_VISUALS[area]}/>}
     {module && area !== 'pathology' && <article className="learning-topic learning-detail"><h2>{module.title}</h2>
       <ul>{module.points.map(point => <li key={point}>{point}</li>)}</ul>
     </article>}

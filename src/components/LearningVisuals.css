@@ -1,0 +1,13 @@
+.learning-card-preview{display:block;width:100%;height:auto;aspect-ratio:5/3;object-fit:contain;border-radius:10px;border:1px solid #2f5065;background:#06121f;margin:0}
+.learning-visual-section{max-width:none;padding:0;margin:25px 0 0}
+.learning-visual-section h2{font-size:22px;margin:0 0 15px}
+.learning-visual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.learning-example,.learning-pathology-visual{min-width:0;margin:0;background:#0c1c2c;border:1px solid #36526b;border-radius:13px;overflow:hidden}
+.learning-example-image{display:block;width:100%;height:auto;aspect-ratio:5/3;object-fit:contain;background:#06121f}
+.learning-example figcaption,.learning-pathology-visual figcaption{padding:15px 17px;color:#b8cad5;line-height:1.5}
+.learning-example figcaption strong,.learning-pathology-visual figcaption strong{display:block;color:#ebf5fa;font-size:16px;margin-bottom:7px}
+.learning-example figcaption p,.learning-pathology-visual figcaption p{margin:0 0 7px}
+.learning-visual-provenance{font-size:13px;color:#a4bfce;line-height:1.6}
+.learning-pathology-visual{max-width:860px;margin:19px auto}
+.learning-pathology-visual .learning-example-image{max-height:550px}
+@media(max-width:650px){.learning-visual-grid{grid-template-columns:1fr}.learning-example figcaption,.learning-pathology-visual figcaption{padding:14px}}

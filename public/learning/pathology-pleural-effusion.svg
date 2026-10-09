@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc">
+<title id="title">Pathology | pleural effusion</title><desc id="desc">Schematic of large left pleural effusion with dependent meniscus-shaped opacity.</desc>
+<rect width="1000" height="600" rx="24" fill="#06121f"/>
+<rect x="20" y="17" width="960" height="566" rx="18" fill="#0c1e2e" stroke="#30536b" stroke-width="3"/>
+<text x="45" y="62" fill="#f3f9fc" font-size="32" font-family="Arial,Helvetica,sans-serif" font-weight="700">Pathology | pleural effusion</text><text x="45" y="92" fill="#82cfe5" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">Dependent fluid and obscured lung base</text>
+<rect x="41" y="117" width="609" height="399" rx="14" fill="#092538" stroke="#325c74" stroke-width="3"/>
+<rect x="670" y="117" width="284" height="399" rx="14" fill="#102c40" stroke="#325c74" stroke-width="3"/>
+<g transform="translate(320 318) scale(0.92)">
+<path d="M-145 -127 Q-175 -123 -164 -59 L-158 124 Q-140 154 -112 166 L105 166 Q151 150 155 122 L160 -62 Q169 -128 136 -132" stroke="#a8bac8" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="-77" cy="-14" rx="67" ry="122" fill="#123a55" stroke="#8bb8c6" stroke-width="4"/>
+<ellipse cx="78" cy="-14" rx="67" ry="122" fill="#123a55" stroke="#8bb8c6" stroke-width="4"/>
+<path d="M-6 -126 L-6 -82 M6 -126 L6 -82" stroke="#e3edf2" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-34 -136 Q-87 -150 -132 -117 M34 -136 Q85 -150 132 -117" stroke="#c3d8e1" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="12" cy="75" rx="54" ry="70" fill="#496579" stroke="#9fbece" stroke-width="4"/>
+<path d="M-145 121 Q-82 85 -13 139 Q57 92 153 126" stroke="#bdd4df" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M-147 -90 Q-82 -111 -15 -91 M147 -90 Q82 -111 15 -91 M-152 -47 Q-88 -67 -17 -43 M152 -47 Q88 -67 17 -43 M-158 -4 Q-98 -21 -26 0 M158 -4 Q98 -21 26 0" stroke="#53869b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="-29" cy="-9" r="8" fill="#a6c0c9" stroke="#a6c0c9" stroke-width="1"/><circle cx="35" cy="-23" r="8" fill="#a6c0c9" stroke="#a6c0c9" stroke-width="1"/>
+</g><path d="M357 388 Q405 354 454 389 L454 427 Q419 465 358 458 Z" fill="#76c6d7" fill-opacity=".64" stroke="#92e8f5" stroke-width="4"/><path d="M450 387 L535 330" stroke="#f4dc79" stroke-width="3" fill="none" stroke-linecap="round" /><text x="507" y="317" fill="#f4dc79" font-size="18" font-family="Arial,Helvetica,sans-serif" font-weight="700">Meniscus</text><path d="M412 449 L548 453" stroke="#8fe0e9" stroke-width="3" fill="none" stroke-linecap="round" /><text x="509" y="480" fill="#a2eff2" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">Dependent</text><text x="512" y="503" fill="#a2eff2" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">pleural fluid</text>
+<text x="690" y="173" fill="#7dd8f4" font-size="21" font-family="Arial,Helvetica,sans-serif" font-weight="700">Dependent opacity</text><text x="690" y="204" fill="#b5cdda" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">Meniscus and blunted angle</text><text x="690" y="288" fill="#7dd8f4" font-size="21" font-family="Arial,Helvetica,sans-serif" font-weight="700">Find the abnormality</text><text x="690" y="319" fill="#b5cdda" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">Then reveal the teaching key</text><text x="690" y="405" fill="#7dd8f4" font-size="21" font-family="Arial,Helvetica,sans-serif" font-weight="700">Clinical context</text><text x="690" y="436" fill="#b5cdda" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">Review full images and history</text><text x="690" y="492" fill="#e6d27a" font-size="14" font-family="Arial,Helvetica,sans-serif" font-weight="700">COMPARE REAL IMAGE</text>
+<text x="46" y="555" fill="#a9c6d3" font-size="17" font-family="Arial,Helvetica,sans-serif" font-weight="500">Generated educational schematic · Not an acquired clinical image · Not to scale</text>
+</svg>
