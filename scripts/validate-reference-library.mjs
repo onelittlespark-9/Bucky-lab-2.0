@@ -189,7 +189,9 @@ try{
   await hub.getByRole('button',{name:'Open this projection in the X-ray workspace'}).click();
   assert.equal(await page.locator('.lab-heading h1').innerText(),'Chest · PA erect');
   await page.getByRole('button',{name:'Learning',exact:true}).click();
-  await hub.getByRole('button',{name:'All learning areas'}).click();
+  await hub.getByRole('heading',{name:'Choose a learning area'}).waitFor();
+  // The Learning view remounts at the home screen, so no back link is rendered.
+
   // The anatomy practice link must enter examination selection as well.
   await hub.getByRole('button',{name:'Radiographic anatomy'}).click();
   await hub.getByRole('button',{name:'Choose an X-ray examination'}).click();
