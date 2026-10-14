@@ -3,6 +3,7 @@ import {LEARNING_MODULES} from '../core/learning-library';
 import {LEARNING_VISUALS, type LearningVisual} from '../core/learning-visuals';
 import './LearningVisuals.css';
 import {ExposureReferenceLibrary} from './ExposureReferenceLibrary';
+import {ProjectionExposureGuide} from './ProjectionExposureGuide';
 
 const AREAS = [
   ...LEARNING_MODULES.map(m => ({id: m.topic, title: m.title, summary: m.summary})),
@@ -46,10 +47,11 @@ function VisualExamples({items}: {items: LearningVisual[]}) {
   </section>;
 }
 
-export function LearningHub({pathology, onXray, onCt}: {
-  pathology: ReactNode; onXray: () => void; onCt: () => void;
+export function LearningHub({pathology, onXray, onCt, onPractiseProjection}: {
+  pathology: ReactNode; onXray: () => void; onCt: () => void; onPractiseProjection:(id:string)=>void;
 }) {
   const [area, setArea] = useState<string | null>(null);
+  const [referenceProjection,setReferenceProjection]=useState('chest-pa-erect');
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {title.current?.focus(); window.scrollTo(0, 0);}, [area]);
   const selected = AREAS.find(a => a.id === area);
@@ -74,7 +76,8 @@ export function LearningHub({pathology, onXray, onCt}: {
     {area === 'pathology' && <>{pathology}<details className="pathology-search-reminder"><summary>Systematic search reminder</summary>
       <ul><li>Inspect the complete image before focusing on the suspected abnormality.</li><li>Describe location, morphology and effect on adjacent structures.</li><li>Reveal the findings after forming an initial interpretation.</li></ul>
     </details><div className="learning-actions"><button onClick={onCt}>Practise CT review</button></div></>}
-    {area === 'reference' && <ExposureReferenceLibrary/>}
+    {area === 'exposure' && <ProjectionExposureGuide onReference={id=>{setReferenceProjection(id);setArea('reference')}} onPractise={onPractiseProjection}/>}
+    {area === 'reference' && <ExposureReferenceLibrary key={referenceProjection} initialId={referenceProjection}/>}
     {(area === 'positioning' || area === 'exposure' || area === 'room') && <div className="learning-actions">
       <button onClick={() => setArea('reference')}>Browse examination reference</button>
       <button onClick={onXray}>Choose an X-ray examination</button>

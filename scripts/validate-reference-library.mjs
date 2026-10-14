@@ -29,6 +29,36 @@ try{
     assert.ok(srcs.every(src=>src.startsWith('/clinical-reference/')),title+' must use sourced/derived imaging');
     assert.equal(await hub.locator('.learning-clinical-credit a').count(),2);
    }
+   if(title==='Exposure factors'){
+    const areaSelect=hub.getByLabel('Exposure anatomical area');
+    const projectionSelect=hub.getByLabel('Exposure projection');
+    const regions=await areaSelect.locator('option').evaluateAll(options=>options.map(o=>o.value));
+    let total=0;
+    for(const region of regions){
+     await areaSelect.selectOption(region);
+     const ids=await projectionSelect.locator('option').evaluateAll(options=>options.map(o=>o.value));
+     assert.ok(ids.length>0,'No projections for '+region);
+     for(const id of ids){
+      await projectionSelect.selectOption(id);
+      const detail=hub.locator(`[data-projection-exposure="${id}"]`);
+      assert.equal(await detail.count(),1,'Missing exposure details for '+id);
+      assert.equal(await hub.locator('.projection-exposure-factor').count(),5);
+      for(const name of ['kvp','mas','sid','grid','aec'])assert.equal(await detail.locator(`[data-factor="${name}"]`).count(),1);
+      assert.match(await detail.getByRole('heading',{name:'Projection-specific considerations'}).textContent(),/Projection-specific/);
+      assert.ok((await detail.locator('.projection-exposure-grid').innerText()).length>250);
+      assert.equal(await hub.locator('.projection-exposure-selected').getAttribute('data-exposure-id'),id);
+      total++;
+     }
+    }
+    assert.equal(total,38,'Every defined radiographic projection must have exposure guidance');
+    await areaSelect.selectOption('Chest');
+    await projectionSelect.selectOption('chest-pa-erect');
+    assert.match(await hub.locator('[data-projection-exposure="chest-pa-erect"] [data-factor="kvp"]').innerText(),/125 kVp/);
+    assert.match(await hub.locator('[data-projection-exposure="chest-pa-erect"] [data-factor="sid"]').innerText(),/180 cm/);
+    await areaSelect.selectOption('Elbow');
+    await projectionSelect.selectOption('elbow-ap');
+    assert.match(await hub.locator('[data-projection-exposure="elbow-ap"] [data-factor="mas"]').innerText(),/3 mAs/);
+   }
    if(title==='Radiographic anatomy'){
     const imgs=hub.locator('.learning-example-image');
     assert.deepEqual(await imgs.evaluateAll(nodes=>nodes.map(n=>new URL(n.src).pathname)),
@@ -88,6 +118,9 @@ try{
       assert.match(await img.getAttribute('alt'),/diagram|schematic/i);
      }
      assert.equal(await library.locator('.reference-image-missing').count(),0);
+     assert.equal(await library.locator(`[data-projection-exposure="${id}"]`).count(),1);
+     assert.equal(await library.locator('.projection-exposure-factor').count(),5);
+     assert.ok((await library.locator('.projection-exposure-details').innerText()).includes('simulator starting values'));
      assert.ok((await library.locator('.reference-summary').innerText()).length>30);
     }
     await select.selectOption('elbow-lateral');
@@ -142,6 +175,21 @@ try{
    await hub.getByRole('button',{name:'All learning areas'}).click();
   }
   assert.deepEqual(anatomyRequests,[],'Learning must not load model/reference/CT assets');
+  // Exposure view must link to the same projection in the examination reference and X-ray practice.
+  await hub.getByRole('button',{name:'Exposure factors'}).click();
+  await hub.getByLabel('Exposure anatomical area').selectOption('Wrist');
+  await hub.getByLabel('Exposure projection').selectOption('wrist-lateral');
+  await hub.getByRole('button',{name:'View positioning reference for this projection'}).click();
+  assert.equal(await hub.locator('.exposure-library select').inputValue(),'wrist-lateral');
+  assert.equal(await hub.locator('[data-projection-exposure="wrist-lateral"]').count(),1);
+  await hub.getByRole('button',{name:'All learning areas'}).click();
+  await hub.getByRole('button',{name:'Exposure factors'}).click();
+  await hub.getByLabel('Exposure anatomical area').selectOption('Chest');
+  await hub.getByLabel('Exposure projection').selectOption('chest-pa-erect');
+  await hub.getByRole('button',{name:'Open this projection in the X-ray workspace'}).click();
+  assert.equal(await page.locator('.lab-heading h1').innerText(),'Chest · PA erect');
+  await page.getByRole('button',{name:'Learning',exact:true}).click();
+  await hub.getByRole('button',{name:'All learning areas'}).click();
   // The anatomy practice link must enter examination selection as well.
   await hub.getByRole('button',{name:'Radiographic anatomy'}).click();
   await hub.getByRole('button',{name:'Choose an X-ray examination'}).click();

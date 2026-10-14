@@ -2,6 +2,8 @@ import {useState} from 'react';
 import {EXPOSURE_REFERENCE_LIBRARY, exposureReference} from '../core/exposure-reference-library';
 import reviewed from '../core/real-radiograph-manifest.json';
 import './ExposureReferenceLibrary.css';
+import {projectionExposure} from '../core/projection-exposures';
+import {ProjectionExposureDetails} from './ProjectionExposureGuide';
 
 interface RealImage{file:string;note:string;author:string;licence:string;sourceUrl:string;markers:{x:number;y:number;label:string}[]}
 const radiographs:Record<string,RealImage>=reviewed;
@@ -30,8 +32,8 @@ function ClinicalRadiograph({examId,title,record}: {examId:string;title:string;r
   </figcaption>
  </figure>;
 }
-export function ExposureReferenceLibrary(){
- const[start,setStart]=useState(EXPOSURE_REFERENCE_LIBRARY[0]?.id??''),entry=exposureReference(start);
+export function ExposureReferenceLibrary({initialId='chest-pa-erect'}:{initialId?:string}={}){
+ const[start,setStart]=useState(initialId),entry=exposureReference(start);
  const real=radiographs[entry.id];
  return <section className="exposure-library">
   <div className="reference-library-head"><div><span className="panel-kicker">EXAMINATION REFERENCE</span><h2>Examination guidance</h2><p>Select a projection to inspect radiographic appearance, patient setup, centring and image evaluation criteria.</p></div>
@@ -60,7 +62,7 @@ export function ExposureReferenceLibrary(){
    <article><h3>Check for rotation</h3><ul>{entry.rotationChecks.map(x=><li key={x}>{x}</li>)}</ul></article>
    <article><h3>Image evaluation criteria</h3><ul>{entry.qualityChecks.map(x=><li key={x}>{x}</li>)}</ul></article>
   </div>
-  <div className="reference-exposure"><strong>Average adult example</strong><span>{entry.exposure.kVp} kVp</span><span>{entry.exposure.mAs} mAs</span><span>{entry.exposure.sidCm} cm SID</span><span>{entry.exposure.grid?'Grid':'No grid'}</span><span>{entry.exposure.aec?'AEC commonly used':'Manual exposure preset'}</span></div>
+  {projectionExposure(entry.id)&&<ProjectionExposureDetails key={entry.id} guide={projectionExposure(entry.id)!} compact/>}
   <p className="reference-source-note">{entry.sourceNote}</p>
  </section>;
 }
