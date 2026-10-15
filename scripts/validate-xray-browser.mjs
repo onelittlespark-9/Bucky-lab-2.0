@@ -25,7 +25,7 @@ try{
  assert.ok(requests.includes('/cases/regional/male/chest/manifest.json'),'Missing chest regional manifest');
  assert.ok(requests.includes('/cases/regional/male/chest/volume.i16.gz'),'Missing chest regional voxels');
  assert.ok(!requests.includes('/cases/totalseg-s1397/volume.i16.gz'),'Full CT volume loaded in X-ray workspace');
- await page.locator('.expose-button').click();
+ await page.locator('.expose-button').first().click();
  const canvas=page.locator('.radiograph-stage canvas[data-rendered="true"]');
  await canvas.waitFor({timeout:60000});
  const stats=await canvas.evaluate(el=>{
