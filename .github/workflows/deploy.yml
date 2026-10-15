@@ -66,6 +66,7 @@ jobs:
             sleep 1
           done
           npm run validate:reference
+          node scripts/validate-xray-browser.mjs
 
       - name: Verify Cloudflare credentials
         shell: bash
