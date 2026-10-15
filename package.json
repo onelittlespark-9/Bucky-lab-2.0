@@ -11,7 +11,7 @@
     "deploy": "npm run build && wrangler deploy",
     "render:drr": "node --import tsx scripts/render-drr-reference.ts",
     "validate:patient": "node scripts/validate-articulated-patient.mjs",
-    "validate:drr": "node --import tsx scripts/validate-drr-geometry.ts",
+    "validate:drr": "node --import tsx scripts/validate-drr-geometry.ts && node --import tsx scripts/validate-xray-source.ts",
     "validate:ct-series": "node --import tsx scripts/validate-ct-series.ts",
     "validate:reference": "node scripts/validate-reference-library.mjs"
   },
