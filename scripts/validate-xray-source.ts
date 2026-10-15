@@ -34,7 +34,7 @@ globalThis.fetch=async (input:RequestInfo|URL)=>{
  const path=String(input);requests.push(path);
  if(path==='/cases/regional/male/chest/manifest.json')
   return Response.json({...manifest,coverage:{...manifest.coverage,sourcePatient:{
-   ...manifest.coverage!.sourcePatient,dimensions:mismatch?[161,160,273]:sourceDimensions
+   ...manifest.coverage!.sourcePatient,dimensions:mismatch?[28,160,273]:sourceDimensions
   }}});
  if(path==='/cases/regional/male/chest/volume.i16')
   return new Response(voxels,{headers:{'content-type':'application/octet-stream'}});
