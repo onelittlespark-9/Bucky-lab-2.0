@@ -1,5 +1,6 @@
 // Run against a built Vite preview. Covers the learning and examination entry flows.
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_EXECUTABLE,args:['--no-sandbox']});
 try{
@@ -130,7 +131,8 @@ try{
    }
    if(title==='Pathology search strategy'){
     const select=hub.getByLabel('Pathology',{exact:true});
-    const cases=[['pneumothorax','pneumothorax.jpg',877,807],['pleural-effusion','pleural-effusion.png',1030,871],['intracranial-haemorrhage','intracranial-haemorrhage.jpg',1200,1484]];
+    const cases=[['pneumothorax','pneumothorax.jpg',877,807],['pleural-effusion','pleural-effusion.png',1030,871],['intracranial-haemorrhage','intracranial-haemorrhage.jpg',1200,1484], ...JSON.parse(readFileSync(new URL('../public/pathology/sources.json', import.meta.url),'utf8')).map(i=>[i.id,i.src.split('/').pop(),i.width,i.height])];
+    assert.equal(await select.locator('option').count(),cases.length);
     for(const [id,file,width,height] of cases){
      await select.selectOption(id);
      const frame=hub.locator('.pathology-image-frame');
@@ -153,6 +155,18 @@ try{
      assert.equal(await page.getByRole('dialog').count(),0);
      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
     }
+    await hub.getByLabel('Search pathology').fill('scaphoid');
+    assert.equal(await select.locator('option').count(),1);
+    await page.waitForFunction(()=>document.querySelector('.pathology-case')?.dataset.lesson==='scaphoid-fracture');
+    await hub.getByLabel('Search pathology').fill('no-matching-condition');
+    assert.equal(await hub.locator('.pathology-case').count(),0);
+    await hub.getByRole('button',{name:'Clear filters'}).click();
+    await hub.getByLabel('Anatomical region',{exact:true}).selectOption('Abdomen');
+    assert.equal(await select.locator('option').count(),3);
+    await hub.getByLabel('Anatomical region',{exact:true}).selectOption('All regions');
+    await select.selectOption('knee-osteoarthritis');
+    await page.waitForFunction(()=>document.querySelector('.pathology-image-frame')?.dataset.state==='ready');
+    await page.screenshot({path:`/tmp/bucky-pathology-${viewport.width}.png`,fullPage:true});
     // A failed image must not leave another diagnosis's image visible; retry must recover.
     await page.route('**/pathology/pleural-effusion.png',route=>route.fulfill({status:503,body:'unavailable'}));
     await select.selectOption('pleural-effusion');

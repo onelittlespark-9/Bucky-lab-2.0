@@ -1,3 +1,4 @@
+import {ADDITIONAL_PATHOLOGY_IMAGES} from './pathology-library';
 export interface PathologyImage {
   lessonId: string;
   src: string;
@@ -19,6 +20,7 @@ export interface PathologyImage {
 // Original published files are bundled locally, not generated or loaded from a third-party server.
 // See public/pathology/README.md for acquisition URLs and provenance.
 export const PATHOLOGY_IMAGES: PathologyImage[] = [
+  ...ADDITIONAL_PATHOLOGY_IMAGES,
   {
     lessonId: 'pneumothorax', src: '/pathology/pneumothorax.jpg', width: 877, height: 807,
     modality: 'Chest radiograph',

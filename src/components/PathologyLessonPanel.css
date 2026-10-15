@@ -13,3 +13,5 @@
 .pathology-dialog::backdrop{background:#000c}.pathology-dialog-bar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#07111f;padding:8px 0}
 .pathology-dialog img{display:block;max-width:100%;width:auto;height:auto;max-height:75vh;margin:auto;object-fit:contain}
 @media(max-width:760px){.pathology-case-grid{grid-template-columns:1fr;gap:24px}.pathology-panel{padding:16px}.pathology-image-frame{min-height:220px}.pathology-figure>button{width:100%}.pathology-dialog{padding:10px}.pathology-dialog-bar strong{font-size:13px}.pathology-dialog-bar button{flex-shrink:0}}
+
+.pathology-filters{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin:20px 0}.pathology-filters label{display:grid;gap:8px;min-width:0}.pathology-filters input,.pathology-filters select{width:100%;box-sizing:border-box;min-height:44px}.pathology-filters input{background:#07111f;color:#e8f0f7;border:1px solid #627e92;border-radius:8px;padding:10px}@media(max-width:600px){.pathology-filters{grid-template-columns:1fr}}
